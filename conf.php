@@ -26,6 +26,7 @@ $app_init_date =  "21-01-2020";
 $app_last_update = "15-05-2020";
 //version informations
 $v = "2.2024.4.28.2";
+$gitversion = "1.0.1";
 
 
 function logos($url, $w, $h)
