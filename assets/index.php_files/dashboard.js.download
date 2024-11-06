@@ -1,0 +1,56 @@
+app.controller('dashboardcontroller', ['$scope', '$http', function($scope, $http) {
+    $scope.isloading = true;
+    document.getElementById("rpt_project").style.background = "#e84a5f"
+    $("#back_btn").on('click', function () {
+        window.history.back();
+    })
+    console.log("wok");
+    sessionStorage.clear('nafco_project_current');
+    var post_data = {
+        naf_user: userinfo
+    }
+    var url = api_url + "Project/index.php";
+    all_techApprovalsType();
+    function all_techApprovalsType(){
+        let post_data = {
+            naf_user: userinfo
+        };
+        $http({
+            method: 'post',
+            data: post_data,
+            url: api_url + "Approval_Type/index.php"
+        }).then(
+            function(res) {
+                console.log(res.data);
+                if (res.data.msg === "1") {
+                    $scope.menu_Techapprovals = res.data.data;
+                } else {
+                    alert(res.data.data);
+                }
+                $scope.isloading = false;
+            }
+        )
+    }
+    $http.post(url, post_data).then(
+        function(res) {
+            console.log(res.data);
+            if (res.data.msg === "1") {
+                $scope._projects = res.data.data;
+            } else {
+                if (res.data.data === "Access Error") {
+                    alert("This user ID already Login Another Pc \n Please Re-Login...");
+                    _logout();
+                }
+            }
+
+        }
+    );
+
+    $scope.goproject = function(pid) {
+        sessionStorage.clear('nafco_project_current');
+        sessionStorage.setItem('nafco_project_current', pid);
+        _viewproject();
+    }
+
+    
+}])

@@ -1,0 +1,29 @@
+<div class="ism-new-pms-auto-container">
+    <div class="ism-new-pms-auto-row" style="position: sticky;top:0;">
+        <div class="ism-new-pms-auto-search-container">
+            <input type="text" name="" id="search_listed_glass" ng-model="search_listed_glass" ng-keyup="glass_list_search_input_change($event)" class="ism-new-pms-auto-search-controller">
+            <button type="button" class="ism-new-pms-auto-search-controller-button" ng-click="add_new_glassdescription_click()">
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="ism-new-pms-auto-row">
+        <div class="ism-new-pms-auto-table-container">
+            <div class="ism-new-psm-auto-list-item" ng-repeat="x in get_glass_list | filter:search_listed_glass | orderBy : 'glassdescriptoinstype'" ng-click="select_glass(x)">
+                <div class="ism-new-pms-list-container">
+                    <div class="ism-new-pms-list-rows" >
+                        <div class="ism-new-pms-list-columns">
+                            <div class="ism-new-pms-list-cells projectname">{{x.gdesriptionsortfrm}}</div>
+                        </div>
+                        <div class="ism-new-pms-list-columns">
+                            <div class="ism-new-pms-list-cells contractor" style="white-space: pre-wrap;">{{x.glassdescriptoinsspec}}</div>
+                        </div>    
+                        <div class="ism-new-pms-list-columns">
+                            <div class="ism-new-pms-list-cells contractno">{{x.glassdescriptoinstype}}</div>                            
+                        </div>                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

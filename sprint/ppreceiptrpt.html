@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PAINT PLANT RECEIPT REPORT</title>
+        <link rel="stylesheet" href="./css/font.css">
+        <style>
+        * {
+            font-size: 0.85rem;
+            font-family: 'owh';
+
+        }
+       
+        
+        table {
+            width: auto;
+            margin: 1px auto;
+            border: 1px solid #000;
+            border-collapse: collapse;
+            
+
+        }
+
+        table th,
+        table td {
+            border: 1px solid #000;
+            padding: 3px;
+        }
+
+        .theader {
+            background-color: #efefef;
+
+        }
+        .noonprint{
+            position: sticky;
+    top: 0;
+    background: #fff;
+    padding: 10px;
+        }
+        @media print{
+            body{
+                width : auto;
+                margin: 0.39in 0.39in 0.75in 0.39in;
+            }
+            table{
+                zoom: 85%;
+            }
+            .noonprint{
+                display:none;
+            }
+        }
+        @page {
+            size:auto ;
+            margin: 0.39in 0.39in 0.75in 0.39in;
+            /* margin: 27mm 16mm 27mm 16mm; */
+        }
+        </style>
+
+    </head>
+    <body>
+        <div class="noonprint">
+            <div>
+                Group By
+                <select id="groupby">
+                    <option value>-</option>
+                    <option value="ppproject">Project Name</option>
+                    <option value="pptype">Material</option>
+                    <option value="ppcolor">Color</option>
+                    <option value="location">location</option>
+                    <option value="typef">Type</option>
+                    <option value="delno">Receipt Number</option>
+                </select>
+                <input type="text" id="print_titlex"
+                    placeholder="Enter Title" style="display: none;" />
+                <button type="button" id="rptload">Load Report</button>
+                <button type="button" id="summaryload">Load Summary</button>
+                <button onclick="window.print()">Print</button>
+                <button id="exportexcel" class="ism-btns btn-normal">
+                    Export Excel
+                </button>
+            </div>
+            <!-- <div>
+                <div>
+                    <button type="button" id="allbtn" onclick="changeMode('1')">All</button>
+                    <button type="button" id="instockbtn"
+                        onclick="changeMode('2')">IN-Stock</button>
+                    <button type="button" id="reseverbtn"
+                        onclick="changeMode('3')">Reserved</button>
+                </div>
+            </div> -->
+        </div>
+        <div id="maincontent">
+
+        </div>
+        <script
+            src="http://172.0.1.5:8082/PMS/themes/loginscreen/vendor/jquery/jquery-3.2.1.min.js"></script>
+        <script
+            src="http://172.0.1.5:8082/PMS/Dashboard/Main/excelnn.js"></script>
+        <script>
+                const filters = {
+                    'ppproject' : 'PROJECT WISE',
+                    'pptype' : "MATERIAL TYPE WISE",
+                    'ppcolor' : 'COLOR WISE',
+                    'location' : 'LOCATION WISE',
+                    'typef' : 'TYPE WISE',               
+                    'delno' : 'RECEIPT WISE',       
+                };
+    
+                const titlename = window.fordate;
+                console.log(titlename);
+                const rptload = document.getElementById("rptload");
+                rptload.onclick = () => {
+                    defpritn()
+                }
+                const summaryload = document.getElementById("summaryload");
+                summaryload.onclick = () =>{
+                    const groupby = document.getElementById("groupby").value;
+                    if(groupby === ''){
+                        alert("Choose Group By Option.");
+                        return;
+                    }
+    
+                    let gname = [];
+                    itemlist.map(i=>{
+                        const item = i[groupby].trim();
+                        const xok = gname.includes(item);
+                        if(!xok){ gname.push(item) }
+                    });
+    
+                    let gitems = [];
+                    gname.map(i=>{
+                        let x = {};
+                        x["itemname"] = i ;                    
+                        const data = itemlist.filter(y => y[groupby].trim() === i);
+                        x['qty'] = data.reduce((r,j)=> r + (+j.returnqty) ,0);
+                        x['weight'] = data.reduce((r,j)=>{ 
+                            let _wt = isNaN(j.returnweight) ? 0 : (+j.returnweight) 
+                            r += _wt;
+                            return r;
+                        },0);
+                        x["data"] = data;
+                        gitems.push(x);
+                    })
+                    console.log(gitems);
+                    let qty = 0;
+                let tqty = 0;
+                let bqty = 0;
+                let weight = 0;
+                    let pr = "";
+                    pr += ` <table style="width:100%">
+                <thead>
+                    <tr>
+                        <th colspan="20"
+                            style="align-items: center;background-color: #ffffff;
+                        border-right: 1px solid transparent;
+                        border-top: 1px solid transparent;
+                        border-left: 1px solid transparent;
+                        border-bottom: 1px solid transparent;
+                        ">
+                            <img load="lazy" src="./css/nafco_letter.png"
+                                style="width:90%;height: 88px;">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th id="pagetitle" colspan="20" style="font-size: 18px;
+                        border-right: 1px solid transparent;
+                        border-bottom: 1px solid transparent;
+                        border-top: 1px solid transparent;
+                        border-left: 1px solid transparent;
+                        border-left: 1px solid transparent;
+                        "
+                    ">
+                        PAINT PLANT SUMMARY REPORT 
+                        </th>
+                    </tr>
+                </thead>
+                </table>
+    
+                <table style="width: 100%;" >
+                    <thead>
+                        <tr>
+                            <th style="background:#f5f5f5">S.No</th>
+                            <th style="background:#f5f5f5">Description</th>                            
+                            <th style="background:#f5f5f5">Received</th>                            
+                            <th style="background:#f5f5f5">Weight</th>                        
+                        </tr>
+                    </thead>
+                    <tbody>
+                    `
+    
+                    gitems.map((i,index)=>{
+                        console.log(i);
+                        qty += (+i.qty);
+                        weight +=isNaN(i.weight) ? 0 : (+i.weight);
+                        pr += `<tr>`;                               
+                        pr += `<td>${index+1}</td>`  
+                        pr += `<td>${i.itemname}</td>`  
+                        pr +=`<td style="font-weight:bold">${(+i.qty).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`                         
+                        pr +=`<td style="font-weight:bold">${(+i.weight).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`    
+                        pr += `</tr>`;   
+                    })
+                    pr += `<tr>`;
+                    pr += `<td></td>`
+                    pr += `<td>Total</td>`
+                    pr += `<td style="font-weight:bold">${(+qty).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`                    
+                    pr += `<td style="font-weight:bold">${(+weight).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`
+                    pr += `</tr>`;
+                    pr+=`</tbody></table>`
+                    document.getElementById("maincontent").innerHTML = pr;
+    
+                }
+                document.getElementById("print_titlex").addEventListener("change", (e)=>{
+                    console.log(e.target.value);
+                    let name = e.target.value ?? '';
+                    console.log(name)
+                    let xtype = document.getElementById("groupby").value;
+                    const pre = "PAINT PLANT RECEIPT REPORT ";
+                    if(xtype === ''){
+                        let ftitle = `${pre} ${name === "" ? "" : " - " + name}`;
+                        document.getElementById("pagetitlex").innerText = ftitle
+                    }else{
+                        console.log(filters)
+                        let fftype = filters[xtype];
+                        let ftitle = `${pre} - ${fftype} ${name === "" ? "" : " - "+name}`;                    
+                        document.getElementById("pagetitle").innerText = ftitle 
+                    }                
+                })           
+                
+                if(!window.forprintdata){
+                    window.close();
+                 }
+                 const type = window.type ?? 'N';
+                 let _title = "";
+                 if(type === "S"){
+                    _title = window.project_name;
+                 }
+                 const itemlist = JSON.parse(window.forprintdata);
+                
+                 if(itemlist === undefined){
+                    window.close();
+                    // return;
+                 }
+                 let printmode = "1";
+               // nprint();
+                defpritn()
+                 function defpritn(){
+                    xprint()
+                 }
+                 document.getElementById("groupby").addEventListener('change',nprint)
+                 function nprint(){
+                    const groupby = document.getElementById("groupby").value;
+                    const pre = "PAINT PLANT RECEIPT REPORT ";
+                    let name = document.getElementById("print_titlex").value;
+                    if(groupby === ""){
+                        xprint()
+                        let ftitle = `${pre} ${name === "" ? "" : " - " + name}`;
+                        document.getElementById("pagetitlex").innerText = ftitle;
+                        document.title = ftitle
+                        
+                    }else{
+                        gprint()
+                        let fftype = filters[groupby];
+                        let ftitle = `${pre} - ${fftype} ${name === "" ? "" : " - "+name}`;                    
+                        document.getElementById("pagetitle").innerText = ftitle 
+                        document.title = ftitle
+                       
+    
+                    }                
+                 }
+    
+                 function gprint(){
+                    const groupby = document.getElementById("groupby").value;
+                    let gname = [];
+                    itemlist.map(i=>{
+                        const item = i[groupby].trim();
+                        const xok = gname.includes(item);
+                        if(!xok){ gname.push(item) }
+                    });
+    
+                    //group array
+                    let gitems = [];
+                    let qty = 0;
+                    let tqty = 0;
+                    let bqty = 0;
+                    let weight = 0;
+                    gname.map(i=>{
+                        let x = {};
+                        x["itemname"] = i ;                    
+                        const data = itemlist.filter(y => y[groupby].trim() === i);
+                        x['qty'] = data.reduce((r,j)=> r + (+j.qty) ,0);
+                        x['weight'] = data.reduce((r,j)=>{ 
+                            let _wt = isNaN(j.returnweight) ? 0 : (+j.returnweight) 
+                            r += _wt;
+                            return r;
+                        },0);
+                        x["data"] = data;
+                        gitems.push(x);
+                    })
+    
+                    let pr = "";
+               
+                   console.log(gitems);
+                    pr += ` <table style="width:100%">
+                <thead>
+                    <tr>
+                        <th colspan="20"
+                            style="align-items: center;background-color: #ffffff;
+                        border-right: 1px solid transparent;
+                        border-top: 1px solid transparent;
+                        border-left: 1px solid transparent;
+                        border-bottom: 1px solid transparent;
+                        ">
+                            <img load="lazy" src="./css/nafco_letter.png"
+                                style="width:90%;height: 88px;">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th id="pagetitle" colspan="20" style="font-size: 18px;
+                        border-right: 1px solid transparent;
+                        border-bottom: 1px solid transparent;
+                        border-top: 1px solid transparent;
+                        border-left: 1px solid transparent;
+                        border-left: 1px solid transparent;
+                        "
+                    ">
+                    PAINT PLANT RECEIPT REPORT
+                        </th>
+                    </tr>
+                </thead>
+                </table>
+    
+                <table style="width: 100%;" >
+               
+                    `
+    
+                    
+                        gitems.map(y=>{
+                           
+    
+                            pr += `<tr>`;
+                            pr+= `<td colspan="19"  style="background: #e9fcff;font-weight: 600;font-size: 0.95rem;padding: 6px;">${y.itemname}</td>`;                        
+                            pr += `</tr>`;   
+                            
+                            pr+=`
+                        <thead>
+                        <tr>
+                        <td style="background:#f5f5f5;padding:9px">S.No</td>`                   
+                        
+                        
+                        if(groupby !== 'ppproject'){
+                            pr+= `
+                            <td style="background:#f5f5f5">Project</td> `      
+                        }
+                        if(groupby !== 'pptype'){
+                        pr+= `                
+                        <td style="background:#f5f5f5">M.Type</td>`
+                        }
+                        pr+= `
+                        <td style="background:#f5f5f5">Description</td>`
+                        if(groupby !== 'ppcolor'){
+                        pr+= `                        
+                        <td style="background:#f5f5f5">Color</td>`
+                        }
+                        pr+= `
+                        <td style="background:#f5f5f5">Qty</td>                         
+                        <td style="background:#f5f5f5">Weight</td>`
+                        if(groupby !== 'delno'){   
+                        pr +=`<td style="background:#f5f5f5">Rec.No</td>`                      
+                        }
+                        pr +=`<td style="background:#f5f5f5">Date</td> `       
+                        if(groupby !== 'location'){       
+                        pr +=`<td style="background:#f5f5f5">Rec.At</td>`
+                        }
+                        pr +=`<td style="background:#f5f5f5">Remark</td>`
+                        if(groupby !== 'typef'){   
+                        pr+= `
+                        <td style="background:#f5f5f5">Type</td>`
+                        }
+                        pr +=`
+                        </tr>
+                        </thead>
+                        <tbody>
+                        `;
+                            
+                            y.data.map((i,index)=>{
+                                qty += (+i.returnqty);
+                                weight +=isNaN(i.returnweight) ? 0 : (+i.returnweight);
+                                pr+= `<tr>`;
+                                pr+= `<td>${index+1}</td>`     
+                                if(groupby !== 'ppproject'){                                        
+                                pr+= `<td>${i.ppproject}</td>`
+                                }
+                                if(groupby !== 'pptype'){
+                                pr+= `<td>${i.pptype}</td>`
+                                }
+                                pr+= `<td>${i.ppdescription}</td>`
+                                if(groupby !== 'ppcolor'){
+                                pr+= `<td>${i.ppcolor}</td>`                             
+                                }
+                                pr+= `<td>${i.returnqty}</td>`                            
+                                pr+= `<td>${(+i.returnweight).toLocaleString(undefined,{maximumFractionDigits:3})}</td>`                                                                                        
+                                if(groupby !== 'delno'){
+                                pr+= `<td>${i.rtno}</td>`
+                                }
+                                pr+= `<td>${i.returndate_n}</td>`
+                                if(groupby !== 'location'){                         
+                                pr+= `<td>${i.remark}</td>`
+                                }
+                                pr+= `<td>${i.remarks}</td>`     
+                                if(groupby !== 'typef'){     
+                                pr+= `<td>${i.typef}</td>`                                 
+                                }
+                                pr+= `<tr>`;
+                            })
+                          
+                            pr += `<tr>`;
+                                pr+= `<td colspan="4" style="text-align:right">Total</td>`   
+                               
+                                pr+= `<td style="font-weight:bold;color:red;text-align:center">${(+y.qty).toLocaleString(undefined, {
+                                maximumFractionDigits:2
+                                })}</td>`
+                                pr+= `<td style="font-weight:bold;color:red;text-align:center">${(+y.weight).toLocaleString(undefined,{maximumFractionDigits:3})}</td>`                                                                                        
+                                pr+= `<td colspan='5'></td>`  
+                            pr += `</tr>`; 
+                        });
+                                pr += `<tr>`;
+                                pr+= `<td colspan="5" style="background: #e9fcff;text-align:right">Grand Total</td>`   
+                                
+                                pr+= `<td style="background: #e9fcff;font-weight:bold;color:red;text-align:center">${(+qty).toLocaleString(undefined, {
+                                maximumFractionDigits:2
+                                })}</td>`
+                                pr+= `<td style="background: #e9fcff;font-weight:bold;color:red;text-align:center">${(+weight).toLocaleString(undefined,{maximumFractionDigits:3})}</td>`                                                                                   
+                                pr+= `<td colspan='5' style="background: #e9fcff;"></td>`  
+                            pr += `</tr></tbody></table>`; 
+                        document.getElementById("maincontent").innerHTML = pr;
+                 }
+                function xprint(){
+                    console.log(itemlist);
+                // console.log(datas);
+                let pr = "";
+                let qty = 0;
+                let rqty = 0;
+                let bqty = 0;
+                let weight = 0;
+                pr += ` <table style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th colspan="12"
+                            style="align-items: center;background-color: #ffffff;
+                        border-right: 1px solid transparent;
+                        border-top: 1px solid transparent;
+                        border-left: 1px solid transparent;
+                        border-bottom: 1px solid transparent;
+                        ">
+                            <img load="lazy" src="./css/nafco_letter.png"
+                                style="width:90%;height: 88px;">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th id="pagetitlex" colspan="12" style="font-size: 18px;
+                        border-right: 1px solid transparent;
+                        border-bottom: 1px solid transparent;
+                        border-top: 1px solid transparent;
+                        border-left: 1px solid transparent;
+                        border-left: 1px solid transparent;
+                    ">
+                            PAINT PLANT RECEIPT REPORT
+                        </th>
+                    </tr>
+                </thead>
+                </table>
+                <table style="width: 100%;">
+                <thead>
+                    `
+    
+                  
+                    pr+=`<tr>
+                        <td style="background:#f5f5f5;padding:9px">S.No</td>`                    
+                        pr+= `
+                        <td style="background:#f5f5f5">Project</td>                        
+                        <td style="background:#f5f5f5">M.Type</td>
+                        <td style="background:#f5f5f5">Description</td>
+                        <td style="background:#f5f5f5">Color</td>                        
+                        <td style="background:#f5f5f5">Qty</td>                         
+                        <td style="background:#f5f5f5">Weight</td>
+                        <td style="background:#f5f5f5">Rec.No</td>                        
+                        <td style="background:#f5f5f5">Date</td>                        
+                        <td style="background:#f5f5f5">Rec.At</td>
+                        <td style="background:#f5f5f5">Remark</td>
+                        <td style="background:#f5f5f5">Type</td>                    
+                        </tr>
+                        </thead>
+                        <tbody>
+                        `;
+                    
+                    itemlist.map((i,index)=>{
+                        qty += (+i.returnqty);
+                        weight +=isNaN(i.returnweight) ? 0 : (+i.returnweight);
+                                               
+                        pr+= `<tr>`;
+                        pr+= `<td>${index+1}</td>`                                             
+                        pr+= `<td>${i.ppproject}</td>`
+                        pr+= `<td>${i.pptype}</td>`
+                        pr+= `<td>${i.ppdescription}</td>`
+                        pr+= `<td>${i.ppcolor}</td>`                             
+                        pr+= `<td>${i.returnqty}</td>`                            
+                        pr+= `<td>${(+i.returnweight).toLocaleString(undefined,{maximumFractionDigits:3})}</td>`                                                                                        
+                        pr+= `<td>${i.rtno}</td>`
+                        pr+= `<td>${i.returndate_n}</td>`                        
+                        pr+= `<td>${i.remark}</td>`
+                        pr+= `<td>${i.remarks}</td>`       
+                        pr+= `<td>${i.typef}</td>`                                   
+                        pr+= `<tr>`;
+    
+                    })
+    
+                    pr+= `<tr>`;                    
+                        pr+= `<td colspan="5" style="text-align:right">Total</td>`   
+                                                                            
+                        pr+= `<td style="font-weight:bold;color:red;text-align:center">${(+qty).toLocaleString(undefined, {
+                            maximumFractionDigits:2
+                        })}</td>`
+                        pr+= `<td style="font-weight:bold;color:red;text-align:center">${(+weight).toLocaleString(undefined, {
+                            maximumFractionDigits:3
+                        })}</td>`
+                        pr+= `<td colspan='5'></td>`                                    
+                        pr+= `<tr>`;
+                document.getElementById("maincontent").innerHTML = pr;
+                }
+                 //= JSON.parse(localStorage.getItem("pms_print_cuttinglists"));
+                 
+               
+            </script>
+        <script>
+                 $("#exportexcel").click(function() {
+                    console.log("working")
+            $("#maincontent").table2excel({
+                // exclude CSS class
+                exclude: ".noExl",
+                name: "Worksheet Name",
+                filename: "SomeFile", //do not include extension
+                fileext: ".xls" // file extension
+            });
+        });
+            </script>
+    </body>
+</html>

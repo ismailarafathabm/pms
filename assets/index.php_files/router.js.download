@@ -1,0 +1,137 @@
+app.config(function($routeProvider) {
+    $routeProvider
+        .when("/", {
+            templateUrl: "Home/index.php",
+            controller: "dashboardcontroller"
+        })
+        .when("/home", {
+            templateUrl: "Home/index.php",
+            controller: "dashboardcontroller"
+        })
+        .when("/newtlist", {
+            templateUrl: "Home/New.php",
+            controller: "newprojectctrl"
+        })
+        .when("/viewproject", {
+            templateUrl: "Operation/projectinfo/viewproject.php",
+            controller: "viewproject"
+        })
+        .when("/spec", {
+            templateUrl: "Operation/projectinfo/spec.php",
+            controller: "spec"
+        })
+        .when("/tandc", {
+            templateUrl: "Operation/projectinfo/tandc.php",
+            controller: "tandc"
+        })
+        .when("/conditions", {
+            templateUrl: "Operation/projectinfo/conditions.php",
+            controller: "conditions"
+        })
+        .when("/boq", {
+            templateUrl: "Operation/boq/boq.php",
+            controller: "boq"
+        })
+        .when("/addboq", {
+            templateUrl: "Operation/boq/aboq.php",
+            controller: "addboq"
+        })
+        .when("/viewboq/:itemno", {
+            templateUrl: "Operation/boq/boqEdit.php",
+            controller: "viewboq"
+        })
+        .when("/approval", {
+            templateUrl: "Operation/technical/approvals.php",
+            controller: "approval"
+        })
+        .when("/approval/:token", {
+            templateUrl: "Operation/technical/approvalsview.php",
+            controller: "approvalview"
+        })
+        .when("/approvaledit/:token", {
+            templateUrl: "Operation/technical/approvaledit.php",
+            controller: "approvalsedit"
+        })
+        .when("/techapproval/:aptype", {
+            templateUrl: "Operation/technical/Projects/info/approvaltech.php",
+            controller: "techapprovalfi"
+        })
+        .when("/approvalsupersheet/:token", {
+            templateUrl: "Operation/technical/approvals_suppersheet.php",
+            controller: "approvalsupersheet"
+        })
+        .when("/asupersheets", {
+            templateUrl: "Operation/technical/approvalsSupersheet.php",
+            controller: "asupersheetindex"
+        })
+        .when("/newapprovals", {
+            templateUrl: "Operation/technical/approvaladd.php",
+            controller: "newapprovals"
+        })
+        .when("/commingsoon", {
+            templateUrl: "Home/commingsoone.php",
+        })
+        .when("/newspec", {
+            templateUrl: "Operation/projectinfo/specadd.php",
+            controller: "newspec"
+        })
+        .when('/techdraw', {
+            templateUrl: "Operation/drawing/index.php",
+            controller: 'drawing_approvals_index'
+        })
+        .when('/techdrawnew', {
+            templateUrl: "Operation/drawing/new.php",
+            controller: 'drawing_approvals_addnew'
+        })
+        .when('/measurement', {
+            templateUrl: "Projects/info/measurement/index.php",
+            controller: 'measurement'
+
+        })
+        .when('/cuttinglist', {
+            templateUrl: "Engg/cuttinglist/index.php",
+            controller: 'cuttinglist'
+
+        })
+        .when('/GlassOrder', {
+            templateUrl: "Engg/glassorder/index.php",
+            controller: 'glassorder'
+        })
+        .when('/variations', {
+            templateUrl: "costing/variations/index.php",
+            controller: 'ctrl_veriation'
+        })
+        .when('/techapprovalsrpt', {
+            templateUrl: "management/techrpt2.php",
+            controller: 'ctrl_techapprovalsrpt'
+        })
+        .when('/shopdrawingApprovalsrpt', {
+            templateUrl: "management/shopdrawing2.php",
+            controller: 'ctrl_drawingapprovals1'
+        })
+        .when('/shopdrawingApprovalsrpt2', {
+            templateUrl: "management/shopdrawing2.php",
+            controller: 'ctrl_drawingapprovals1'
+        })
+        .when('/variationrpt', {
+            templateUrl: "management/variationsrpt2.php",
+            controller: 'ctrl_variationsrpt'
+        })
+        .when('/cuttinglistrpt', {
+            templateUrl: "management/cuttinglistrpt2.php",
+            controller: 'ctrl_cuttinglistrpt'
+        })
+        .when('/glassorders', {
+            templateUrl: "management/glassorderrpt2.php",
+            controller: 'ctrl_glassordersrpt'
+        })
+        .when('/rptdrawingapprovals', {
+            templateUrl: "management/rptdrawings.php",
+            controller: 'ctrl_rptdrawings'
+        })
+
+    .otherwise({
+        redirect: "/"
+    })
+
+});

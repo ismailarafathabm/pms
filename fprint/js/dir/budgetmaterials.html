@@ -1,0 +1,114 @@
+<style>
+    @page {
+        size: portrait
+    }
+
+    .budget-main-table-header {
+        background: #e6f0ff;
+    }
+
+    .budget-headers-table {
+        width: 700px
+    }
+
+    .budget-headers-cells-lable {
+        width: 67px;
+        border: 1px solid #0000;
+        font-size: 14px;
+
+        line-height: 34px;
+    }
+
+    .budget-headers-cells-dt {
+        width: 244px;
+        border: 1px solid #0000;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 34px;
+    }
+
+    .budget-main-table {
+        border-collapse: collapse;
+        width: 860px
+    }
+
+    .budget-main-table th,
+    td {
+        border: 1px solid #000;
+        line-height: 30px;
+        padding: 0px 12px;
+    }
+
+    .red {
+        background: #fff6f6;
+        color: #f00;
+    }
+</style>
+<table class="budget-headers-table">
+    <tr>
+        <td class="budget-headers-cells-lable">CUSTOMER</td>
+        <td class="budget-headers-cells-dt">{{project.project_cname}}</td>
+    </tr>
+    <tr>
+        <td class="budget-headers-cells-lable">PROJECT</td>
+        <td class="budget-headers-cells-dt">{{project.project_name}}</td>
+    </tr>
+</table>
+
+<table class="budget-main-table">
+    <thead>
+        <tr>
+            <th class="budget-main-table-header" style="width:50px">S.NO</th>
+            <th class="budget-main-table-header" style="width: 400px;text-align: left;">TYPES</th>
+            <th class="budget-main-table-header" style="width: 120px;text-align: center;">QTY</th>
+            <th class="budget-main-table-header" style="width: 120px;text-align: center;">ESTIMATION PRICE</th>
+            <th class="budget-main-table-header" style="width: 120px;text-align: center">ESTIMATION AMOUNT </th>
+            <th class="budget-main-table-header" style="width: 120px;text-align: center">DISCOUNTED PRICE </th>
+            <th class="budget-main-table-header" style="width: 128px;text-align: center">DISCOUNTED AMOUNT </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="x in summary">
+            <td class="budget-main-table-cells">{{$index+1}}</td>
+            <td class="budget-main-table-cells">{{x.bmtype}}</td>
+            <td class="budget-main-table-cells" style="text-align: center;font-weight: bold;">{{(+x.bmqty) === 0 ?
+                '-' : (+x.bmqty).toLocaleString(undefined,{maximumFractionDigits: 2})}}
+            </td>
+            <td class="budget-main-table-cells" style="text-align: right;font-weight: bold">{{(+x.bmeprice) === 0 ? '-'
+                :
+                (+x.bmeprice).toLocaleString(undefined,{maximumFractionDigits: 2})}}</td>
+            <td class="budget-main-table-cells" style="text-align: right;font-weight: bold">{{(+x.bmeval) === 0 ? '-' :
+                (+x.bmeval).toLocaleString(undefined,{maximumFractionDigits: 2})}}</td>
+            <td class="budget-main-table-cells" style="text-align: right;font-weight: bold">{{(+x.bmdiscountprice) === 0
+                ? '-' :
+                (+x.bmdiscountprice).toLocaleString(undefined,{maximumFractionDigits: 2})}}</td>
+            <td class="budget-main-table-cells" style="text-align: right;font-weight: bold">{{(+x.bmdiscountval) === 0 ?
+                '-' :
+                (+x.bmdiscountval).toLocaleString(undefined,{maximumFractionDigits: 2})}}</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: right;background-color: #e1f8ff;">Total</td>
+            <td style="text-align: right;background-color: #e1f8ff;"></td>
+            <td style="text-align: right;background-color: #e1f8ff;">
+                
+            </td>
+            <td style="text-align: right;font-weight: bold;background-color: #e1f8ff;">
+                {{
+                     (+summoff.budget) === 0 ? 
+                     '-' :
+                    (+summoff.budget).toLocaleString(undefined,{maximumFractionDigits: 2})
+                }}</td>
+                <td style="text-align: right;font-weight: bold;background-color: #e1f8ff;">
+                {{
+                    (+summoff.discountval) === 0 ? 
+                    '-':
+                    (+summoff.discountval).toLocaleString(undefined,{maximumFractionDigits: 2})
+               }}
+            </td>
+            <td style="text-align: right;font-weight: bold;background-color: #e1f8ff;">{{ (+summoff.discount) === 0 ?
+                '-'
+                : (+summoff.discount).toLocaleString(undefined,{maximumFractionDigits: 2})}}</td>
+
+        </tr>
+    </tbody>
+</table>

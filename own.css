@@ -1,0 +1,333 @@
+
+.new-rptpages-container {
+    width: 100%;
+    min-width: 1310px;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.09);
+    position: fixed;
+    /* max-height: 85%; */
+    overflow: auto;
+    scroll-behavior: smooth;
+}
+
+.rtp-pagehead {
+    position: sticky;
+    top: 0px;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    font-family: muli;
+    background: #304459;
+    justify-content: space-between;
+    z-index: 1;
+}
+
+.main-title-items {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+}
+
+.rpt-backbtn {
+    font-size: 17px;
+    padding: 8px;
+    background: transparent;
+    color: #fff;
+    border-radius: 0.25rem;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    -webkit-border-radius: 0.25rem;
+    -moz-border-radius: 0.25rem;
+    -ms-border-radius: 0.25rem;
+    -o-border-radius: 0.25rem;
+}
+
+.rpt-backbtn:hover {
+    background: #e00;
+    color: #fff;
+}
+
+.rpt-titles {
+    margin-left: 15px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 12px;
+}
+
+.right-buttons {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.rpt-main-page {
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+    padding-top: 8px;
+    padding-right: 8px;
+    padding-bottom: 8px;
+    padding-left: 8px;
+}
+
+.left-filters {
+    position: sticky;
+    top: 40px;
+    max-height: 700px;
+    font-family: overpass;
+    width: 310px;
+    max-width: 310px;
+    min-width: 310px;
+    overflow: auto;
+    background: #f0f0f0;
+    margin-right: 3;
+}
+
+.filter-title {
+    font-family: segoeui;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 20px;
+}
+
+.filter-sub {
+    margin-top: 20px;
+    background: #eaeaea;
+    font-size: 12px;
+    font-family: overpass;
+    padding: 5px;
+    /*max-height: 200px;
+    */
+    margin-bottom: 22px;
+    overflow: auto;
+    border-radius: 0.25rem;
+    -webkit-border-radius: 0.25rem;
+    -moz-border-radius: 0.25rem;
+    -ms-border-radius: 0.25rem;
+    -o-border-radius: 0.25rem;
+}
+
+.filter-title-sub {
+    font-size: 14px;
+    font-family: muli;
+    font-weight: 600;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filter-title-sub:hover {
+    color: #e00;
+}
+
+.filterslist {
+    padding: 2px;
+    border-radius: 0.25rem;
+    background: #dfdddd;
+}
+
+.lis {
+    display: none;
+}
+
+.lis_sh {
+    display: block;
+}
+
+.filters-sort {
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.colm-mode {
+    flex-direction: column;
+}
+
+.filters-sort input {
+    margin-right: 5px;
+}
+
+.main-list {
+    width: 100%;
+    /* max-width: 1300px; */
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.rpt-page-table {
+    display: block !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    border-collapse: collapse;
+    max-height: 730px;
+    /* width: 85%;
+    min-width: 1000px;
+    max-width: 85%;
+    
+    position: relative;
+    overflow-x: scroll; */
+}
+
+.rpt-page-table th {
+    position: sticky;
+    top: 0px;
+    font-family: overpass;
+    font-size: 14px;
+    padding: 5px;
+    background-color: #bbbaba;
+    color: rgb(0, 0, 0);
+    font-weight: 600;
+    padding: 5px !important;
+    border: 1px solid #949497 !important;
+}
+
+.rpt-page-table td {
+    border-bottom: 1px solid #000;
+    font-family: segoeui;
+    font-size: 13px;
+    color: #000 !important;
+    padding: 2px !important;
+    border: 1px solid #b8b8b9 !important;
+}
+
+.rpt-page-table td .td-green {
+    color: #000 !important;
+}
+
+.top-search {
+    position: sticky;
+    top: 40px;
+    min-height: 100px;
+    width: 100px;
+    padding: 5px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.rpt-btns {
+    font-family: muli;
+    font-size: 13px;
+    /* font-weight: bold; */
+    background: none;
+    border: none;
+    padding: 8px 10px;
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+.rpt-btns-success {
+    color: #fff;
+}
+
+.rpt-btns-success:hover {
+    background-color: #fca652;
+    color: #000;
+}
+
+.rpt-btns-black {
+    color: #fff;
+}
+
+.rpt-btns-black:hover {
+    background-color: #fff;
+}
+
+.rpt-btns:focus {
+    outline: none;
+}
+
+.bottom-list {
+    min-height: 100%;
+}
+
+.rpt-btnssr {
+    padding: 10px 5px;
+    background: transparent;
+    color: #000;
+    border-radius: 0.5rem;
+    border: 1px solid #000;
+    transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+}
+
+.rpt-btnssr:hover {
+    background: #1a181e;
+    color: #fff;
+}
+
+.rpt-btnssr:focus {
+    outline: none;
+}
+
+.new-notes {
+    margin-left: 55px;
+    padding: 10px;
+}
+
+.notes-row {
+    margin: 0 auto;
+    width: 600px;
+    min-width: 600px;
+    display: flex;
+    flex-direction: row;
+}
+
+.notes-title {
+    width: 100px;
+}
+
+.notes-textbox {
+    width: 400px;
+}
+
+@media only screen and (max-width: 1366px) {
+    .left-filters {
+        max-height: 450px;
+        font-size: 11px;
+    }
+    .rpt-page-table {
+        max-height: 450px;
+    }
+    .rpt-page-table td {
+        font-size: 11px;
+        font-weight: 500;
+    }
+    .rpt-titles {
+        margin-left: 15px;
+        font-size: 12px;
+        line-height: 14px;
+    }
+    .rpt-backbtn {
+        font-size: 14px;
+        padding: 3px;
+    }
+    .new-rptpages-container {
+        max-height: 80%;
+    }
+    .rpt-page-table th {
+        top: 0;
+    }
+}

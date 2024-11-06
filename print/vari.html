@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAFCO - PRINT [VARIATIONS]</title>
+    <style>
+        @font-face {
+            font-family: 'roboto';
+            src:url('../themes/fonts/roboto/Roboto-Regular.ttf');
+            
+        }
+
+
+        @font-face {
+            font-family: 'overpass';
+            src:url('../themes/fonts/Overpass/Overpass-Regular.ttf');            
+        }
+
+
+
+        @font-face {
+            font-family: muli;
+            src:url('../themes/fonts/muli/Muli-Regular.ttf');
+        }
+
+
+        body {
+            box-sizing: border-box;
+            padding: 1px;
+            margin: 0px;
+        }
+
+        body{
+            zoom: 125%;
+        }
+
+        button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            border-radius: 50%;
+            background: #3798f6;
+            color: #fff;
+            border: none;
+            height: 60px;
+            width: 60px;
+            text-align: center;
+            justify-content: center;
+            box-shadow: 3px 7px 12px #6bb6ff;
+            cursor: pointer;
+            z-index: 999;
+        }
+
+
+        button:hover {
+            background: #3788d8;
+        }
+
+        .errordiv {
+            width: 50%;
+            margin: 100px auto;
+            background-color: pink;
+            border: 1px solid maroon;
+            padding: 16px;
+            backdrop-filter: blur(2px);
+            border-radius: 3px;
+            box-shadow: 5px 9px 11px 0px #ffdfe5;
+            font-size: 1.3rem;
+            font-family: roboto;
+            color: #4d0000;
+        }
+
+        .container {
+
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #000;
+            width: 1400px;
+            margin: 10px auto;
+
+        }
+
+        .gentitle {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid #000;
+        }
+
+        .img {
+            padding: 5px;
+        }
+
+        .img img {
+            width: 75px;
+        }
+
+        .compnay {
+            font-family: 'roboto', sans-serif;
+            font-weight: bold;
+            font-size: 26px;
+            line-height: 26px;
+        }
+
+        .compnaysub {
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 16px;
+            text-align: center;
+        }
+
+
+
+        #print_data {
+            font-family: 'overpass';
+        }
+
+        .row {
+            display: flex;
+            padding: 5px;
+
+        }
+
+        .monthinfos {
+            font-family: 'roboto', sans-serif;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            justify-content: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            font-family: roboto;
+            font-size: 12px;
+            margin-bottom: 20px;
+            table-layout: fixed;
+        }
+
+        table td {
+            border: 1px solid #000 !important;
+            padding: 5px;
+            font-size: 14px;
+            word-wrap: break-word;
+        }
+
+        table th {
+            background-color: #c4d0d2;
+            border: 1px solid #000 !important;
+            padding: 5px;
+            font-size: 14px;
+            word-wrap: break-word;
+        }
+
+        .boldtxt {
+            font-weight: bold;
+        }
+
+        .red {
+            color: maroon;
+        }
+
+
+        .headcell {
+            background-color: #d6e0f000;
+            font-weight: bold;
+        }
+
+        .main-title {
+            margin-top: 0px;
+            font-family: muli;
+            font-weight: 600;
+            color: #4d0000;
+        }
+
+        .main_div {
+            display: block;
+            margin-bottom: 40px;
+            padding: 10px;
+            margin-right: 25px;
+
+        }
+
+        .projectinfo {
+            font-family: overpass;
+            font-weight: 600;
+            background: #fbfbfb;
+            padding: 5px;
+            margin-bottom: 7px;
+            border-radius: 6px;
+            border: 1px dashed;
+            width: 1210px;
+        }
+
+        .title_tos {
+            float: right;
+            color: #b70000;
+        }
+
+        h3 {
+            font-family: roboto;
+        }
+
+        .main_div>.totalinfo {
+            position: absolute;
+            right: 0px;
+            padding: 5px;
+            border: 1px dashed #a90000;
+            border-radius: 5px;
+            background: #ff000017;
+            font-weight: 600;
+            font-size: 14px;
+            font-family: roboto;
+            color: #670000;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            margin-right: 35px;
+        }
+
+        .summarytable {
+            justify-content: space-between;
+            padding: 5px;
+            margin: 5px auto;
+            font-weight: bold;
+            border-top: 1px dashed;
+            border-bottom: 1px dashed;
+            align-items: center;
+            line-height: 20px;
+        }
+
+        .staffdisp {
+            background: #d4faee;
+        }
+
+        .workerdisp {
+            background: #faebd4;
+        }
+
+        .gmddisp {
+            background: #fad4d4;
+        }
+
+        .bottomtotal {
+            background: #fae4d4;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 0px;
+            margin-block-start: 0px;
+            margin-block-end: 0px;
+        }
+
+        /* #print_datas {
+            background-image: url(../../assets/log_screen.png);
+            opacity: 0.00;
+            position: fixed;
+            /* background: #000; 
+            top: 15%;
+            left: 10%;
+            width: 1460px;
+            height: 100%;            
+        } */
+
+        @page {
+            size: A4;
+            size: landscape;
+        }
+
+        @media print {
+            .prtbtn {
+                display: none;
+            }
+
+            body {
+
+                box-sizing: border-box;
+                padding: 1px;
+                margin: 0px;
+            }
+
+            button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button type="button" onclick="window.print()">Print</button>
+    <!-- <button type="button" onclick="hide_sal()" style="bottom:100px">Hide Salary</button> -->
+    <div class="container">
+        <div class="gentitle">
+            <div class="img">
+                <img src="../../assets/log_screen.png" alt="" class="src" />
+            </div>
+            <div class="compnay">NAFCO - National Aluminium Factory Co.<br />
+                <center>
+                    <span class="compnaysub">Riyadh-Third Industrial Area</span>
+                </center>
+            </div>
+
+        </div>
+        <div id="print_data">
+
+        </div>
+
+    </div>
+    <!-- <div id="print_datas">
+
+    </div> -->
+
+
+
+
+</body>
+<script>
+    if (localStorage.getItem('print_data')) {
+        var infos = localStorage.getItem('print_data');
+        document.getElementById('print_data').innerHTML = infos;
+        localStorage.removeItem('print_data');
+        document.getElementById('pagetitle').innerText = localStorage.getItem('printdisplayhead');
+    }
+    function hide_sal() {
+        var x = document.getElementsByClassName('hide_sal').length
+        for (var i = 0; i < x; i++) { document.getElementsByClassName('hide_sal')[i].style.display = 'none' }
+        document.getElementsByTagName('button')[1].style.display = 'none';
+    }
+</script>
+
+</html>

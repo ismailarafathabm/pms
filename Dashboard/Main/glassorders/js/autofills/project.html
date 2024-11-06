@@ -1,0 +1,31 @@
+<div class="ism-new-pms-auto-container">
+    <div class="ism-new-pms-auto-row" style="position: sticky;top:0;">
+        <div class="ism-new-pms-auto-search-container">
+            <input type="text" name="search_listed_project" id="search_listed_project" ng-keyup="project_list_search_input_change($event)" class="ism-new-pms-auto-search-controller" ng-model="filter_project">
+            <!-- <button type="button" class="ism-new-pms-auto-search-controller-button">
+                <i class="fa fa-plus"></i>
+            </button> -->
+        </div>
+    </div>
+    <div class="ism-new-pms-auto-row">
+        <div class="ism-new-pms-auto-table-container">
+            <div class="ism-new-psm-auto-list-item" ng-repeat="x in gen_project_list | filter:filter_project | orderBy : 'project_name'" ng-click="select_project(x)">
+                <div class="ism-new-pms-list-container">
+                    <div class="ism-new-pms-list-rows" >
+                        <div class="ism-new-pms-list-columns">
+                            <div class="ism-new-pms-list-cells projectname">{{x.project_name}}</div>
+                        </div>
+                        <div class="ism-new-pms-list-columns">
+                            <div class="ism-new-pms-list-cells contractor">{{x.project_cname}}</div>
+                        </div>
+                        <div class="ism-new-pms-list-columns">
+                            <div class="ism-new-pms-list-cells contractno">{{x.project_no}}</div>
+                            <div class="ism-new-pms-list-cells location">{{x.project_location}}</div>
+                            <div class="ism-new-pms-list-cells region">{{x.projectRegion}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

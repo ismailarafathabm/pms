@@ -1,0 +1,9 @@
+<div class="ism-pms-dia-optionibox-container" id="unitfilter" style="top:23px">
+    <div class="ism-pms-dia-optioinbox-inputs">
+        <input placeholder="Search..." type="text" id="directive_unit_search_input" ng-model="srcunit" class="ism-dialog-rows-input-controller" ng-keydown="units_filter_input_keydown($event)"/>
+    </div>
+    <div class="ism-pms-dia-optionbox-list" style="max-height:150px ;">
+        <button class="ism-pms-dia-optionbox-list-items" id="unit_list_{{$index+1}}" style="cursor: pointer;border: 1px solid #0000;display:flex" type="button" ng-keydown="select_unit($event,x)" ng-click="getunitinfo(x)" ng-repeat="x in units | filter:srcunit | orderBy:'unitname'" ">{{x.unitname}}</button>
+        <!-- <div class="ism-pms-dia-optionbox-list-items" id="unit_list_{{$index+1}}" style="cursor: pointer;" ng-click="getunitinfo(x)" ng-repeat="x in units | filter:srcunit | orderBy:'unitname'">{{x.unitname}}</div> -->
+    </div>
+</div>

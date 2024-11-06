@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Project Reserved materials</title>
+        <link rel="stylesheet" href="./css/font.css">
+        <style>
+            * {
+                font-size: 0.85rem;
+                font-family: 'owh';
+    
+            }
+           body{
+            zoom:120%;
+           }
+            
+            table {
+                width: auto;
+                margin: 1px auto;
+                border: 1px solid #000;
+                border-collapse: collapse;
+                
+    
+            }
+            .noonprint{
+                position: sticky;
+        top: 0;
+        background: #fff;
+        padding: 10px;
+            }
+            table th,
+            table td {
+                border: 1px solid #000;
+                padding: 3px;
+            }
+    
+            .theader {
+                background-color: #efefef;
+    
+            }
+            @media print{
+                body{
+                    width : auto;
+                    margin: 0.39in 0.39in 0.75in 0.39in;
+                }
+                table{
+                    zoom: 80%;
+                }
+                .noonprint{
+                    display:none;
+                }
+            }
+            @page {
+                size:auto ;
+                margin: 0.39in 0.39in 0.75in 0.39in;
+                /* margin: 27mm 16mm 27mm 16mm; */
+            }
+            </style>
+    </head>
+    <body>
+        <div class="noonprint">
+            <div>
+                Group By
+                <select id="groupby">
+                    <option value>-</option>
+                    <option value="goreceipt_projectname">Project</option>
+                    <option value="procurement_thickness">Specification</option>
+                    <option value="goglasstype">Glass Type</option>
+                    <option value="goreceipttype">Order Type</option>
+                    <option value="goreceiptsupplier">Supplier</option>
+                </select>
+                <input type="text" id="print_titlex"
+                    placeholder="Enter Title" style="display: none;" />
+                <button type="button" id="rptload">Load Report</button>
+                <button type="button" id="summaryload">Load Summary</button>
+                <button onclick="window.print()">Print</button>
+                <button id="exportexcel" class="ism-btns btn-normal" style="display: none;">
+                    Export Excel
+                </button>
+            </div>
+
+        </div>
+        <div id="maincontent">
+
+        </div>
+        <script
+            src="./../themes/loginscreen/vendor/jquery/jquery-3.2.1.min.js"></script>
+        <script src="./../Dashboard/Main/excelnn.js"></script>
+        <script>
+             let groupby = document.getElementById("groupby");
+             const filters = {
+                'goreceipt_projectname' : "PROJECT WISE",
+                'procurement_thickness'  : 'SPECIFICATION WISE',
+                'goglasstype' : 'GLASS TYPE WISE',                
+                'goreceipttype' : "GLASS ORDER TYPE",        
+                'goreceiptsupplier' : "SUPPLIER WISE"
+            }
+            let data = [];
+            let gdata = [];          
+            let cols = {};
+            let gtotqty = 0;
+            let gtotarea = 0;           
+            let gorupbytitle = "";
+            function GTotal(){
+                gtotqty = data.reduce((r,j)=> r + (+j.goreceiptqty),0);
+                gtotarea = data.reduce((r,j)=> r + (+j.goreceiptarea),0);
+            }
+            function _groupdata(){
+                const gby = groupby.value;
+                gorupbytitle = filters[gby]
+                console.log(gorupbytitle);
+                gdata = [];
+                let gnames = [];
+                data.map(i=>{
+                    const gname = i[gby].trim();
+                    if(!gnames.includes(gname)){
+                        gnames.push(gname);
+                    }
+                });
+                gnames.map(i=>{
+                    let x = {};
+                    x['gbyname'] = i;
+                    const datas = data.filter(y=> y[gby].trim() === i);
+                    const totqty = datas.reduce((r,j)=> r + (+j.goreceiptqty),0);
+                    const totarea = datas.reduce((r,j)=> r + (+j.goreceiptarea),0);                    
+                    x['totqty'] = totqty;
+                    x['totarea'] = totarea;                    
+                    x['data'] = datas;
+                    gdata.push(x);
+                    
+                })
+
+                console.log(gdata);
+            }
+            window.onload = () => {
+                let _data = localStorage.getItem("printrpt_receipt_gos");                
+                //console.log(_data);
+                data = JSON.parse(_data);                
+                GTotal();
+                PrintNormal();
+            }
+            let rptload = document.getElementById('rptload');
+            rptload.onclick = () => {
+                const gbyval = groupby.value;
+                if(gbyval === ''){
+                    PrintNormal()
+                }else{
+                    _groupdata();
+                    printbygroup();
+                }
+            }
+            let summaryload = document.getElementById("summaryload");
+            summaryload.onclick = () => {
+                const gbyval = groupby.value;
+                if(gbyval === ''){
+                    alert("Try After Grouping Datas");
+                    return;
+                }
+                printsummary();
+            }
+            groupby.onchange = () => {
+                const gbyval = groupby.value;
+                if(gbyval === ''){
+                    PrintNormal()
+                }else{
+                    _groupdata();
+                    printbygroup();
+                }
+            }
+            function PrintNormal(){
+                let pr = "";
+                pr += ` <table style="width: 100%;">
+                    <thead>
+                        <thead>
+                            <tr>
+                                <th colspan="11"
+                                    style="align-items: center;background-color: #ffffff;
+                                border-right: 1px solid transparent;
+                                border-top: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                border-bottom: 1px solid transparent;
+                                ">
+                                    <img load="lazy" src="./css/nafco_letter.png"
+                                        style="width:90%;height: 88px;">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th id="pagetitlex" colspan="11" style="font-size: 18px;
+                                border-right: 1px solid transparent;
+                                border-bottom: 1px solid transparent;
+                                border-top: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                            ">
+                                    GO RECEIPT REPORT
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                        <table style="width: 100%;">
+                        <thead>
+                            `
+                pr += `<tr>`;
+                pr += `<td style="background:#f5f5f5;padding:9px">S.No</td>`;      
+                pr += `<td style="background:#f5f5f5;padding:9px">Project#</td>`;
+                pr += `<td style="background:#f5f5f5;padding:9px">Project Name#</td>`;
+                pr += `<td style="background:#f5f5f5;padding:9px">GO#</td>`;
+                pr += `<td style="background:#f5f5f5;padding:9px">Type</td>`;
+                pr += `<td style="background:#f5f5f5;padding:9px">Receipt#</td>`;
+                pr += `<td style="background:#f5f5f5;padding:9px">Date</td>`;
+                pr += `<td style="background:#f5f5f5;padding:9px">Supplier</td>`;
+                pr += `<td style="background:#f5f5f5;padding:9px">Glass Type</td>`;
+                pr += `<td style="background:#f5f5f5;padding:9px">Glass Spec</td>`;
+                pr += `<td style="background:#f5f5f5;padding:9px">R.Qty</td>`;
+                pr += `<td style="background:#f5f5f5;padding:9px">R.Area</td>`;
+                pr += `</tr> <tbody>`
+                data.map((i,index)=>{ 
+                    pr += `<tr key=${index}>`;
+                    pr += `<td>${index+1}</td>`
+                    pr += `<td>${i.goreceipt_project}</td>`
+                    pr += `<td>${i.goreceipt_projectname}</td>`
+                    pr += `<td>${i.gonumber}</td>`
+                    pr += `<td>${i.goreceipttype}</td>`
+                    pr += `<td>${i.goreceiptinvoiceno}</td>`
+                    pr += `<td>${i.goreceiptdate_s.display}</td>`
+                    pr += `<td>${i.goreceiptsupplier}</td>`
+                    pr += `<td>${i.goglasstype}</td>`                    
+                    pr += `<td>${i.procurement_thickness}</td>`
+                    pr += `<td style="text-align:center">${i.goreceiptqty}</td>`
+                    pr += `<td style="text-align:center">${i.goreceiptarea}</td>`
+                    pr += `</tr>`;
+                });
+                pr += `<tr>`;
+                pr += `<td colspan="10" style="background: #fdffe5;"></td>`;
+                pr += `<td style="background: #fdffe5;font-weight:bold;color:red;text-align:center">${(+gtotqty).toLocaleString(undefined,{maximumFractionDigits:0})}</td>`;
+                pr += `<td style="background: #fdffe5;font-weight:bold;color:red;text-align:center">${(+gtotarea).toLocaleString(undefined,{maximumFractionDigits:0})}</td>`;
+                pr += `</tr>`;
+                pr +=`</tbody></table>`;
+                document.getElementById("maincontent").innerHTML = pr;
+            }
+            function printbygroup(){
+                let pr = "";
+                pr += ` <table style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th colspan="11"
+                                    style="align-items: center;background-color: #ffffff;
+                                border-right: 1px solid transparent;
+                                border-top: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                border-bottom: 1px solid transparent;
+                                ">
+                                    <img load="lazy" src="./css/nafco_letter.png"
+                                        style="width:90%;height: 88px;">
+                                </th>
+                        </tr>
+                        <tr>
+                            <td id="pagetitlex" colspan="11" style="font-size: 18px;
+                                border-right: 1px solid transparent;
+                                border-bottom: 1px solid transparent;
+                                border-top: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                            ">
+                                   GO RECEIPT REPORT ${gorupbytitle}
+                                </td>
+                        </tr>
+                    </thead>
+                    </table>
+                    <table style="width: 100%;">
+                    `;
+                    gdata.map(x=>{
+                        pr += `<thead><tr>`
+                        pr += `<td style="background:#f5f5f5;padding:9px"> S.No </td>`;                
+                        pr += `<td style="background:#f5f5f5;padding:9px">Project#</td>`;
+                        pr += `<td style="background:#f5f5f5;padding:9px">Project Name#</td>`;
+                        pr += `<td style="background:#f5f5f5;padding:9px">GO#</td>`;
+                        pr += `<td style="background:#f5f5f5;padding:9px">Type</td>`;
+                        pr += `<td style="background:#f5f5f5;padding:9px">Receipt#</td>`;
+                        pr += `<td style="background:#f5f5f5;padding:9px">Date</td>`;
+                        pr += `<td style="background:#f5f5f5;padding:9px">Supplier</td>`;
+                        pr += `<td style="background:#f5f5f5;padding:9px">Glass Type</td>`;
+                        pr += `<td style="background:#f5f5f5;padding:9px">Glass Spec</td>`;
+                        pr += `<td style="background:#f5f5f5;padding:9px">R.Qty</td>`;
+                        pr += `<td style="background:#f5f5f5;padding:9px">R.Area</td>`;
+                        pr += `</tr>`
+                        pr += "<header>"
+                        pr += "<tr>";   
+                        pr +=`<td colspan="11" style="background: #e9fcff;font-weight: 600;font-size: 0.95rem;padding: 6px;">${x.gbyname}</td>`;  
+                        pr += "<tr>";
+                        pr += "</header> <tbody>" 
+                        x.data.map((i,index)=>{
+                            pr += `<tr key=${index}>`;
+                            pr += `<td>${index+1}</td>`
+                            pr += `<td>${i.goreceipt_project}</td>`
+                            pr += `<td>${i.goreceipt_projectname}</td>`
+                            pr += `<td>${i.gonumber}</td>`
+                            pr += `<td>${i.goreceipttype}</td>`
+                            pr += `<td>${i.goreceiptinvoiceno}</td>`
+                            pr += `<td>${i.goreceiptdate_s.display}</td>`
+                            pr += `<td>${i.goreceiptsupplier}</td>`
+                            pr += `<td>${i.goglasstype}</td>`                    
+                            pr += `<td>${i.procurement_thickness}</td>`
+                            pr += `<td style="text-align:center">${i.goreceiptqty}</td>`
+                            pr += `<td style="text-align:center">${i.goreceiptarea}</td>`
+                            pr += `</tr>`;
+                        });
+                        pr += `<tr>`;
+                        pr += `<td colspan="10" style="background: #e5fff7;"></td>`;
+                        pr += `<td style="background: #e5fff7;font-weight:bold;color:black;text-align:center">${(+x.totqty).toLocaleString(undefined,{maximumFractionDigits:0})}</td>`;
+                        pr += `<td style="background: #e5fff7;font-weight:bold;color:black;text-align:center">${(+x.totarea).toLocaleString(undefined,{maximumFractionDigits:0})}</td>`;
+                        pr += `</tr>`;
+                    });
+                    pr += `<tr>`;
+                    pr += `<td colspan="10" style="background: #fdffe5;"></td>`;
+                    pr += `<td style="background: #fdffe5;font-weight:bold;color:red;text-align:center">${(+gtotqty).toLocaleString(undefined,{maximumFractionDigits:0})}</td>`;
+                    pr += `<td style="background: #fdffe5;font-weight:bold;color:red;text-align:center">${(+gtotarea).toLocaleString(undefined,{maximumFractionDigits:0})}</td>`;
+                    pr += `</tr>`;
+                    pr +=`</tbody></table>`;
+                    document.getElementById("maincontent").innerHTML = pr;                    
+            }
+            function printsummary(){
+                let pr = "";
+                pr += ` <table style="width: 100%;">
+                    <thead>
+                            <tr>
+                                <th colspan="3"
+                                    style="align-items: center;background-color: #ffffff;
+                                border-right: 1px solid transparent;
+                                border-top: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                border-bottom: 1px solid transparent;
+                                ">
+                                    <img load="lazy" src="./css/nafco_letter.png"
+                                        style="width:90%;height: 88px;">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th id="pagetitlex" colspan="3" style="font-size: 18px;
+                                border-right: 1px solid transparent;
+                                border-bottom: 1px solid transparent;
+                                border-top: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                            ">
+                                    GO RECEIPT SUMMARY REPORT GROUP BY ${gorupbytitle}
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <table style="width: 100%;">  
+                        <thead>
+                            <tr>`
+                    pr += `<td style="background:#f5f5f5;padding:9px"> S.No </td>`;
+                    pr += `<td style="background:#f5f5f5;padding:9px"> Description </td>`;
+                    pr += `<td style="background:#f5f5f5;padding:9px"> R.Qty </td>`;
+                    pr += `<td style="background:#f5f5f5;padding:9px"> R.Area </td>`;
+                    pr += `</tr>`;
+                    pr += `</thead>`;
+                    pr += `<tbody>`;
+                    gdata.map((i,index)=>{
+                        pr += `<tr>`;
+                        pr += `<td>${index+1}</td>`;
+                        pr += `<td>${i.gbyname}</td>`;
+                        pr += `<td style="text-align:center">${(+i.totqty).toLocaleString(undefined,{maximumFractionDigits:0})}</td>`;
+                        pr += `<td style="text-align:center">${(+i.totarea).toLocaleString(undefined,{maximumFractionDigits:3})}</td>`;
+                        pr += `</tr>`;
+                    });
+                    pr += `<tr>`;
+                    pr += `<td colspan="2" style="background: #fdffe5;font-weight:bold;color:red;text-align:center"></td>`;
+                    pr += `<td style="background: #fdffe5;font-weight:bold;color:red;text-align:center">${(+gtotqty).toLocaleString(undefined,{maximumFractionDigits:0})}</td>`;
+                    pr += `<td style="background: #fdffe5;font-weight:bold;color:red;text-align:center">${(+gtotarea).toLocaleString(undefined,{maximumFractionDigits:0})}</td>`;
+                    pr += `</tr>`;
+                    pr += `<tbody>`;                    
+                    pr += `</table>`;
+                                
+                    
+                document.getElementById("maincontent").innerHTML = pr;
+            }
+
+        </script>
+    </body>
+
+</html>

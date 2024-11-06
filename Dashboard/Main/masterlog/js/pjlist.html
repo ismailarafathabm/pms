@@ -1,0 +1,8 @@
+<div class="ism-pms-dia-optionibox-container">
+    <div class="ism-pms-dia-optioinbox-inputs">
+        <input placeholder="Search..." type="text" id="directive_project_search_input" ng-model="srcproject" class="ism-dialog-rows-input-controller" ng-keydown="project_filter_input_keydown($event)"/>
+    </div>
+    <div class="ism-pms-dia-optionbox-list" style="max-height: 200px;">
+        <button type="button" class="ism-pms-dia-optionbox-list-items" style="cursor: pointer;border:1px solid #0000;display:flex" id="project_list_{{$index+1}}" ng-keyup="project_select($event,x)"  ng-click="getinfoprojects(x)" ng-repeat="x in projects | filter:srcproject | orderBy:'project_name'">{{x.project_name}} - [{{x.project_location}}]</button>        
+    </div>
+</div>

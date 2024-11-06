@@ -1,0 +1,28 @@
+@font-face {
+    font-family: pop;
+    /* src: url('./poppin/Poppins-Regular.ttf'); */
+    src: url('./../../themes/fonts/opensans/OpenSans-Regular.ttf');
+}
+@font-face {
+    font-family: 'abel';
+    src: url('./../../themes/fonts/abel/Abel-Regular.ttf');
+}
+@font-face {
+    font-family: roboto;
+    src: url('./../../themes/fonts/roboto/Roboto-Regular.ttf');
+}
+@font-face {
+    font-family: poplt;
+    src: url('./poppin/Poppins-Thin.ttf');
+}
+
+@font-face {
+    font-family: popbold;
+    src: url('./poppin/Poppins-Bold.ttf');
+}
+
+
+@font-face {
+    font-family: popblk;
+    src: url('./poppin/Poppins-Black.ttf');
+}

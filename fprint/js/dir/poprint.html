@@ -1,0 +1,355 @@
+<style>
+    .table-container {
+        display: flex;
+        flex-direction: column;
+        /* border: 1px solid #000; */
+    }
+
+    .table-row {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .table-colusmn {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .table-cells {
+        line-height: 19px;
+        padding: 5px;
+    }
+
+    .celltitle {
+        font-size: 12px;
+    }
+
+    .notescells {
+        line-height: 80px;
+    }
+
+    .areasum {
+        border: 1px solid #0073ff;
+        background: #ebf4ff;
+        color: #0073ff;
+    }
+
+    .bottomsig {
+        width: 100%;
+    }
+
+    .bottomsig-row {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .signarea {
+        height: 150px;
+        width: 150px;
+        border: 1px dotted #000;
+    }
+
+    .officername {
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .officernameposition {
+        font-size: 9px;
+        font-weight: bold;
+    }
+
+    @media print {
+        @page {
+            size: portrait
+        }
+
+        .bottomsig {
+            width: 100%;
+            position: fixed;
+            bottom: 10px;
+            left: 0;
+        }
+
+        .bottomsig-row {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .signarea {
+            height: 120px;
+            width: 120px;
+            border: 1px dotted #000;
+        }
+
+        .officername {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .officernameposition {
+            font-size: 9px;
+            font-weight: bold;
+        }
+    }
+</style>
+<div class="table-container">
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle" style="
+            width: 223px;            
+            border: 1px solid;
+            
+            ">
+                Ref No:
+            </div>
+            <div class="table-cells " style="
+            width: 350px;            
+            border: 1px solid;
+            font-weight: bold;
+            ">
+                {{print.porefno}}
+            </div>
+            <div class="table-cells celltitle" style="
+            width: 220px;            
+            border: 1px solid;
+            ">
+                Date:
+            </div>
+            <div class="table-cells" style="
+            width: 350px;            
+            border: 1px solid;">
+                {{print.podate}}
+            </div>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle" style="
+            width: 220px;            
+            border: 1px solid;
+            ">
+                Supplier
+            </div>
+            <div class="table-cells" style="
+            width: 920px;            
+            border: 1px solid;
+            
+            ">
+                {{print.posupplier}}
+            </div>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle" style="
+            width: 220px;            
+            border: 1px solid;
+            ">
+                Address
+            </div>
+            <div class="table-cells" style="
+            width: 920px;            
+            border: 1px solid;
+            font-size: 13.5px;
+            ">
+                {{print.posupplieraddress}}
+            </div>
+        </div>
+    </div>
+
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle" style="
+            width: 220px;            
+            border: 1px solid;
+            ">
+                Kind Atten
+            </div>
+            <div class="table-cells" style="
+            width: 920px;            
+            border: 1px solid;
+            ">
+                {{print.poattenby}}
+            </div>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle areasum" style="
+            width: 220px;            
+            border: 1px solid;
+            ">
+                Material Type
+            </div>
+            <div class="table-cells areasum" style="
+            width: 920px;            
+            border: 1px solid;
+            ">
+                {{print.itemtype}}
+            </div>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells " style="    width: 1140px;
+            border: 1px solid #000">
+                <p>
+                    Dear Sir,
+                </p>
+                <p>
+                    We hereby Place Order from the blow Mantioned items
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle notescells" style="
+            width: 220px;            
+            border: 1px solid;
+            ">
+                Description
+            </div>
+            <div class="table-cells notescells" style="
+            width: 920px;            
+            border: 1px solid;
+            font-size: 12px;
+            ">
+                {{print.podescription}}
+            </div>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle areasum" style="width: 120px;
+            border: 1px solid #0073ff">
+                Qty
+            </div>
+            <div class="table-cells areasum" style="width: 120px;
+            border: 1px solid #0073ff;font-weight: bold;">
+                {{print.poqty}}
+            </div>
+            <div class="table-cells celltitle areasum" style="width: 64px;
+            border: 1px solid #0073ff">
+                Area
+            </div>
+            <div class="table-cells  areasum" style="width: 120px;
+            border: 1px solid #0073ff;font-weight: bold;">
+                {{print.poarea}}
+            </div>
+            <div class="table-cells celltitle areasum" style="width: 80px;
+            border: 1px solid #0073ff">
+                Tonnage
+            </div>
+            <div class="table-cells  areasum" style="width: 120px;
+            border: 1px solid #0073ff;font-weight: bold;">
+                {{print.poweight}}
+            </div>
+            <div class="table-cells celltitle areasum" style="width: 100px;
+            border: 1px solid #0073ff">
+                Unit Price
+            </div>
+            <div class="table-cells areasum" style="width: 120px;
+            border: 1px solid #0073ff;font-weight: bold;">
+                {{print.pounitprice}}
+            </div>
+            <div class="table-cells celltitle areasum" style="width: 120px;
+            border: 1px solid #0073ff">
+                Value
+            </div>
+            <div class="table-cells areasum" style="width: 120px;
+            border: 1px solid #0073ff;font-weight: bold;">
+                {{print.povalue}}
+            </div>
+           
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle print-title-part-subtitle" style="
+            width: 220px;            
+            border: 1px solid;
+            text-align: left;
+            ">
+                Project Name
+            </div>
+            <div class="table-cells print-title-part-subtitle" style="
+            width: 920px;            
+            border: 1px solid;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: left;
+            ">
+                {{currentproject.project_name}}
+            </div>
+        </div>
+    </div>
+
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle notescells" style="
+            width: 220px;            
+            border: 1px solid;
+            ">
+                Notes
+            </div>
+            <div class="table-cells notescells" style="
+            width: 920px;            
+            border: 1px solid;
+            font-size: 12px;
+            ">
+                {{print.ponotes}}
+            </div>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle notescells" style="
+            width: 220px;            
+            border: 1px solid;
+            ">
+                Payment Terms
+            </div>
+            <div class="table-cells notescells" style="
+            width: 920px;            
+            border: 1px solid;
+            font-size: 12px;
+            ">
+                {{print.popaymentterms}}
+            </div>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle  notescells" style="
+            width: 220px;            
+            border: 1px solid;
+            ">
+                Delivery Terms
+            </div>
+            <div class="table-cells notescells" style="
+            width: 920px;            
+            border: 1px solid;
+            font-size: 12px;
+            ">
+                {{print.podeliveryterms}}
+            </div>
+        </div>
+    </div>
+</div>
+
+Best regards,
+
+
+<div class="bottomsig">
+    <div class="bottomsig-row">
+        <div class="signarea"></div>
+        <div class="officername">Mohammed Al Rejjal</div>
+        <div class="officernameposition">Procurement Manager</div>
+    </div>
+</div>

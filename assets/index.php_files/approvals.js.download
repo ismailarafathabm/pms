@@ -1,0 +1,297 @@
+app.controller('approval', function($scope, $http) {
+    const inputs = document.querySelectorAll("input");
+    inputs.forEach(i => {
+        i.autocomplete = "off";
+    })
+    $scope.isloading = true;
+    document.getElementById("approvals_menu").style.background = '#e84a5f';
+    $("#back_btn").on('click', function() {
+        window.history.back();
+    })
+    var bc_home = document.getElementById("back-to-tops");
+    bc_home.addEventListener('click', function() {
+        window.scrollTo(0, 0);
+    })
+    bc_home.style.display = "none";
+    window.addEventListener('scroll', function() {
+        if (pageYOffset > 400) {
+            console.log("owk")
+            bc_home.style.display = "block";
+        } else {
+            console.log("error");
+            bc_home.style.display = "none";
+        }
+    })
+    let project_id;
+    if (!sessionStorage.getItem('nafco_project_current') || sessionStorage.getItem('nafco_project_current') === '') {
+        projectlist();
+    } else {
+        project_id = sessionStorage.getItem('nafco_project_current');
+        get_projectinfo();
+        get_approvalsTypes();
+    }
+    all_techApprovalsType();
+
+    function all_techApprovalsType() {
+        let post_data = {
+            naf_user: userinfo
+        };
+        $http({
+            method: 'post',
+            data: post_data,
+            url: api_url + "Approval_Type/index.php"
+        }).then(
+            function(res) {
+                ///console.log(res.data);
+                if (res.data.msg === "1") {
+                    $scope.menu_Techapprovals = res.data.data;
+                } else {
+                    alert(res.data.data);
+                }
+            }
+        )
+    }
+
+    function get_projectinfo() {
+        let post_data = {
+            naf_user: userinfo,
+            project_no: project_id
+        }
+        var req = $http.post(api_url + "Project/view.php", post_data);
+        req.then(res => {
+            //console.log(res.data);
+            if (res.data.msg === "1") {
+                $scope.viewproject = res.data.data;
+                $scope.newproject = res.data.data;
+                project_id = angular.lowercase(res.data.data.project_no);
+                get_all_approvals();
+            } else {
+                alert(res.data.data);
+            }
+        });
+    }
+
+    function get_approvalsTypes() {
+        let post_data = {
+            naf_user: userinfo
+        };
+        $http({
+            method: 'post',
+            data: post_data,
+            url: api_url + "Approval_Type/index.php"
+        }).then(
+            function(res) {
+                console.log(res.data);
+                if (res.data.msg === "1") {
+                    $scope.approval_types = res.data.data;
+                } else {
+                    alert(res.data.data);
+                }
+            }
+        )
+    }
+
+    function get_all_approvals() {
+        var post_data = {
+            naf_user: userinfo,
+            project_no: project_id,
+        };
+        ///console.log(post_data);
+        $http({
+            url: api_url + "Approvals/projects.php",
+            method: 'post',
+            data: post_data
+        }).then(
+            function(res) {
+                /// console.log(res.data);
+                if (res.data.msg === '1') {
+                    $scope._tempapprovals = res.data.data;
+                } else {
+                    alert(res.data.data);
+                }
+                $scope.isloading = false;
+            }
+        );
+    }
+})
+
+app.controller('techapprovalfi', function($scope, $http, $routeParams) {
+
+    //$scope.fi.approval_type_name = $routeParams.aptype;
+
+    let project_id;
+    if (!sessionStorage.getItem('nafco_project_current') || sessionStorage.getItem('nafco_project_current') === '') {
+        projectlist();
+    } else {
+        project_id = sessionStorage.getItem('nafco_project_current');
+        get_projectinfo();
+
+
+        //$scope.projctname = project_id;
+    }
+    all_techApprovalsType();
+
+    function all_techApprovalsType() {
+        let post_data = {
+            naf_user: userinfo
+        };
+        $http({
+            method: 'post',
+            data: post_data,
+            url: api_url + "Approval_Type/index.php"
+        }).then(
+            function(res) {
+                console.log(res.data);
+                if (res.data.msg === "1") {
+                    $scope.menu_Techapprovals = res.data.data;
+                } else {
+                    alert(res.data.data);
+                }
+            }
+        )
+    }
+    $scope.fi = {
+        'approval_type_name': $routeParams.aptype
+    }
+
+    function get_projectinfo() {
+        let post_data = {
+            naf_user: userinfo,
+            project_no: project_id
+        }
+        var req = $http.post(api_url + "Project/view.php", post_data);
+        req.then(res => {
+            //console.log(res.data);
+            if (res.data.msg === "1") {
+                $scope.viewproject = res.data.data;
+                $scope.newproject = res.data.data;
+                project_id = angular.lowercase(res.data.data.project_no);
+                get_all_approvals();
+            } else {
+                alert(res.data.data);
+            }
+        });
+    }
+
+    function get_all_approvals() {
+        var post_data = {
+            naf_user: userinfo,
+            project_no: project_id,
+        };
+        console.log(post_data);
+        $http({
+            url: api_url + "Approvals/projects.php",
+            method: 'post',
+            data: post_data
+        }).then(
+            function(res) {
+                console.log(res.data);
+                if (res.data.msg === '1') {
+                    $scope._tempapprovals = res.data.data;
+                } else {
+                    alert(res.data.data);
+                }
+            }
+        );
+    }
+
+})
+
+app.controller('asupersheetindex', function($scope, $http) {
+    document.getElementById("approvals_menu").style.background = '#e84a5f';
+    $("#back_btn").on('click', function() {
+        window.history.back();
+    })
+    let project_id;
+    if (!sessionStorage.getItem('nafco_project_current') || sessionStorage.getItem('nafco_project_current') === '') {
+        projectlist();
+    } else {
+        project_id = sessionStorage.getItem('nafco_project_current');
+        get_projectinfo();
+        get_approvalsTypes();
+
+        //$scope.projctname = project_id;
+    }
+    all_techApprovalsType();
+
+    function all_techApprovalsType() {
+        let post_data = {
+            naf_user: userinfo
+        };
+        $http({
+            method: 'post',
+            data: post_data,
+            url: api_url + "Approval_Type/index.php"
+        }).then(
+            function(res) {
+                console.log(res.data);
+                if (res.data.msg === "1") {
+                    $scope.menu_Techapprovals = res.data.data;
+                } else {
+                    alert(res.data.data);
+                }
+            }
+        )
+    }
+
+    function get_projectinfo() {
+        let post_data = {
+            naf_user: userinfo,
+            project_no: project_id
+        }
+        var req = $http.post(api_url + "Project/view.php", post_data);
+        req.then(res => {
+            //console.log(res.data);
+            if (res.data.msg === "1") {
+                $scope.viewproject = res.data.data;
+                $scope.newproject = res.data.data;
+                project_id = angular.lowercase(res.data.data.project_no);
+                get_all_approvals();
+            } else {
+                alert(res.data.data);
+            }
+        });
+    }
+
+    function get_approvalsTypes() {
+        let post_data = {
+            naf_user: userinfo
+        };
+        $http({
+            method: 'post',
+            data: post_data,
+            url: api_url + "Approval_Type/index.php"
+        }).then(
+            function(res) {
+                console.log(res.data);
+                if (res.data.msg === "1") {
+                    $scope.approval_types = res.data.data;
+                } else {
+                    alert(res.data.data);
+                }
+            }
+        )
+    }
+
+    function get_all_approvals() {
+        var post_data = {
+            naf_user: userinfo,
+            project_no: project_id,
+        };
+        console.log(post_data);
+        $http({
+            url: api_url + "Approvals/supersheet_index.php",
+            method: 'post',
+            data: post_data
+        }).then(
+            function(res) {
+                console.log(res.data);
+                if (res.data.msg === '1') {
+                    $scope._tempapprovals = res.data.data;
+                } else {
+                    alert(res.data.data);
+                }
+            }
+        );
+    }
+})

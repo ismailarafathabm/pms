@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CUTTING LIST DELIVERY REPORT</title>
+        <link rel="stylesheet" href="./css/font.css">
+        <style>
+        * {
+            font-size: 0.85rem;
+            font-family: 'owh';
+
+        }
+       
+        
+        table {
+            width: auto;
+            margin: 1px auto;
+            border: 1px solid #000;
+            border-collapse: collapse;
+            
+
+        }
+
+        table th,
+        table td {
+            border: 1px solid #000;
+            padding: 3px;
+            word-break: break-all;
+        }
+
+        .theader {
+            background-color: #efefef;
+
+        }
+        .noonprint{
+            position: sticky;
+    top: 0;
+    background: #fff;
+    padding: 10px;
+        }
+        @media print{
+            body{
+                width : auto;
+                margin: 0.39in 0.39in 0.75in 0.39in;
+            }
+            table{
+                zoom: 85%;
+            }
+            .noonprint{
+                display:none;
+            }
+        }
+        @page {
+            size:auto ;
+            margin: 0.39in 0.39in 0.75in 0.39in;
+            /* margin: 27mm 16mm 27mm 16mm; */
+        }
+        </style>
+
+    </head>
+
+    <body>
+        <div class="noonprint">
+            <div>
+                Group By
+                <select id="groupby">
+                    <option value>-</option>
+                    <option value="project_name">By Project</option>
+                    <option value="types_name">Approval Type</option>
+                    <option value="approvals_draw_no">Drawing#</option>
+                    <option value="approvals_last_revision_code">Revision Times</option>
+                    <option value="delayclient">Client Dely</option>
+                    <option value="approvals_last_status">Status</option>                    
+                </select>
+                <input type="text" id="print_titlex"
+                    placeholder="Enter Title" style="display: none;" />
+                <button type="button" id="rptload" style="display: none;">Load Report</button>
+                <button type="button" id="summaryload" style="display: none;">Load Summary</button>
+                <button onclick="window.print()">Print</button>
+                <button id="exportexcel" class="ism-btns btn-normal"
+                    style="display: none;">
+                    Export Excel
+                </button>
+            </div>
+        </div>
+        <div id="maincontent">
+
+        </div>
+        <script
+            src="./../themes/loginscreen/vendor/jquery/jquery-3.2.1.min.js"></script>
+        <script src="./../Dashboard/Main/excelnn.js"></script>
+        <script>
+            let groupby = document.getElementById("groupby");
+            const filters = {
+                project_name : "By Project",
+                types_name : "By Approval Type",
+                approvals_draw_no : "By Drawing#",
+                approvals_last_revision_code : "By Revision#",
+                delayclient : "By Client Dely",
+                approvals_last_status : "By Status",               
+            }
+            let data = [];
+            let cols = [];
+            let gdata = [];  
+            // let ctqty = 0;
+            // let delqty = 0;
+            // let delbal = 0;
+            function GTotal(){
+                // ctqty = data.reduce((r,j)=> r + (+j.ct_qty),0);
+                // delqty = data.reduce((r,j)=> r + (+j.dis_qty),0);
+                // delbal = data.reduce((r,j)=> r + (+j.bal_qty),0);             
+            } 
+            
+            function _groupdata(){
+                const gby = groupby.value;
+                gorupbytitle = filters[gby]
+                console.log(gorupbytitle);
+                gdata = [];
+                let gnames = [];
+                data.map(i=>{
+                    const gname = i[gby].trim();
+                    if(!gnames.includes(gname)){
+                        gnames.push(gname);
+                    }
+                });
+                gnames.map(i=>{
+                    let x = {};                    
+                    x['gbyname'] = i;
+                    const datas = data.filter(y=> y[gby].trim() === i);                  
+                    x['data'] = datas;
+                    gdata.push(x);
+                    
+                })
+                console.log(gdata);
+            }
+            let rptload = document.getElementById('rptload');
+            rptload.onclick = () => {
+                const gbyval = groupby.value;
+                if(gbyval === ''){
+                    PrintNormal()
+                }else{
+                    _groupdata();
+                    printbygroup();
+                }
+            }
+            groupby.onchange = () => {
+                const gbyval = groupby.value;
+                if(gbyval === ''){
+                    PrintNormal()
+                }else{
+                    _groupdata();
+                    printbygroup();
+                }
+            }
+            window.onload = () => {
+                //let _data = window.pms_boms; // must be change to window params                
+                let _data = localStorage.getItem("pms_drawingapprovals_list");
+                let _cols = localStorage.getItem("pms_drawingapprovals_config");
+                //console.log(_data);
+                data = JSON.parse(_data);     
+                cols = JSON.parse(_cols)           
+                GTotal();
+                PrintNormal();
+            }
+
+            function PrintNormal(){
+                document.title = `DRAWING APPROVALS`;
+                let pr = "";
+                pr += ` <table style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th colspan="8"   style="align-items: center;background-color: #ffffff;
+                                border-right: 1px solid transparent;
+                                border-top: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                border-bottom: 1px solid transparent;">
+                                <img load="lazy" src="./css/nafco_letter.png"
+                                        style="width:90%;height: 88px;">
+                            </th>
+                        </tr>
+                        <tr>
+                                <th id="pagetitlex" colspan="8" style="font-size: 18px;
+                                border-right: 1px solid transparent;
+                                border-bottom: 1px solid transparent;
+                                border-top: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                            ">
+                                DRAWING APPROVALS
+                                </th>
+                            </tr>
+                    </thead>                  
+                    </table> `
+                    pr += ` <table style="width:auto">
+                    <thead>                        
+                    `;
+                    pr += `<tr>`;
+                    pr += `<td style="background:#f5f5f5;padding:20px">S.No</td>`;    
+                    cols.map(i=>{
+                        if(i.colshow){
+                            if(i.colid === "sno"){
+
+                            }
+                            else if(i.colid === "f"){
+                            }
+                            else{
+                                pr += `<th style="background:#f5f5f5;padding:9px;width:${i.colwidth}px">${i.colname}</th>`
+                            }                         
+                        }                
+                     })
+                     pr += `</tr>`;                    
+                    pr +=`</head>`;
+                    pr += `<tbody>`;
+                    data.map((i,index)=>{
+                        pr += `<tr>`;
+                        pr += `<td>${index+1}</td>`
+                        cols.map(c=>{
+                            if(c.colshow){
+                                if(c.colid === "sno"){
+
+                                }
+                                else if(c.colid === "f"){
+
+                                } 
+                               
+                                else if(c.colid === "approvals_infos_submitedon"){
+                                        pr += `<td style="width:${c.colwidth}px;">                                        
+                                                  ${i.approvals_infos_submitedon_d}
+                                             </td>`
+                                } 
+                                else if(c.colid === "approvals_infos_receivedon"){
+                                        pr += `<td style="width:${c.colwidth}px;">                                        
+                                                  ${i.approvals_infos_receivedon_d}
+                                             </td>`
+                                } else if(c.colid === "approvals_infos_clienton_d"){
+                                        pr += `<td style="width:${c.colwidth}px;">                                        
+                                                  ${i.approvals_infos_clienton_d}
+                                             </td>`
+                                } 
+                               else if(c.colid === "daysn"){
+                                   
+                                    pr += `<td style="width:${c.colwidth}px;">                                        
+                                                  ${i.delayclient}
+                                             </td>`
+                                }  else{
+                                    console.log(c.colid);
+                                    pr += `<td style="width:${c.colwidth}px;">                                        
+                                        ${i[c.colid]}
+                                    </td>`
+                                }
+                            }
+                        });
+                    });
+                     document.getElementById("maincontent").innerHTML = pr; 
+                    }
+
+                    function printbygroup() {
+                        document.title = `DRAWING APPROVALS ${gorupbytitle}`;
+                        let pr = "";
+                        pr += ` <table style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th colspan="8"   style="align-items: center;background-color: #ffffff;
+                                        border-right: 1px solid transparent;
+                                        border-top: 1px solid transparent;
+                                        border-left: 1px solid transparent;
+                                        border-bottom: 1px solid transparent;">
+                                        <img load="lazy" src="./css/nafco_letter.png"
+                                                style="width:90%;height: 88px;">
+                                    </th>
+                                </tr>
+                                <tr>
+                                        <th id="pagetitlex" colspan="8" style="font-size: 18px;
+                                        border-right: 1px solid transparent;
+                                        border-bottom: 1px solid transparent;
+                                        border-top: 1px solid transparent;
+                                        border-left: 1px solid transparent;
+                                        border-left: 1px solid transparent;
+                                    ">
+                                    DRAWING APPROVALS ${gorupbytitle}
+                                        </th>
+                                    </tr>
+                            </thead>                  
+                            </table> `;
+                        
+                        pr += `<table style="fit-content">`;
+                        gdata.map(x => { 
+                            pr += `<thead><tr>`;
+                            pr +=`<td colspan="19" style="background: #e9fcff;font-weight: 600;font-size: 0.95rem;padding: 6px;">${x.gbyname === "" ? '-' : x.gbyname.toUpperCase()}</td>`;  
+                            pr +=`</tr></head>`;
+                            pr += `<tr>`;                            
+                                pr += `<td style="background:#f5f5f5;padding:20px">S.No</td>`;   
+                            cols.map(i=>{
+                                if(i.colshow){
+                                    if(i.colid === "sno"){
+
+                                    }
+                                    else if(i.colid === "f"){
+                                    }
+                                    else{
+                                        pr += `<th style="background:#f5f5f5;padding:9px;width:${i.colwidth}px">${i.colname}</th>`
+                                    }                            
+                                }                 
+                            })
+                            pr += `</tr>`;            
+                            pr +=`<tbody>`;
+                            x.data.map((i,index)=>{
+                                pr += `<tr key="${index}">` 
+                                pr += `<td style="padding:9px">${index+1}</td>`;
+                                cols.map(c=>{
+                                    if(c.colshow){
+                                if(c.colid === "sno"){
+
+                                }
+                                else if(c.colid === "f"){
+
+                                } 
+                               
+                                else if(c.colid === "approvals_infos_submitedon"){
+                                        pr += `<td style="width:${c.colwidth}px;">                                        
+                                                  ${i.approvals_infos_submitedon_d}
+                                             </td>`
+                                } 
+                                else if(c.colid === "approvals_infos_receivedon"){
+                                        pr += `<td style="width:${c.colwidth}px;">                                        
+                                                  ${i.approvals_infos_receivedon_d}
+                                             </td>`
+                                } else if(c.colid === "approvals_infos_clienton_d"){
+                                        pr += `<td style="width:${c.colwidth}px;">                                        
+                                                  ${i.approvals_infos_clienton_d}
+                                             </td>`
+                                } 
+                               else if(c.colid === "daysn"){
+                                   
+                                    pr += `<td style="width:${c.colwidth}px;">                                        
+                                                  ${i.delayclient}
+                                             </td>`
+                                }  else{
+                                    console.log(c.colid);
+                                    pr += `<td style="width:${c.colwidth}px;">                                        
+                                        ${i[c.colid]}
+                                    </td>`
+                                }
+                            }
+                         });
+                            })
+                        })
+                        document.getElementById("maincontent").innerHTML = pr;     
+                    }
+
+                    const summaryload = document.getElementById("summaryload");
+            summaryload.onclick = () =>{
+                const groupby = document.getElementById("groupby").value;
+                if(groupby === ''){
+                    alert("Choose Group By Option.");
+                    return;
+                }
+
+                summaryprint();
+            }
+            function summaryprint(){
+                document.title = `Cutting List Dlivery Summary Report ${gorupbytitle}`;
+                let pr = "";
+                pr += ` <table style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th colspan="8"   style="align-items: center;background-color: #ffffff;
+                                border-right: 1px solid transparent;
+                                border-top: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                border-bottom: 1px solid transparent;">
+                                <img load="lazy" src="./css/nafco_letter.png"
+                                        style="width:90%;height: 88px;">
+                            </th>
+                        </tr>
+                        <tr>
+                                <th id="pagetitlex" colspan="8" style="font-size: 18px;
+                                border-right: 1px solid transparent;
+                                border-bottom: 1px solid transparent;
+                                border-top: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                            ">
+                                CUTTING LIST DELIVER REPORT ${gorupbytitle}
+                                </th>
+                            </tr>
+                    </thead>                  
+                    </table> `;
+                    pr += `<table style="width: auto;">`;        
+                    pr += `<thead>`
+                    pr += `<tr>`
+                    pr += `<th>S.NO</th>`
+                    pr += `<th>Title</th>`
+                    pr += `<th>CL Qty</th>`
+                    pr += `<th>Deliverd Qty</th>`
+                    pr += `<th>Balance Qty</th>`
+                    pr += `<th>%</th>`
+                    pr += `</tr>`
+                    pr += `</thead>`
+                    pr += `<tbody>`
+                    gdata.map((i,index)=>{
+                        let xctqty = 0 ;
+                        xctqty =(+i.g_ctqty);
+                        let xdelqty = 0;
+                        xdelqty = (+i.g_delqty);
+                        console.log(xctqty);
+                        console.log(xdelqty);
+                        console.log((xdelqty / xctqty) * 100 );
+                        let prs = (xdelqty / xctqty) * 100;
+                        pr += `<tr>`
+                            pr +=`<td>${index+1}</td>`
+                            pr +=`<td>${i.gbyname === "" ? '-' : i.gbyname.toUpperCase()}</td>`
+                            pr +=`<td>                                
+                                ${(+i.g_ctqty) === 0 ?  '-' :(+i.g_ctqty).toLocaleString(undefined,{maximumFractionDigits:2})}
+                                </td>`
+                            pr +=`<td>
+                                ${(+i.g_delqty) === 0 ?  '-' :(+i.g_delqty).toLocaleString(undefined,{maximumFractionDigits:2})}
+                                </td>`
+                            pr +=`<td>
+                                ${(+i.g_delbal) === 0 ?  '-' :(+i.g_delbal).toLocaleString(undefined,{maximumFractionDigits:2})}
+                                </td>`
+                           
+                            pr +=`<td>`
+                                if((+prs) === 0) {
+                                    pr += '-'
+                                }else{
+                                    pr += `${(+prs).toLocaleString(undefined,{maximumFractionDigits:2})} %`
+                                }
+                            pr +=`</td>`
+                        pr += `</tr>`
+                    })                                 
+                    pr += `</tbody>`
+                    pr += `</table>`
+
+                    document.getElementById("maincontent").innerHTML = pr;     
+            }
+            
+        </script>
+    </body>
+</html>

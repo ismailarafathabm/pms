@@ -1,0 +1,331 @@
+*{
+    font-family: 'roboto',sans-serif,serif,'poplt';
+    margin:0;
+    padding: 0;    
+    box-sizing: border-box;
+}
+body{
+    margin:0;
+    padding: 0;     
+    /* width:9.25in; */
+    zoom : 100%;
+}
+.main-print-conatiner{
+    position: relative;
+    display: block;    
+}
+.main-print-title{
+    display:flex;
+    flex-direction: row;
+    gap:5px;
+    align-items: center;
+    justify-content: flex-start;
+}
+.main-print-logo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;    
+}
+.main-print-main-logo{
+    width:60px
+}
+.main-print-headers{
+    
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.main-print-cmname{  
+
+    display: block;
+    font-family: 'popblk';
+    font-size: 1rem;
+    color: #e20000;
+}
+.main-print-titlesub{
+    display: block;
+    font-size: 1.1rem;
+    color: #1700e2;
+    background: #eeecff;
+    padding: 3px;
+    font-family: 'popbold';
+}
+.main-print-page{
+    margin-top:5px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 3px;
+}
+.mainprint-table{    
+    border-collapse: collapse;
+    border-spacing: 0;
+    /* border:1px solid #b9b9b9; */
+    /* white-space: nowrap; */
+    /* width:100% */
+    /* width: 100%; */
+    /* table-layout: fixed; */
+}
+.mainprint-table th,td{
+    border: 0.5px solid #2b2b2b;
+}
+.mainprint-table th{
+    font-size: 13px;
+    font-weight: bold;
+    background-color: #d8d8d8;
+    padding: 0.5px 5px;
+   
+}
+
+.mainprint-table td{
+    font-size: 12.5px;    
+    background-color: #ffffff;
+    padding: 2px 5px;
+    line-height: 20px;
+    /* white-space: nowrap; */
+    /* text-overflow: ellipsis;
+    overflow: hidden; */
+    word-break: normal;
+}
+
+.print-hidden{
+    width:600px;
+    zoom: 120%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* justify-content: space-between; */
+}
+.print-hidden-left{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    padding: 10px;
+    align-items: center;
+}
+.btn{
+    padding: 5px 5px;
+    border-radius: 5px;
+    border: 1px solid #0000;    
+    line-height: 20px;
+}
+
+.print{
+    background: #1498ef;
+    color: #fff;
+}
+.changetitle{
+    background: #0c6da3;
+    color: #fff;
+}
+.print-hidden-right{
+  display: block;
+  padding: 5px;
+}
+.grupby{
+    padding: 5px 5px;
+    border-radius: 5px;        
+    line-height: 20px;
+    background: #ffffff;
+    color:#0c6da3;
+    border: 2px solid #0c6da3;    
+}
+.hidden-list{
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 5px;
+    background: #fafafa;
+    box-shadow: -2px 3px 12px #e2e2e2;
+    z-index: 3;
+  
+}
+.groupbylist{
+    font-size: 12px;
+    padding: 5px;
+    border-bottom: 1px solid #d3d3d3;
+    cursor: pointer;
+}
+.groupbylist:hover{
+    background-color: #efefef;
+}
+
+
+.btn:hover{
+    background-color: #333030;
+}
+.grupby:hover .hidden-list{
+    display: flex;
+}
+.numeric-cells{
+    text-align: right;
+}
+.grouptitle{
+    background: #eff5ff !important;
+    font-weight: 800;
+    padding: 1px 5px !important;
+    font-size: 11.5px !important;
+    color: #004b70;
+}
+
+.subtotalrow{
+    background: #fffcf2 !important;
+    font-weight: 800;
+    color: #c800ae !important;
+}
+.title-cell{
+    font-weight: 800;
+    color: #156d66  !important;
+}
+.gtotalrow{
+    background-color: #f5e3e3 !important;
+    padding: 1px 3px !important;
+    font-size: 9.5px !important;
+    line-height: 1rem;
+    font-weight: 600;    
+    color: #7a1616;
+    border-bottom: 1px solid #000;
+    border-right : 1px solid #c0a0a0;
+}
+.titlerow{
+    color: #e00000;
+}
+.pagebreak{
+    page-break-before: always;
+}
+
+
+    .dang {
+        background: #fff2f2;
+        color: #f30000;
+        font-weight: 700;
+    }
+
+    .okgg {
+        background: #f2fdff;
+        color: #007592;
+        font-weight: 700;
+    }
+
+    .break-page{
+        page-break-before: always;
+    }
+    
+
+    .wmark {
+        -webkit-transform: rotate(331deg);
+        -moz-transform: rotate(331deg);
+        -o-transform: rotate(331deg);
+        transform: rotate(331deg);
+        font-size: 8em;
+        color: #ff000005;
+        font-family: 'popblk', sans-serif;
+        text-transform: uppercase;
+        padding-left: 10%;
+        z-index: 80;
+        position: fixed;
+        top: 268px;
+        display: none;
+    }
+
+    
+.print-headers {
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    padding: 5px;
+    gap: 20px;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.print-logopart {
+    display: flex;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+}
+
+.print-titlepart {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-family: 'abel';
+}
+
+.print-title-part-cmname {
+    font-family: 'abel';
+    font-weight: 800;
+    font-size: 25px;
+    color: #0a0ae3;
+}
+
+.print-title-part-subtitle {    
+    font-weight: 700;
+    font-size: 18px;
+    font-weight: 700;    
+    font-family: 'roboto';
+    width: 100%;
+    text-align: center;
+    background: #fff1f1;
+    border: 1px solid #940000;
+    color: #940000;
+}
+
+
+
+@media  print{
+    body{
+        zoom : 100%;
+        
+    }
+    .wmark{
+        display: block;
+    }
+    .main-print-conatiner{
+        position: relative;
+        display: block;
+    }
+    .main-print-title{
+        /* position: fixed;
+        width:100%;
+        top:0px; */
+        justify-content: center;        
+        z-index: 5;
+    }
+    
+    
+    /* .main-print-page{        
+        /* top:80px; 
+    } */
+    .printtime{
+        /* position: fixed;
+        width:100%;
+        top:65px; */
+        margin-right: 10px;
+        text-align: right;
+    }
+    .print-hidden{
+        display:none;
+    }
+    .mainprint-table{
+        width : 100%;
+        zoom : 75%
+    }
+    .main-div{
+        width : 100%;
+    }
+
+    
+}

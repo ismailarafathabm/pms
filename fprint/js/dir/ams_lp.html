@@ -1,0 +1,165 @@
+<style>
+    table{
+        border-collapse: collapse;
+
+    }
+    table td,
+    table th{
+       border: 1px solid #000000;
+       line-height: 38px;
+       padding: 10px;
+    }
+    .budget-headers-cells-lable{
+        width:220px;
+        font-weight: 600;
+    }
+
+    .areasum {
+        border: 1px solid #0073ff;
+        background: #ebf4ff;
+        color: #0073ff;
+    }
+
+    .bottomsig {
+        width: 100%;
+    }
+
+    .bottomsig-row {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .signarea {
+        height: 150px;
+        width: 150px;
+        border: 1px dotted #000;
+    }
+
+    .officername {
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .officernameposition {
+        font-size: 9px;
+        font-weight: bold;
+    }
+
+    @media print {
+        @page {
+            size: portrait
+        }
+
+        .bottomsig {
+            width: 100%;
+            position: fixed;
+            bottom: 10px;
+            left: 0;
+        }
+
+        .bottomsig-row {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .signarea {
+            height: 120px;
+            width: 120px;
+            border: 1px dotted #000;
+        }
+
+        .officername {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .officernameposition {
+            font-size: 9px;
+            font-weight: bold;
+        }
+    }
+</style>
+
+<table>
+    <tr>
+        <td class="budget-headers-cells-lable">Date</td>
+        <td class="budget-headers-cells-dt">{{printdata.pdate_d}}</td>
+    </tr>
+    <tr>
+        <td class="budget-headers-cells-lable">From</td>
+        <td class="budget-headers-cells-dt">Finance Department</td>
+    </tr>
+    <tr>
+        <td class="budget-headers-cells-lable">To</td>
+        <td class="budget-headers-cells-dt">{{printdata.pto}}</td>
+    </tr>
+    <tr>
+        <td colspan="2" class="budget-headers-cells-dt"
+         style="
+            color: #0941c5;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+         "
+        >
+        {{printdata.pnotes}}
+    </td>
+    </tr>
+    <tr>
+        <td class="budget-headers-cells-lable">Client</td>
+        <td class="budget-headers-cells-dt" 
+        style="
+            font-size: 16px;
+            font-weight: bold;
+            color: #f00;
+        "
+        >{{printdata.pclient | uppercase}}</td>
+    </tr>
+    <tr>
+        <td class="budget-headers-cells-lable" >Project</td>
+        <td class="budget-headers-cells-dt" 
+        style="
+            color: #0091ca;
+            font-size: 16px;
+            font-style: italic;  
+        "
+        >{{printdata.pproject | uppercase}}</td>
+    </tr>
+    <tr>
+        <td class="budget-headers-cells-lable">Site</td>
+        <td class="budget-headers-cells-dt">{{printdata.psite | uppercase}}</td>
+    </tr>
+    <tr>
+        <td class="budget-headers-cells-lable">Works To Be Loaded</td>
+        <td class="budget-headers-cells-dt">{{printdata.premarks}}</td>
+    </tr>
+    <tr>
+        <td class="budget-headers-cells-lable">Due To The Following</td>
+        <td class="budget-headers-cells-dt" 
+        style="
+            background: #fffcfc;
+            font-size: 16px;
+            font-weight: bold;
+            color: #8f0000;
+        ">{{printdata.pby}}</td>
+    </tr>
+    <tr>
+        <td class="budget-headers-cells-lable">Remarks</td>
+        <td class="budget-headers-cells-dt"  style="
+        background: #f8fdff;
+        font-size: 14px;
+        text-decoration: underline;"
+        >{{printdata.descriptions}}</td>
+    </tr>
+</table>
+
+<div class="bottomsig">
+    <div class="bottomsig-row">
+        <div class="signarea"></div>
+        <div class="officernameposition">Sign/date</div>
+        <div class="officername">Approved</div>
+        <div class="officername" style="max-width: 200px;text-align: center">Finance manager</div>
+    </div>
+</div>

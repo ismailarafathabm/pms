@@ -1,0 +1,31 @@
+<div class="auto-complete-model">
+    <div class="auto-complete-model-container">
+        <div class = "auto-complete-model-search" style="display: flex; gap:20px;align-items: center;">
+            <input type="text" ng-change="getitemsboq($event)" class="search-list-input" name="src_bom_item_model" placeholder="Search..." ng-model="srcbomitems" />
+            <i class="fa fa-times" style="font-size: 16px;color:red" ng-click="closecurrent()"></i>
+        </div>
+        <div class = "auto-complete-model-result-box">
+            <div class="auto-complete-model-result" ng-repeat="x in itemlist" ng-click="bomitemselect_click(x)">
+                <div class="auto-compleate-itemsinfo-container">
+                    <div class="item-descriptions" style="font-weight: bold;">{{x.itemdescription}}</div>
+                    <div class="item-info-group">
+                        <div class="item-partno">Part No# : <span style="font-weight: bold;color:brown">{{x.itempartno}}</span></div>
+                        <div class="item-partno">Profile No : <span style="font-weight: bold;color:cadetblue">{{x.itemprofileno}}</span></div>
+                    </div>
+                    <div class="item-info-group">
+                        <div class="item-partno">System : <span style="font-weight: bold;color:green">{{x.itemsystem}}</span></div>
+                        <div class="item-partno">Type : <span style="font-weight: bold;color:#170080">{{x.itemtype}}</span></div>
+                    </div>
+                    <div class="item-info-group">
+                        <div class="item-partno">Die Weight : <span style="font-weight: bold;">{{x.itemdieweight}}</span></div>
+                        <div class="item-partno">Alloy : <span style="font-weight: bold;">{{x.itemalloy}}</span></div>
+                    </div>
+                    <div class="item-info-group">
+                        <div class="item-partno">Unit : <span style="font-weight: bold;">{{x.itemunit}}</span></div>
+                        <div class="item-partno">Length : <span style="font-weight: bold;">{{x.itemlength}}</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

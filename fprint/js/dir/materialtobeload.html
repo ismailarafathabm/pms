@@ -1,0 +1,73 @@
+<div style="font-size: 0.8rem;" class="printtime"> Running Date : {{currentdate}}</div>
+<div class="wmark">
+    NAFCO PMS
+</div>
+<div ng-show="ungroupdisp">
+    <table class="mainprint-table">       
+        <thead>
+            <tr>
+                <th style="width:0.3in">S.No</th>
+                <th style="width:2in">Project Name</th>
+                <th style="width:0.48in">Location</th>
+                <th style="width:2in">Description</th>
+                <th style="width:0.4in">Qty</th>
+                <th style="width:0.4in">Area</th>
+                <th style="width:0.4in">Units</th>
+                <th style="width:0.70in">Cutting List</th>
+                <th style="width:0.70in">Driver</th>
+                <th style="width:0.85in">Loading Date</th>
+                <th style="width:0.85in">At Site</th>
+                <th style="width:0.63in">Status</th>
+                <th style="width:1.10in">Remarks</th>
+                
+                <!-- <th>S.No</th>
+                <th>Project Name</th>
+                <th>Location</th>
+                <th>Description</th>
+                <th>Qty</th>
+                <th>Area</th>
+                <th>Units</th>
+                <th>Cutting List</th>
+                <th>Driver</th>
+                <th>Loading Date</th>
+                <th>At Site</th>
+                <th>Status</th>
+                <th>Remarks</th> -->
+            </tr>
+        </thead>
+        <tbody id="ungroupdata_disp">
+       
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<div ng-show="!ungroupdisp">
+    <input class="print-hidden"  type="checkbox" ng-model="newpageadd"/><span class="print-hidden" style="font-size:10px;    width: auto;"> Break Page For Each Group</span>
+    <table class="mainprint-table">
+        <thead>
+            <tr>
+                <th style="width:0.3in">S.No</th>
+                <th style="width:2in" ng-hide="groupColumn === 'loadproject'">Project Name</th>
+                <th style="width:0.48in" ng-hide="groupColumn === 'location'">Location</th>
+                <th style="width:2in" ng-hide="groupColumn === 'description'">Description</th>
+                <th style="width:0.4in">Qty</th>
+                <th style="width:0.4in">Area</th>
+                <th style="width:0.4in">Units</th>
+                <th style="width:0.70in">Cutting List</th>
+                <th style="width:0.70in" ng-hide="groupColumn === 'driver'">Driver</th>
+                <th style="width:0.85in">Loading Date</th>
+                <th style="width:0.85in">At Site</th>
+                <th style="width:0.63in" ng-hide="groupColumn === 'status'">Status</th>
+                <th style="width:1.10in">Remarks</th>
+            </tr>
+        </thead>
+        <tbody id="groupdatadisp">
+            
+
+        </tbody>
+    </table>
+</div>

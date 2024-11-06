@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BOM REPORT</title>
+        <link rel="stylesheet" href="./css/font.css">
+        <style>
+        * {
+            font-size: 0.85rem;
+            font-family: 'owh';
+
+        }
+       
+        
+        table {
+            width: auto;
+            margin: 1px auto;
+            border: 1px solid #000;
+            border-collapse: collapse;
+            
+
+        }
+
+        table th,
+        table td {
+            border: 1px solid #000;
+            padding: 3px;
+        }
+
+        .theader {
+            background-color: #efefef;
+
+        }
+        .noonprint{
+            position: sticky;
+    top: 0;
+    background: #fff;
+    padding: 10px;
+        }
+        @media print{
+            body{
+                width : auto;
+                margin: 0.39in 0.39in 0.75in 0.39in;
+            }
+            table{
+                zoom: 85%;
+            }
+            .noonprint{
+                display:none;
+            }
+        }
+        @page {
+            size:auto ;
+            margin: 0.39in 0.39in 0.75in 0.39in;
+            /* margin: 27mm 16mm 27mm 16mm; */
+        }
+        </style>
+
+    </head>
+    <body>
+        <div class="noonprint">
+            <div>
+                Group By
+                <select id="groupby">
+                    <option value>-</option>
+                    <option value="bom_projectname">By Project</option>
+                    <option value="bom_description">Item Description</option>
+                    <option value="bom_makeby">Make By</option>
+                    <option value="boqitem">BOQ Item Type</option>
+                    <option value="bom_itemfinish">ITEM FINISH</option>
+                    <option value="bom_postflag_txt">STATUS</option>
+                </select>
+                <input type="text" id="print_titlex"
+                    placeholder="Enter Title" style="display: none;" />
+                <button type="button" id="rptload">Load Report</button>
+                <button type="button" id="summaryload">Load Summary</button>
+                <button onclick="window.print()">Print</button>
+                <button id="exportexcel" class="ism-btns btn-normal"
+                    style="display: none;">
+                    Export Excel
+                </button>
+            </div>
+        </div>
+        <div id="maincontent">
+
+        </div>
+        <script
+            src="./../themes/loginscreen/vendor/jquery/jquery-3.2.1.min.js"></script>
+        <script src="./../Dashboard/Main/excelnn.js"></script>
+        <script>
+             let groupby = document.getElementById("groupby");
+             const filters = {
+                'bom_projectname' : "PROJECT WISE",
+                'bom_description' : "ITEM DESCRIPTION WISE",
+                'bom_makeby'  : 'BOM BY WISE',              
+                'boqitem'  : 'BOQ NO WISE',
+                'bom_postflag_txt' : 'POST STATUS WISE',
+                'bom_itemfinish' : 'FINISH WISE'
+            }
+
+            let data = [];
+            let gdata = [];  
+
+            let req_bar = 0;
+            let req_weight = 0;  
+
+            let avi_bar = 0;
+
+            let order_bar = 0;
+            let order_weight = 0;  
+
+            let gorupbytitle = "";
+
+            function GTotal(){
+                req_bar = data.reduce((r,j)=> r + (+j.bom_qrbar),0);
+                req_weight = data.reduce((r,j)=> r + (+j.bom_qrtotweight),0);
+                avi_bar = data.reduce((r,j)=> r + (+j.bom_avaibar),0);
+                order_bar = data.reduce((r,j)=> r + (+j.bom_orderbar),0);
+                order_weight = data.reduce((r,j)=> r + (+j.bom_orderweight),0);
+            }
+            function _groupdata(){
+                const gby = groupby.value;
+                gorupbytitle = filters[gby]
+                console.log(gorupbytitle);
+                gdata = [];
+                let gnames = [];
+                data.map(i=>{
+                    const gname = i[gby].trim();
+                    if(!gnames.includes(gname)){
+                        gnames.push(gname);
+                    }
+                });
+                gnames.map(i=>{
+                    let x = {};
+                    x['gbyname'] = i;
+
+                    const datas = data.filter(y=> y[gby].trim() === i);
+
+                    const tot_req_bar = data.reduce((r,j)=> r + (+j.bom_qrbar),0);
+                    const tot_req_weight = data.reduce((r,j)=> r + (+j.bom_qrtotweight),0);
+                    const tot_avi_bar = data.reduce((r,j)=> r + (+j.bom_avaibar),0);
+                    const tot_order_bar = data.reduce((r,j)=> r + (+j.bom_orderbar),0);
+                    const tot_order_weight = data.reduce((r,j)=> r + (+j.bom_orderweight),0);
+                    
+                    x['tot_req_bar'] = tot_req_bar;
+                    x['tot_req_weight'] = tot_req_weight;                    
+                    x['tot_avi_bar'] = tot_avi_bar;                    
+                    x['tot_order_bar'] = tot_order_bar;                    
+                    x['tot_order_weight'] = tot_order_weight;                    
+                    x['data'] = datas;
+                    gdata.push(x);
+                    
+                })
+                console.log(gdata);
+            }
+            window.onload = () => {
+                let _data = window.pms_boms; // must be change to window params                
+                //console.log(_data);
+                data = JSON.parse(_data);                
+                GTotal();
+                PrintNormal();
+            }
+            let rptload = document.getElementById('rptload');
+            rptload.onclick = () => {
+                const gbyval = groupby.value;
+                if(gbyval === ''){
+                    PrintNormal()
+                }else{
+                    _groupdata();
+                    printbygroup();
+                }
+            }
+            groupby.onchange = () => {
+                const gbyval = groupby.value;
+                if(gbyval === ''){
+                    PrintNormal()
+                }else{
+                    _groupdata();
+                    printbygroup();
+                }
+            }
+            function PrintNormal(){
+                let pr = "";
+                pr += ` <table style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th colspan="8"   style="align-items: center;background-color: #ffffff;
+                                border-right: 1px solid transparent;
+                                border-top: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                border-bottom: 1px solid transparent;">
+                                <img load="lazy" src="./css/nafco_letter.png"
+                                        style="width:90%;height: 88px;">
+                            </th>
+                        </tr>
+                        <tr>
+                                <th id="pagetitlex" colspan="8" style="font-size: 18px;
+                                border-right: 1px solid transparent;
+                                border-bottom: 1px solid transparent;
+                                border-top: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                            ">
+                                    BOM REPORT
+                                </th>
+                            </tr>
+                    </thead>                  
+                    </table> `
+                    pr += ` <table style="width: 100%;">
+                    <thead>                        
+                    `;
+                    pr += `<tr>`;
+                    pr += `<td style="background:#f5f5f5;padding:9px">S.No</td>`;    
+                    pr += `<td style="background:#f5f5f5;padding:9px">POST?</td>`; 
+                    pr += `<td style="background:#f5f5f5;padding:9px">Project#</td>`;    
+                    pr += `<td style="background:#f5f5f5;padding:9px">Project Name</td>`;    
+                    pr += `<td style="background:#f5f5f5;padding:9px">BOM#</td>`;    
+                    pr += `<td style="background:#f5f5f5;padding:9px">Date</td>`;    
+                    pr += `<td style="background:#f5f5f5;padding:9px">Profile</td>`;    
+                    pr += `<td style="background:#f5f5f5;padding:9px">Item Description</td>`;    
+                    pr += `<td style="background:#f5f5f5;padding:9px">Die Weight</td>`;    
+                    pr += `<td style="background:#f5f5f5;padding:9px">Length</td>`;    
+                    pr += `<td style="background:#f5f5f5;padding:9px">Reqire Bar</td>`;
+                    pr += `<td style="background:#f5f5f5;padding:9px">Reqire Weight</td>`;
+                    pr += `<td style="background:#f5f5f5;padding:9px">Avi.Length</td>`;    
+                    pr += `<td style="background:#f5f5f5;padding:9px">Avi.Bar</td>`
+                    pr += `<td style="background:#f5f5f5;padding:9px">Ord.Length</td>`;    
+                    pr += `<td style="background:#f5f5f5;padding:9px">Ord.Bar</td>`
+                    pr += `<td style="background:#f5f5f5;padding:9px">Ord.Weight</td>`
+                    pr += `<td style="background:#f5f5f5;padding:9px">Finish</td>`
+                    pr += `<td style="background:#f5f5f5;padding:9px">Remark</td>`
+                    pr += `</tr>`;                    
+                    pr +=`</head>`;
+                    pr += `<tbody>`;
+                        data.map((i,index)=>{
+                            pr += `<tr key="${index}">`
+                            pr += `<td>${index+1}</td>`;
+                            pr += `<td>${i.bom_postflag_txt}</td>`;
+                            pr += `<td>${i.bom_projectno}</td>`;
+                            pr += `<td style="width:212px">${i.bom_projectname}</td>`;
+                            pr += `<td>${i.bomfno}</td>`;
+                            pr += `<td>${i.bom_date_s.normal}</td>`;
+                            pr += `<td>${i.bom_profileno}</td>`;
+                            pr += `<td>${i.bom_description}</td>`;
+                            pr += `<td style="text-align:center;font-weight:bold">${
+                                (+i.bom_dieweight) === 0 ? '-' : 
+                                (+i.bom_dieweight).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                            }</td>`;
+                            pr += `<td style="text-align:center;font-weight:bold">${
+                                (+i.bom_qrlenght) === 0 ? '-' : 
+                                (+i.bom_qrlenght).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                            }</td>`;
+                            pr += `<td style="text-align:center;font-weight:bold">${
+                                (+i.bom_qrbar) === 0 ? '-' : 
+                                (+i.bom_qrbar).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                            }</td>`;
+                            pr += `<td style="text-align:center;font-weight:bold">${
+                                (+i.bom_qrtotweight) === 0 ? '-' : 
+                                (+i.bom_qrtotweight).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                            }</td>`;
+                            pr += `<td style="text-align:center;font-weight:bold">${
+                                (+i.bom_avilength) === 0 ? '-' : 
+                                (+i.bom_avilength).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                            }</td>`;
+                            pr += `<td style="text-align:center;font-weight:bold">${
+                                (+i.bom_avaibar) === 0 ? '-' : 
+                                (+i.bom_avaibar).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                            }</td>`;
+                            pr += `<td style="text-align:center;font-weight:bold">${
+                                (+i.bom_orderlength) === 0 ? '-' : 
+                                (+i.bom_orderlength).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                            }</td>`;
+                            pr += `<td style="text-align:center;font-weight:bold">${
+                                (+i.bom_orderbar) === 0 ? '-' : 
+                                (+i.bom_orderbar).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                            }</td>`;
+                            pr += `<td style="text-align:center;font-weight:bold">${
+                                (+i.bom_orderweight) === 0 ? '-' : 
+                                (+i.bom_orderweight).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                            }</td>`;
+                            pr += `<td>${i.bom_itemfinish}</td>`;
+                            pr += `<td>${i.bom_remarks}</td>`;
+                            pr += `</tr>`
+                        })
+                    pr += `<tr>`;
+                       
+                        pr += `<td colspan="10">Sub Total</td>`;
+                        pr += `<td style="background: #fdffe5;color:red;font-weight:bold;text-align:center;">${
+                            (+req_bar) === 0 ? '-' : 
+                            (+req_bar).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                        }</td>`;
+                        pr += `<td style="background: #fdffe5;color:red;font-weight:bold;text-align:center;">${
+                            (+req_weight) === 0 ? '-' : 
+                            (+req_weight).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                        }</td>`;
+                        pr += `<td></td>`;
+                        pr += `<td style="background: #fdffe5;color:red;font-weight:bold;text-align:center;">${
+                            (+avi_bar) === 0 ? '-' : 
+                            (+avi_bar).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                        }</td>`;
+                        pr += `<td></td>`;
+                        pr += `<td style="background: #fdffe5;color:red;font-weight:bold;text-align:center;">${
+                            (+order_bar) === 0 ? '-' : 
+                            (+order_bar).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                        }</td>`;
+                        pr += `<td style="background: #fdffe5;color:red;font-weight:bold;text-align:center;">${
+                            (+order_weight) === 0 ? '-' : 
+                            (+order_weight).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                        }</td>`;
+                        pr += `<td></td>`;
+                        pr += `<td></td>`;
+                    pr += `</tr>`;
+                    pr += `</tbody>`;
+                    pr += `</table>`;
+                
+                document.getElementById("maincontent").innerHTML = pr;
+            }
+            function printbygroup(){
+                let pr = "";
+                pr += ` <table style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th colspan="8"   style="align-items: center;background-color: #ffffff;
+                                border-right: 1px solid transparent;
+                                border-top: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                border-bottom: 1px solid transparent;">
+                                <img load="lazy" src="./css/nafco_letter.png"
+                                        style="width:90%;height: 88px;">
+                            </th>
+                        </tr>
+                        <tr>
+                                <th id="pagetitlex" colspan="8" style="font-size: 18px;
+                                border-right: 1px solid transparent;
+                                border-bottom: 1px solid transparent;
+                                border-top: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                            ">
+                                 BOM REPORT ${gorupbytitle}
+                                </th>
+                            </tr>
+                    </thead>                  
+                    </table> `;
+                    pr += `<table style="width: 100%;">`;                                          
+                    gdata.map(x=>{
+                        pr += `<tr>`;
+                        pr += `<td style="background:#f5f5f5;padding:9px">S.No</td>`;    
+                        pr += `<td style="background:#f5f5f5;padding:9px">POST?</td>`; 
+                        pr += `<td style="background:#f5f5f5;padding:9px">Project#</td>`;    
+                        pr += `<td style="background:#f5f5f5;padding:9px">Project Name</td>`;    
+                        pr += `<td style="background:#f5f5f5;padding:9px">BOM#</td>`;    
+                        pr += `<td style="background:#f5f5f5;padding:9px">Date</td>`;    
+                        pr += `<td style="background:#f5f5f5;padding:9px">Profile</td>`;    
+                        pr += `<td style="background:#f5f5f5;padding:9px">Item Description</td>`;    
+                        pr += `<td style="background:#f5f5f5;padding:9px">Die Weight</td>`;    
+                        pr += `<td style="background:#f5f5f5;padding:9px">Length</td>`;    
+                        pr += `<td style="background:#f5f5f5;padding:9px">Reqire Bar</td>`;
+                        pr += `<td style="background:#f5f5f5;padding:9px">Reqire Weight</td>`;
+                        pr += `<td style="background:#f5f5f5;padding:9px">Avi.Length</td>`;    
+                        pr += `<td style="background:#f5f5f5;padding:9px">Avi.Bar</td>`
+                        pr += `<td style="background:#f5f5f5;padding:9px">Ord.Length</td>`;    
+                        pr += `<td style="background:#f5f5f5;padding:9px">Ord.Bar</td>`
+                        pr += `<td style="background:#f5f5f5;padding:9px">Ord.Weight</td>`
+                        pr += `<td style="background:#f5f5f5;padding:9px">Finish</td>`
+                        pr += `<td style="background:#f5f5f5;padding:9px">Remark</td>`
+                        pr += `</tr>`;   
+                        pr += `<thead><tr>`;
+                        pr +=`<td colspan="19" style="background: #e9fcff;font-weight: 600;font-size: 0.95rem;padding: 6px;">${x.gbyname}</td>`;  
+                        pr +=`</tr></head>`;
+                                          
+                        pr +=`<tbody>`;
+                        x.data.map((i,index)=>{
+                            pr += `<thead>`;
+                       
+                            pr += `<tr key="${index}">`
+                            pr += `<td>${index+1}</td>`;
+                            pr += `<td>${i.bom_postflag_txt}</td>`;
+                            pr += `<td>${i.bom_projectno}</td>`;
+                            pr += `<td style="width:212px">${i.bom_projectname}</td>`;
+                            pr += `<td>${i.bomfno}</td>`;
+                            pr += `<td>${i.bom_date_s.normal}</td>`;
+                            pr += `<td>${i.bom_profileno}</td>`;
+                            pr += `<td>${i.bom_description}</td>`;
+                            pr += `<td style="text-align:center;font-weight:bold">${
+                                (+i.bom_dieweight) === 0 ? '-' : 
+                                (+i.bom_dieweight).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                            }</td>`;
+                            pr += `<td style="text-align:center;font-weight:bold">${
+                                (+i.bom_qrlenght) === 0 ? '-' : 
+                                (+i.bom_qrlenght).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                            }</td>`;
+                            pr += `<td style="text-align:center;font-weight:bold">${
+                                (+i.bom_qrbar) === 0 ? '-' : 
+                                (+i.bom_qrbar).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                            }</td>`;
+                            pr += `<td style="text-align:center;font-weight:bold">${
+                                (+i.bom_qrtotweight) === 0 ? '-' : 
+                                (+i.bom_qrtotweight).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                            }</td>`;
+                            pr += `<td style="text-align:center;font-weight:bold">${
+                                (+i.bom_avilength) === 0 ? '-' : 
+                                (+i.bom_avilength).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                            }</td>`;
+                            pr += `<td style="text-align:center;font-weight:bold">${
+                                (+i.bom_avaibar) === 0 ? '-' : 
+                                (+i.bom_avaibar).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                            }</td>`;
+                            pr += `<td style="text-align:center;font-weight:bold">${
+                                (+i.bom_orderlength) === 0 ? '-' : 
+                                (+i.bom_orderlength).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                            }</td>`;
+                            pr += `<td style="text-align:center;font-weight:bold">${
+                                (+i.bom_orderbar) === 0 ? '-' : 
+                                (+i.bom_orderbar).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                            }</td>`;
+                            pr += `<td style="text-align:center;font-weight:bold">${
+                                (+i.bom_orderweight) === 0 ? '-' : 
+                                (+i.bom_orderweight).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                            }</td>`;
+                            pr += `<td>${i.bom_itemfinish}</td>`;
+                            pr += `<td>${i.bom_remarks}</td>`;
+                            pr += `</tr>`
+                        
+                        })   
+                        pr += `<tr>`;
+                       
+                       pr += `<td colspan="10">Sub Total</td>`;
+                       pr += `<td style="background: #fdffe5;color:red;font-weight:bold;text-align:center">${
+                           (+x.tot_req_bar) === 0 ? '-' : 
+                           (+x.tot_req_bar).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                       }</td>`;
+                       pr += `<td style="background: #fdffe5;color:red;font-weight:bold;text-align:center">${
+                           (+x.tot_req_weight) === 0 ? '-' : 
+                           (+x.tot_req_weight).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                       }</td>`;
+                       pr += `<td></td>`;
+                       pr += `<td style="background: #fdffe5;color:red;font-weight:bold;text-align:center">${
+                           (+x.tot_avi_bar) === 0 ? '-' : 
+                           (+x.tot_avi_bar).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                       }</td>`;
+                       pr += `<td></td>`;
+                       pr += `<td style="background: #fdffe5;color:red;font-weight:bold;text-align:center">${
+                           (+x.tot_order_bar) === 0 ? '-' : 
+                           (+x.tot_order_bar).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                       }</td>`;
+                       pr += `<td style="background: #fdffe5;color:red;font-weight:bold;text-align:center">${
+                           (+x.tot_order_weight) === 0 ? '-' : 
+                           (+x.tot_order_weight).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                       }</td>`;
+                       pr += `<td></td>`;
+                       pr += `<td></td>`;
+                   pr += `</tr>`;
+
+                    })
+                    pr += `<tr>`;
+                       
+                       pr += `<td style="background: #ebebeb" colspan="10">Grand total</td>`;
+                       pr += `<td style="background: #ebebeb;font-weight:bold;color:red;text-align:center">${
+                           (+req_bar) === 0 ? '-' : 
+                           (+req_bar).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                       }</td>`;
+                       pr += `<td style="background: #ebebeb;font-weight:bold;color:red;text-align:center">${
+                           (+req_weight) === 0 ? '-' : 
+                           (+req_weight).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                       }</td>`;
+                       pr += `<td style="background: #ebebeb"></td>`;
+                       pr += `<td style="background: #ebebeb;font-weight:bold;color:red;text-align:center">${
+                           (+avi_bar) === 0 ? '-' : 
+                           (+avi_bar).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                       }</td>`;
+                       pr += `<td style="background: #ebebeb"></td>`;
+                       pr += `<td style="background: #ebebeb;font-weight:bold;color:red;text-align:center">${
+                           (+order_bar) === 0 ? '-' : 
+                           (+order_bar).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                       }</td>`;
+                       pr += `<td style="background: #ebebeb;font-weight:bold;color:red;text-align:center">${
+                           (+order_weight) === 0 ? '-' : 
+                           (+order_weight).toLocaleString(undefined, { maximumFractionDigits: 3 })
+                       }</td>`;
+                       pr += `<td style="background: #ebebeb"></td>`;
+                       pr += `<td style="background: #ebebeb"></td>`;
+                   pr += `</tr>`;
+                    pr += `</table>`
+                    document.getElementById("maincontent").innerHTML = pr; 
+            }            
+        </script>
+    </body>
+</html>

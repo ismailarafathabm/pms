@@ -1,0 +1,90 @@
+<div style="font-size: 0.8rem;"> Running Date : {{currentdate}}</div>
+<div ng-show="ungroupdisp">
+    <table class="mainprint-table">       
+        <thead>
+            <tr>
+                <th style="width:35px">S.No</th>
+                <th style="width:200px">Project Name</th>
+                <th style="width:80px">Location</th>
+                <th style="width:220px">Description</th>
+                <th style="width:60px">Week #</th>
+                <th style="width:60px">Qty</th>
+                <th style="width:60px">Area</th>
+                <th style="width:40px">Units</th>
+                <th style="width:100px">Cutting List</th>
+                <th style="width:100px">Driver</th>
+                <th style="width:80px">Loading Date</th>
+                <th style="width:80px">At Site</th>                
+                <th style="width:130px">Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="x in ungroup">
+                <td>{{$index+1}}</td>
+                <td style="color :#7521ad;font-weight: bold;white-space: pre-wrap;">{{x.loadproject}} - [{{x.pjcno}}]</td>
+                <td style="white-space: normal;">{{x.location}}</td>
+                <td style="color :#2207ff;font-weight: bold;white-space: pre-wrap;">{{x.description}}</td>
+                <td style="text-align: right;font-weight: bold;"> {{x.currentweek}}</td>
+                <td style="text-align: right;font-weight: bold;;text-align:center">{{x.qty}}</td>
+                <td style="text-align: right;font-weight: bold;;text-align:center">{{x.area}}</td>
+                <td>{{x.unit}}</td>
+                <td>{{x.cuttinglistno}}</td>
+                <td>{{x.driver}}</td>
+                <td>{{x.loadingdate_p}}</td>
+                <td>{{x.ascurrentdate_p}}</td>                
+                <td style="white-space: normal;">{{x.remark}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<div ng-show="!ungroupdisp">
+    <input class="print-hidden" type="checkbox" ng-model="newpageadd"/><span class="print-hidden" style="font-size:10px"> Break Page For Each Group</span>
+    <table class="mainprint-table">
+        <thead>
+            <tr>
+                <th style="width:35px">S.No</th>
+                <th style="width:200px" ng-hide="groupColumn === 'loadproject'">Project Name</th>
+                <th style="width:80px"  ng-hide="groupColumn === 'location'">Location</th>
+                <th style="width:220px"  ng-hide="groupColumn === 'description'">Description</th>
+                <th style="width:60px"  ng-hide="groupColumn === 'currentweek'">Week #</th>
+                <th style="width:60px">Qty</th>
+                <th style="width:60px">Area</th>
+                <th style="width:40px">Units</th>
+                <th style="width:40px">Cuttnig List No.</th>
+                <th style="width:100px"  ng-hide="groupColumn === 'driver'">Driver</th>
+                <th style="width:80px">Loading Date</th>
+                <th style="width:80px">At Site</th>                
+                <th style="width:130px">Remarks</th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="z in groupdata" class="{{newpageadd  && z.$index !== 0 ? 'pagebreak' : ''}}">
+            <tr>
+                <td colspan="{{colspancnt}}" class='grouptitle'>
+                    {{groupdataTitle}} : {{z.cols.toUpperCase()}}
+                </td>
+            </tr>
+            <tr ng-repeat="x in z.xdata">
+                <td>{{$index+1}}</td>
+                <td style="color :#7521ad;font-weight: bold;white-space: pre-wrap;"  ng-hide="groupColumn === 'loadproject'">{{x.loadproject}} - [{{x.pjcno}}]</td>
+                <td ng-hide="groupColumn === 'location'" style="white-space: normal;">{{x.location}}</td>
+                <td style="color :#2207ff;font-weight: bold;white-space: pre-wrap;" ng-hide="groupColumn === 'description'">{{x.description}}</td>
+                <td style="color :#2207ff;font-weight: bold;white-space: pre-wrap;" ng-hide="groupColumn === 'currentweek'">{{x.currentweek}}</td>
+                <td style="text-align: right;font-weight: bold;;text-align:center">{{x.qty}}</td>
+                <td style="text-align: right;font-weight: bold;;text-align:center">{{x.area}}</td>
+                <td>{{x.unit}}</td>
+                <td>{{x.cuttinglistno}}</td>
+                <td ng-hide="groupColumn === 'driver'">{{x.driver}}</td>
+                <td>{{x.loadingdate_p}}</td>
+                <td>{{x.ascurrentdate_p}}</td>                
+                <td style="white-space: normal;">{{x.remark}}</td>
+            </tr>
+            </tr>
+
+        </tbody>
+    </table>
+</div>

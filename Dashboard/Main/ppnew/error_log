@@ -1,0 +1,16 @@
+[18-Feb-2024 14:29:54 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/deleterc.php:115
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/deleterc.php(115): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/deleterc.php(144): DeleteRec->GetReceiptInfo()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/deleterc.php(169): DeleteRec->_SavePPReturnDelete()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/ppworknew/deleterc.php(27): DeleteRec->RemovePPAction()
+#4 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/deleterc.php on line 115
+[21-Feb-2024 09:34:40 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/deleterc.php:115
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/deleterc.php(115): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/deleterc.php(144): DeleteRec->GetReceiptInfo()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/deleterc.php(169): DeleteRec->_SavePPReturnDelete()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/ppworknew/deleterc.php(27): DeleteRec->RemovePPAction()
+#4 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/deleterc.php on line 115

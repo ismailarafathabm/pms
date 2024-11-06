@@ -1,0 +1,469 @@
+<style>
+    table {
+        border: 1px solid #000;
+        border-collapse: collapse;
+    }
+
+    table td,
+    th {
+        line-height: 18px;
+        padding: 2px 10px;
+        font-size: 13px;
+    }
+
+    th {
+        background-color: #e7f2ff;
+        border: 1px solid #000;
+    }
+
+    .main-print-conatiner {
+        width: 210mm;
+        height: 297mm;
+    }
+
+    .dino {
+        display: none;
+    }
+
+    textarea,
+    input {
+        width: 100%
+    }
+
+    input {
+        height: 18px;
+        border: 1px solid;
+    }
+
+    .bottomsig {
+        width: 100%;
+        bottom: 10px;
+        left: 0;
+    }
+
+    .bottomsig-row {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .signarea {
+        height: 120px;
+        width: 120px;
+        border: 1px dotted #000;
+    }
+
+    .officername {
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .officernameposition {
+        font-size: 9px;
+        font-weight: bold;
+    }
+
+    .outline td,
+    .outline th {
+        border: 1px solid #0000;
+    }
+
+    .mainold td {
+        border: 1px solid #0000 !important;
+
+    }
+
+    .infotbale {
+        border-collapse: collapse;
+
+    }
+
+    .infotbale td,
+    th {
+        border: 1px solid #000 !important;
+    }
+
+    /* h1 {
+        counter-increment: cnt;
+    }
+
+    h1::after {
+
+        content: counter(cnt);
+    } */
+
+
+    @media print {
+
+        #ct {
+            counter-increment: pages;
+        }
+
+        #pageid {
+            counter-increment: cpage;
+        }
+
+        #pageid::after {
+            content: counter(cpage) '-' counter(pages);
+        }
+
+        .main-print-conatiner {
+            width: 100%
+        }
+
+        @page {
+            size: A4;
+            @bottom-right{
+                counter-increment: pagenumber;
+                content: counter(pagenumber);
+            }            
+
+        }
+
+        /* .bottomsig {
+            width: 100%;
+            position: fixed;
+            bottom: 10px;
+            left: 0;
+        }
+
+        .bottomsig-row {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .signarea {
+            height: 120px;
+            width: 120px;
+            border: 1px dotted #000;
+        }
+
+        .officername {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .officernameposition {
+            font-size: 9px;
+            font-weight: bold;
+        } */
+
+        .dino {
+            display: block;
+        }
+
+        textarea,
+        input {
+            display: none;
+        }
+
+
+
+        /* 
+        .print-headers {
+            position: fixed;
+        }
+
+        .infotbale {
+            position: fixed;
+            top: 100px;
+            width: 98%;
+        }
+
+        .mainprintcontent {
+            margin-top: 224px;
+            height: 70vh;
+        } */
+
+        h2{
+            counter-increment: mn;
+        }
+        h2::after{
+            content: counter(mn);
+        }
+
+
+
+    }
+
+   
+</style>
+<h1></h1>
+<h1></h1>
+<h1></h1>
+<table class="mainold">
+    <thead>
+        <tr>
+            <td>
+               
+                <table id="ct" class="infotbale" style="width:100%">
+                    <tr>
+                        <td>To</td>
+                        <td style="font-weight: bold;font-style: italic;">{{print.suppliername | uppercase}}</td>
+                        <td>Date</td>
+                        <td>{{print.ponewdate_d}}</td>
+                    </tr>
+                    <tr>
+                        <td>Attn.</td>
+                        <td>{{print.supplieratt}}</td>
+                        <td>Fax #</td>
+                        <td>{{print.supplierfax}}</td>
+                    </tr>
+                    <tr>
+                        <td>Ref.</td>
+                        <td ng-if="print.ponewtype !== 'Glass'" style="font-weight: bold;font-style: italic;">{{print.ponewrefno}}</td>
+                        <td ng-if="print.ponewtype === 'Glass'" style="font-weight: bold;font-style: italic;">NAF/ENGG/{{print.ponewrefno}}</td>
+                        <td>Type</td>
+                        <td>{{print.ponewtype}}</td>
+                    </tr>
+                    <tr>
+                        <td>From.</td>
+                        <td>{{print.ponewfrom}}</td>
+                        <td>Page</td>
+                        <td>
+                            <div id="pageid"> 
+                                <div id="pageiddisp"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Subject</td>
+                        <td colspan="3">ORDER CONFIRMATION <span
+                                style="font-weight: bold;">{{print.projectname}}</span>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <div class="mainprintcontent">
+                    {{print.ponewtype}}
+                    <div style="margin-top: 20px;margin-bottom: 20px;font-style: italic;">
+                        <p style="margin-bottom:10px">Dear Sir,</p>
+                        <textarea ng-model="coverletter">
+                        </textarea>
+                        <p class="dino">{{coverletter}} </p>
+                    </div>
+
+                    <table class="infotbale"  ng-if="print.ponewtype !== 'Glass'">
+                        <thead>
+                            <tr>
+                                <th style="text-align:left">Item</th>
+                                <th style="width:450px">Description</th>
+                                <th style="text-align:center">Qty</th>
+                                <th style="text-align:center">Tonnage</th>
+                                <th style="text-align:center">Area</th>
+                                <th style="text-align:center">Unit Price</th>
+                                <th style="text-align:center">Amount</th>
+                                <th style="text-align:center">Extra</th>
+                                <th style="text-align:center">Sub Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="x in print.dt">
+                                <td>{{$index+1}}</td>
+                                <td>{{x.ponewdtdescription}}</td>
+                                <td style="text-align:center">{{(+x.ponewdtqty) === 0 ? '-' : (+x.ponewdtqty)}}</td>
+                                <td style="text-align:center">{{(+x.ponewdtwgt) === 0 ? '-' :
+                                    (+x.ponewdtwgt).toLocaleString(3)}}</td>
+                                <td style="text-align:center">{{(+x.ponewdtarea) === 0 ? '-' :
+                                    (+x.ponewdtarea).toLocaleString(3)}}</td>
+                                <td style="text-align:right">{{(+x.ponewdtunitprice) === 0 ? '-' :
+                                    (+x.ponewdtunitprice).toLocaleString(2)}}
+                                </td>
+                                <td style="text-align:right">{{(+x.ponewdtwgttotprice) === 0 ? '-' :
+                                    (+x.ponewdtwgttotprice).toLocaleString(2)}}</td>
+
+                                <td style="text-align:right">{{(+x.extraamount) === 0 ? '-' :
+                                    (+x.extraamount).toLocaleString(2)}}</td>
+
+                                <td style="text-align:right">{{(+x.currentamount) === 0 ? '-' :
+                                    (+x.currentamount).toLocaleString(2)}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Total</td>
+
+                                <td style="text-align:center;font-weight: bold;">{{(+qtytot) === 0 ? '-' :
+                                    (+qtytot).toLocaleString(2)}}
+                                </td>
+                                <td style="text-align:center;font-weight: bold;">{{(+wttot) === 0 ? '-' :
+                                    (+wttot).toLocaleString(3)}}
+                                </td>
+                                <td style="text-align:center;font-weight: bold;">{{(+areatot) === 0 ? '-' :
+                                    (+areatot).toLocaleString(3)}}
+                                </td>
+                                <td></td>
+                                <td style="text-align:right;font-weight: bold;">{{(+total) === 0 ? '-' :
+                                    (+total).toLocaleString(2)}}
+                                </td>
+
+                                <td style="text-align:right;font-weight: bold;">{{(+totalextra) === 0 ? '-' :
+                                    (+totalextra).toLocaleString(2)}}
+                                </td>
+
+                                <td style="text-align:right;font-weight: bold;">{{(+totalcurrent) === 0 ? '-' :
+                                    (+totalcurrent).toLocaleString(2)}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="7">VAT</td>
+                                <td>{{print.ponewvat}}%</td>
+                                <td style="text-align:right">{{(+vatam) === 0 ? '-' : (+vatam).toLocaleString(2)}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">Total Amount</td>
+                                <td style="    font-weight: bold;
+                    color: #d10000;
+                    background: #fffbfb;
+                    text-align:right
+                ">{{(+print.ponewtotval) === 0 ? '-' : (+print.ponewtotval).toLocaleString(2)}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="infotbale"  ng-if="print.ponewtype === 'Glass'">
+                        <thead>
+                            <tr>
+                                <th style="text-align:left">Item</th>
+                                <th style="width:150px">Coating</th>
+                                <th style="width:150px">Thickness</th>
+                                <th style="width:250px">Out</th>
+                                <th style="width:150px">Inner</th>
+                                <th style="text-align:center">Qty</th>
+                                <th style="text-align:center;display: none;">Tonnage</th>
+                                <th style="text-align:center">Area</th>
+                                <th style="text-align:center">Unit Price</th>
+                                <th style="text-align:center">Amount</th>
+                                <th style="text-align:center">Extra</th>
+                                <th style="text-align:center">Sub Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="x in print.dt">
+                                <td>{{$index+1}}</td>
+                                <td style="text-align:center;display: none;">{{x.ponewdtdescription}}</td>
+                                <td style="text-align:center;">{{x.glasscoatings}}</td>
+                                <td style="text-align:center;">{{x.glassthickness}}</td>
+                                <td style="text-align:center;">{{x.glassout}}</td>
+                                <td style="text-align:center;">{{x.glassinner}}</td>
+                                <td style="text-align:center">{{(+x.ponewdtqty) === 0 ? '-' : (+x.ponewdtqty)}}</td>
+                                <td style="text-align:center;display: none;">{{(+x.ponewdtwgt) === 0 ? '-' :
+                                    (+x.ponewdtwgt).toLocaleString(3)}}</td>
+                                <td style="text-align:center">{{(+x.ponewdtarea) === 0 ? '-' :
+                                    (+x.ponewdtarea).toLocaleString(3)}}</td>
+                                <td style="text-align:right">{{(+x.ponewdtunitprice) === 0 ? '-' :
+                                    (+x.ponewdtunitprice).toLocaleString(2)}}
+                                </td>
+                                <td style="text-align:right">{{(+x.ponewdtwgttotprice) === 0 ? '-' :
+                                    (+x.ponewdtwgttotprice).toLocaleString(2)}}</td>
+                                    
+                                <td style="text-align:right">{{(+x.extraamount) === 0 ? '-' :
+                                    (+x.extraamount).toLocaleString(2)}}</td>
+
+                                <td style="text-align:right">{{(+x.currentamount) === 0 ? '-' :
+                                    (+x.currentamount).toLocaleString(2)}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">Total</td>
+
+                                <td style="text-align:center;font-weight: bold;">{{(+qtytot) === 0 ? '-' :
+                                    (+qtytot).toLocaleString(2)}}
+                                </td>
+                                <td style="text-align:center;font-weight: bold;display: none;">{{(+wttot) === 0 ? '-' :
+                                    (+wttot).toLocaleString(3)}}
+                                </td>
+                                <td style="text-align:center;font-weight: bold;">{{(+areatot) === 0 ? '-' :
+                                    (+areatot).toLocaleString(3)}}
+                                </td>
+                                <td></td>
+                                <td style="text-align:right;font-weight: bold;">{{(+total) === 0 ? '-' :
+                                    (+total).toLocaleString(2)}}
+                                </td>
+
+                                <td style="text-align:right;font-weight: bold;">{{(+totalextra) === 0 ? '-' :
+                                    (+totalextra).toLocaleString(2)}}
+                                </td>
+
+                                <td style="text-align:right;font-weight: bold;">{{(+totalcurrent) === 0 ? '-' :
+                                    (+totalcurrent).toLocaleString(2)}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="9">VAT</td>
+                                <td>{{print.ponewvat}}%</td>
+                                <td style="text-align:right">{{(+vatam) === 0 ? '-' : (+vatam).toLocaleString(2)}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="10">Total Amount</td>
+                                <td style="    font-weight: bold;
+                    color: #d10000;
+                    background: #fffbfb;
+                    text-align:right
+                ">{{(+print.ponewtotval) === 0 ? '-' : (+print.ponewtotval).toLocaleString(2)}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="paymentterms" style="margin-top:10px;border:1px dashed #000;padding:3px;">
+                        <table class="outline">
+                            <thead>
+                                <tr>
+                                    <td style="text-decoration:underline;font-weight: bold;font-style: italic;">Payment
+                                        Terms</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="x in print.paymentterms">
+                                    <td>{{$index+1}}.{{x.ponewptdesc}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="paymentterms" style="margin-top:10px;border:1px dashed #000;padding:3px;">
+                        <table class="outline">
+                            <thead>
+                                <tr>
+                                    <td style="text-decoration:underline;font-weight: bold;font-style: italic;">Delivery
+                                        Terms</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="x in print.deliveryterms">
+                                    <td>{{$index+1}}.{{x.ponewdtdescription}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <h4 style="margin: 10px 0px;">NOTE : {{print.ponewsubject | uppercase}}</h4>
+                    <input type="text" ng-model="lt1"></input>
+                    <p style="margin: 10px 0px;font-style: italic;" class="dino">
+                        {{lt1}}
+                    </p>
+                    <input type="text" ng-model="lt2"></input>
+                    <p style="margin: 10px 0px;font-style: italic;" class="dino">
+                        {{lt2}}
+                    </p>
+                    <p style="margin: 10px 0px;font-style: italic;">
+                        Thanks and Best Regards,
+                    </p>
+                    <div class="bottomsig">
+                        <div class="bottomsig-row">
+                            <div class="signarea"></div>
+                            <div class="officername">Mohammed Al Rejjal</div>
+                            <div class="officernameposition">Procurement Manager</div>
+                        </div>
+                    </div>
+
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

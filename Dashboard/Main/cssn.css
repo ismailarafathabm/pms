@@ -1,0 +1,120 @@
+
+.bttom {
+    position: absolute;
+    bottom: 39px;
+    width: 98%;
+}
+.bttom-buttons{
+    position: relative;  
+    background :#fff;
+    padding : 5px;
+    border : 1px solid #ddd8d8;
+}
+
+.bttom-button-containers{   
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+   
+}
+.btn-bttom{
+
+    padding: 7px 16px;
+    background: #fbfbfb;
+    border: 1px solid #b3b1b1;
+    border-radius: 5px;
+    line-height: 12px;
+    font-family: 'roboto';
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0px 0px 13px 1px #e7e7e7;
+}
+
+.btn-bttom-ok{ 
+    background: #1987cb;
+    border-color: #2d94c3;    
+    color: #fff;
+}
+.btn-bttom-ok:hover{ 
+    transition: all 0.3s;
+    background: #126ca3;
+    border-color: #0d2d3b;    
+    color: #fff;
+}
+.btn-bttom-danger{
+    color :#f3481d;
+    border: 1px solid transparent !important;  
+}
+.btn-bttom-danger:hover{
+    text-decoration: underline;
+}
+
+.btn-bttom-verfy:hover{
+    background : #f5f6f7
+}
+.forms{
+    position: inherit;
+    padding : 5px;
+    background:#fff;
+}
+.form-conatiner{
+    position: inherit;
+    max-height: 93%;
+    overflow: auto;
+}
+.form-conatiner{
+    position: relative;  
+    background :#fff;
+    padding : 5px;
+    border : 1px solid #ddd8d8;
+    color :#414040;
+}
+.form-inputconatiners{
+    display: flex;
+    flex-direction: row;
+    gap:5px;    
+}
+.form-inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.form-input-headers{
+    font-size: 0.95rem;
+    color : #727272;
+    border-bottom : 1px solid #aaaaaa;
+}
+.form-inputs-elements{
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+.forminput-label{
+    font-size: 0.85rem;
+    color : #727272;
+}
+.forminputs-inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.fominput-inputs{
+    display: flex;
+    flex-direction: column;
+    gap:2px;
+    justify-content: flex-start;
+    align-items: center;
+}
+.forminput-input{
+    width:100%;
+    padding: 5px;
+    background: #fbfbfb;
+    border: 1px solid #b3b1b1;
+    border-radius: 3px;
+    line-height: 12px;
+    font-family: 'owh';
+    font-weight: 600;
+
+}

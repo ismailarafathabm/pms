@@ -1,0 +1,774 @@
+Intro
+iintro
+supp
+mcata
+ifun
+sdef
+udef
+adef
+ldef
+cdefin
+ccent
+purchase1
+purchase2
+purchase4
+purchase6
+psa4
+purchase7
+ppa4
+purchase11
+UpEta
+uostatus
+purchase9
+purchase10
+rc
+nrec
+evnr
+aziziarec
+aziziarec2
+rpr
+evrpr
+reprosulai
+reprosulai1
+rejected1
+rejected2
+rejected3
+rejected4
+mat
+iofp
+veiofp
+aziziaissue1
+aziziaissue2
+iofrp
+veiofrp
+irtfp
+veirtfp
+aziziareturn1
+aziziareturn2
+ureprocess1update
+siofto
+vpsiofto
+isdel
+dnfpm
+aziziaD
+dnfrp
+Fin
+prcupdate
+itdef
+obl
+cnrec
+crpr
+rejected5
+Rreports
+Irepo
+Allcat
+Allsum
+Sdet
+pwsum
+pwdetail
+IRrepo
+sposition1
+recvoucherrepo
+cspec
+itdetail
+icomparison
+matres
+matres1
+matres3
+matres2
+matres5
+matres7
+matres8
+matres10
+matres11
+matres13
+
+
+Global users_Intro As String
+Global users_iintro As String
+Global users_supp As String
+Global users_mcata As String
+Global users_ifun As String
+Global users_sdef As String
+Global users_udef As String
+Global users_adef As String
+Global users_ldef As String
+Global users_cdefin As String
+Global users_ccent As String
+Global users_purchase1 As String
+Global users_purchase2 As String
+Global users_purchase4 As String
+Global users_purchase6 As String
+Global users_psa4 As String
+Global users_purchase7 As String
+Global users_ppa4 As String
+Global users_purchase11 As String
+Global users_UpEta As String
+Global users_uostatus As String
+Global users_purchase9 As String
+Global users_purchase10 As String
+Global users_rc As String
+Global users_nrec As String
+Global users_evnr As String
+Global users_aziziarec As String
+Global users_aziziarec2 As String
+Global users_rpr As String
+Global users_evrpr As String
+Global users_reprosulai As String
+Global users_reprosulai1 As String
+Global users_rejected1 As String
+Global users_rejected2 As String
+Global users_rejected3 As String
+Global users_rejected4 As String
+Global users_mat As String
+Global users_iofp As String
+Global users_veiofp As String
+Global users_aziziaissue1 As String
+Global users_aziziaissue2 As String
+Global users_iofrp As String
+Global users_veiofrp As String
+Global users_irtfp As String
+Global users_veirtfp As String
+Global users_aziziareturn1 As String
+Global users_aziziareturn2 As String
+Global users_ureprocess1update As String
+Global users_siofto As String
+Global users_vpsiofto As String
+Global users_isdel As String
+Global users_dnfpm As String
+Global users_aziziaD As String
+Global users_dnfrp As String
+Global users_Fin As String
+Global users_prcupdate As String
+Global users_itdef As String
+Global users_obl As String
+Global users_cnrec As String
+Global users_crpr As String
+Global users_rejected5 As String
+Global users_Rreports As String
+Global users_Irepo As String
+Global users_Allcat As String
+Global users_Allsum As String
+Global users_Sdet As String
+Global users_pwsum As String
+Global users_pwdetail As String
+Global users_IRrepo As String
+Global users_sposition1 As String
+Global users_recvoucherrepo As String
+Global users_cspec As String
+Global users_itdetail As String
+Global users_icomparison As String
+Global users_matres As String
+Global users_matres1 As String
+Global users_matres3 As String
+Global users_matres2 As String
+Global users_matres5 As String
+Global users_matres7 As String
+Global users_matres8 As String
+Global users_matres10 As String
+Global users_matres11 As String
+Global users_matres13 As String
+
+
+users_Intro   = autoz_reader.Fields(3).Value
+users_iintro  = autoz_reader.Fields(4).Value
+users_supp  = autoz_reader.Fields(5).Value
+users_mcata  = autoz_reader.Fields(6).Value
+users_ifun  = autoz_reader.Fields(7).Value
+users_sdef  = autoz_reader.Fields(8).Value
+users_udef  = autoz_reader.Fields(9).Value
+users_adef  = autoz_reader.Fields(10).Value
+users_ldef  = autoz_reader.Fields(11).Value
+users_cdefin  = autoz_reader.Fields(12).Value
+users_ccent  = autoz_reader.Fields(13).Value
+users_purchase1  = autoz_reader.Fields(14).Value
+users_purchase2  = autoz_reader.Fields(15).Value
+users_purchase4  = autoz_reader.Fields(16).Value
+users_purchase6  = autoz_reader.Fields(17).Value
+users_psa4  = autoz_reader.Fields(18).Value
+users_purchase7  = autoz_reader.Fields(19).Value
+users_ppa4  = autoz_reader.Fields(20).Value
+users_purchase11  = autoz_reader.Fields(21).Value
+users_UpEta  = autoz_reader.Fields(22).Value
+users_uostatus  = autoz_reader.Fields(23).Value
+users_purchase9  = autoz_reader.Fields(24).Value
+users_purchase10  = autoz_reader.Fields(25).Value
+users_rc  = autoz_reader.Fields(26).Value
+users_nrec  = autoz_reader.Fields(27).Value
+users_evnr  = autoz_reader.Fields(28).Value
+users_aziziarec  = autoz_reader.Fields(29).Value
+users_aziziarec2  = autoz_reader.Fields(30).Value
+users_rpr  = autoz_reader.Fields(31).Value
+users_evrpr  = autoz_reader.Fields(32).Value
+users_reprosulai  = autoz_reader.Fields(33).Value
+users_reprosulai1  = autoz_reader.Fields(34).Value
+users_rejected1  = autoz_reader.Fields(35).Value
+users_rejected2  = autoz_reader.Fields(36).Value
+users_rejected3  = autoz_reader.Fields(37).Value
+users_rejected4  = autoz_reader.Fields(38).Value
+users_mat  = autoz_reader.Fields(39).Value
+users_iofp  = autoz_reader.Fields(40).Value
+users_veiofp  = autoz_reader.Fields(41).Value
+users_aziziaissue1  = autoz_reader.Fields(42).Value
+users_aziziaissue2  = autoz_reader.Fields(43).Value
+users_iofrp  = autoz_reader.Fields(44).Value
+users_veiofrp  = autoz_reader.Fields(45).Value
+users_irtfp  = autoz_reader.Fields(46).Value
+users_veirtfp  = autoz_reader.Fields(47).Value
+users_aziziareturn1  = autoz_reader.Fields(48).Value
+users_aziziareturn2  = autoz_reader.Fields(49).Value
+users_ureprocess1update  = autoz_reader.Fields(50).Value
+users_siofto  = autoz_reader.Fields(51).Value
+users_vpsiofto  = autoz_reader.Fields(52).Value
+users_isdel  = autoz_reader.Fields(53).Value
+users_dnfpm  = autoz_reader.Fields(54).Value
+users_aziziaD  = autoz_reader.Fields(55).Value
+users_dnfrp  = autoz_reader.Fields(56).Value
+users_Fin  = autoz_reader.Fields(57).Value
+users_prcupdate  = autoz_reader.Fields(58).Value
+users_itdef  = autoz_reader.Fields(59).Value
+users_obl  = autoz_reader.Fields(60).Value
+users_cnrec  = autoz_reader.Fields(61).Value
+users_crpr  = autoz_reader.Fields(62).Value
+users_rejected5  = autoz_reader.Fields(63).Value
+users_Rreports  = autoz_reader.Fields(64).Value
+users_Irepo  = autoz_reader.Fields(65).Value
+users_Allcat  = autoz_reader.Fields(66).Value
+users_Allsum  = autoz_reader.Fields(67).Value
+users_Sdet  = autoz_reader.Fields(68).Value
+users_pwsum  = autoz_reader.Fields(69).Value
+users_pwdetail  = autoz_reader.Fields(70).Value
+users_IRrepo  = autoz_reader.Fields(71).Value
+users_sposition1  = autoz_reader.Fields(72).Value
+users_recvoucherrepo  = autoz_reader.Fields(73).Value
+users_cspec  = autoz_reader.Fields(74).Value
+users_itdetail  = autoz_reader.Fields(75).Value
+users_icomparison  = autoz_reader.Fields(76).Value
+users_matres  = autoz_reader.Fields(77).Value
+users_matres1  = autoz_reader.Fields(78).Value
+users_matres3  = autoz_reader.Fields(79).Value
+users_matres2  = autoz_reader.Fields(80).Value
+users_matres5  = autoz_reader.Fields(81).Value
+users_matres7  = autoz_reader.Fields(82).Value
+users_matres8  = autoz_reader.Fields(83).Value
+users_matres10  = autoz_reader.Fields(84).Value
+users_matres11  = autoz_reader.Fields(85).Value
+users_matres13  = autoz_reader.Fields(86).Value
+
+If users_introductionall = 1 Then
+End If
+
+
+Intro.Visible = False
+iintro.Visible = False
+supp.Visible = False
+mcata.Visible = False
+ifun.Visible = False
+sdef.Visible = False
+udef.Visible = False
+adef.Visible = False
+ldef.Visible = False
+cdefin.Visible = False
+ccent.Visible = False
+purchase1.Visible = False
+purchase2.Visible = False
+purchase4.Visible = False
+purchase6.Visible = False
+psa4.Visible = False
+purchase7.Visible = False
+ppa4.Visible = False
+purchase11.Visible = False
+UpEta.Visible = False
+uostatus.Visible = False
+purchase9.Visible = False
+purchase10.Visible = False
+rc.Visible = False
+nrec.Visible = False
+evnr.Visible = False
+aziziarec.Visible = False
+aziziarec2.Visible = False
+rpr.Visible = False
+evrpr.Visible = False
+reprosulai.Visible = False
+reprosulai1.Visible = False
+rejected1.Visible = False
+rejected2.Visible = False
+rejected3.Visible = False
+rejected4.Visible = False
+mat.Visible = False
+iofp.Visible = False
+veiofp.Visible = False
+aziziaissue1.Visible = False
+aziziaissue2.Visible = False
+iofrp.Visible = False
+veiofrp.Visible = False
+irtfp.Visible = False
+veirtfp.Visible = False
+aziziareturn1.Visible = False
+aziziareturn2.Visible = False
+ureprocess1update.Visible = False
+siofto.Visible = False
+vpsiofto.Visible = False
+isdel.Visible = False
+dnfpm.Visible = False
+aziziaD.Visible = False
+dnfrp.Visible = False
+Fin.Visible = False
+prcupdate.Visible = False
+itdef.Visible = False
+obl.Visible = False
+cnrec.Visible = False
+crpr.Visible = False
+rejected5.Visible = False
+Rreports.Visible = False
+Irepo.Visible = False
+Allcat.Visible = False
+Allsum.Visible = False
+Sdet.Visible = False
+pwsum.Visible = False
+pwdetail.Visible = False
+IRrepo.Visible = False
+sposition1.Visible = False
+recvoucherrepo.Visible = False
+cspec.Visible = False
+itdetail.Visible = False
+icomparison.Visible = False
+matres.Visible = False
+matres1.Visible = False
+matres3.Visible = False
+matres2.Visible = False
+matres5.Visible = False
+matres7.Visible = False
+matres8.Visible = False
+matres10.Visible = False
+matres11.Visible = False
+matres13.Visible = False
+
+
+If users_introductionall = 1 Then
+End If
+
+
+
+If users_Intro = 1 Then
+    Intro.Visible = True
+End If
+
+If users_iintro = 1 Then
+iintro.Visible = True
+End If
+
+If users_supp = 1 Then
+supp.Visible = True
+End If
+
+If users_mcata = 1 Then
+mcata.Visible = True
+End If
+
+If users_ifun = 1 Then
+ifun.Visible = True
+End If
+
+If users_sdef = 1 Then
+sdef.Visible = True
+End If
+
+If users_udef = 1 Then
+udef.Visible = True
+End If
+
+If users_adef = 1 Then
+adef.Visible = True
+End If
+
+If users_ldef = 1 Then
+ldef.Visible = True
+End If
+
+If users_cdefin = 1 Then
+cdefin.Visible = True
+End If
+
+If users_ccent = 1 Then
+ccent.Visible = True
+End If
+
+If users_purchase1 = 1 Then
+purchase1.Visible = True
+End If
+
+If users_purchase2 = 1 Then
+purchase2.Visible = True
+End If
+
+If users_purchase4 = 1 Then
+purchase4.Visible = True
+End If
+
+If users_purchase6 = 1 Then
+purchase6.Visible = True
+End If
+
+If users_psa4 = 1 Then
+psa4.Visible = True
+End If
+
+If users_purchase7 = 1 Then
+purchase7.Visible = True
+End If
+
+If users_ppa4 = 1 Then
+ppa4.Visible = True
+End If
+
+If users_purchase11 = 1 Then
+purchase11.Visible = True
+End If
+
+If users_UpEta = 1 Then
+UpEta.Visible = True
+End If
+
+If users_uostatus = 1 Then
+uostatus.Visible = True
+End If
+
+If users_purchase9 = 1 Then
+purchase9.Visible = True
+End If
+
+If users_purchase10 = 1 Then
+purchase10.Visible = True
+End If
+
+If users_rc = 1 Then
+rc.Visible = True
+End If
+
+If users_nrec = 1 Then
+nrec.Visible = True
+End If
+
+If users_evnr = 1 Then
+evnr.Visible = True
+End If
+
+If users_aziziarec = 1 Then
+aziziarec.Visible = True
+End If
+
+If users_aziziarec2 = 1 Then
+aziziarec2.Visible = True
+End If
+
+If users_rpr = 1 Then
+rpr.Visible = True
+End If
+
+If users_evrpr = 1 Then
+evrpr.Visible = True
+End If
+
+If users_reprosulai = 1 Then
+reprosulai.Visible = True
+End If
+
+If users_reprosulai1 = 1 Then
+reprosulai1.Visible = True
+End If
+
+If users_rejected1 = 1 Then
+rejected1.Visible = True
+End If
+
+If users_rejected2 = 1 Then
+rejected2.Visible = True
+End If
+
+If users_rejected3 = 1 Then
+rejected3.Visible = True
+End If
+
+If users_rejected4 = 1 Then
+rejected4.Visible = True
+End If
+
+If users_mat = 1 Then
+mat.Visible = True
+End If
+
+If users_iofp = 1 Then
+iofp.Visible = True
+End If
+
+If users_veiofp = 1 Then
+veiofp.Visible = True
+End If
+
+If users_aziziaissue1 = 1 Then
+aziziaissue1.Visible = True
+End If
+
+If users_aziziaissue2 = 1 Then
+aziziaissue2.Visible = True
+End If
+
+If users_iofrp = 1 Then
+iofrp.Visible = True
+End If
+
+If users_veiofrp = 1 Then
+veiofrp.Visible = True
+End If
+
+If users_irtfp = 1 Then
+irtfp.Visible = True
+End If
+
+If users_veirtfp = 1 Then
+veirtfp.Visible = True
+End If
+
+If users_aziziareturn1 = 1 Then
+aziziareturn1.Visible = True
+End If
+
+If users_aziziareturn2 = 1 Then
+aziziareturn2.Visible = True
+End If
+
+If users_ureprocess1update = 1 Then
+ureprocess1update.Visible = True
+End If
+
+If users_siofto = 1 Then
+siofto.Visible = True
+End If
+
+If users_vpsiofto = 1 Then
+vpsiofto.Visible = True
+End If
+
+If users_isdel = 1 Then
+isdel.Visible = True
+End If
+
+If users_dnfpm = 1 Then
+dnfpm.Visible = True
+End If
+
+If users_aziziaD = 1 Then
+aziziaD.Visible = True
+End If
+
+If users_dnfrp = 1 Then
+dnfrp.Visible = True
+End If
+
+If users_Fin = 1 Then
+Fin.Visible = True
+End If
+
+If users_prcupdate = 1 Then
+prcupdate.Visible = True
+End If
+
+If users_itdef = 1 Then
+itdef.Visible = True
+End If
+
+If users_obl = 1 Then
+obl.Visible = True
+End If
+
+If users_cnrec = 1 Then
+cnrec.Visible = True
+End If
+
+If users_crpr = 1 Then
+crpr.Visible = True
+End If
+
+If users_rejected5 = 1 Then
+rejected5.Visible = True
+End If
+
+If users_Rreports = 1 Then
+Rreports.Visible = True
+End If
+
+If users_Irepo = 1 Then
+Irepo.Visible = True
+End If
+
+If users_Allcat = 1 Then
+Allcat.Visible = True
+End If
+
+If users_Allsum = 1 Then
+Allsum.Visible = True
+End If
+
+If users_Sdet = 1 Then
+Sdet.Visible = True
+End If
+
+If users_pwsum = 1 Then
+pwsum.Visible = True
+End If
+
+If users_pwdetail = 1 Then
+pwdetail.Visible = True
+End If
+
+If users_IRrepo = 1 Then
+IRrepo.Visible = True
+End If
+
+If users_sposition1 = 1 Then
+sposition1.Visible = True
+End If
+
+If users_recvoucherrepo = 1 Then
+recvoucherrepo.Visible = True
+End If
+
+If users_cspec = 1 Then
+cspec.Visible = True
+End If
+
+If users_itdetail = 1 Then
+itdetail.Visible = True
+End If
+
+If users_icomparison = 1 Then
+icomparison.Visible = True
+End If
+
+If users_matres = 1 Then
+matres.Visible = True
+End If
+
+If users_matres1 = 1 Then
+matres1.Visible = True
+End If
+
+If users_matres3 = 1 Then
+matres3.Visible = True
+End If
+
+If users_matres2 = 1 Then
+matres2.Visible = True
+End If
+
+If users_matres5 = 1 Then
+matres5.Visible = True
+End If
+
+If users_matres7 = 1 Then
+matres7.Visible = True
+End If
+
+If users_matres8 = 1 Then
+matres8.Visible = True
+End If
+
+If users_matres10 = 1 Then
+matres10.Visible = True
+End If
+
+If users_matres11 = 1 Then
+matres11.Visible = True
+End If
+
+If users_matres13 = 1 Then
+matres13.Visible = True
+End If
+
+
+
+Intro.Checked = this.dr[3].ToString() == "1" ? true : false;
+iintro.Checked = this.dr[3].ToString() == "1" ? true : false;
+supp.Checked = this.dr[3].ToString() == "1" ? true : false;
+mcata.Checked = this.dr[3].ToString() == "1" ? true : false;
+ifun.Checked = this.dr[3].ToString() == "1" ? true : false;
+sdef.Checked = this.dr[3].ToString() == "1" ? true : false;
+udef.Checked = this.dr[3].ToString() == "1" ? true : false;
+adef.Checked = this.dr[3].ToString() == "1" ? true : false;
+ldef.Checked = this.dr[3].ToString() == "1" ? true : false;
+cdefin.Checked = this.dr[3].ToString() == "1" ? true : false;
+ccent.Checked = this.dr[3].ToString() == "1" ? true : false;
+purchase1.Checked = this.dr[3].ToString() == "1" ? true : false;
+purchase2.Checked = this.dr[3].ToString() == "1" ? true : false;
+purchase4.Checked = this.dr[3].ToString() == "1" ? true : false;
+purchase6.Checked = this.dr[3].ToString() == "1" ? true : false;
+psa4.Checked = this.dr[3].ToString() == "1" ? true : false;
+purchase7.Checked = this.dr[3].ToString() == "1" ? true : false;
+ppa4.Checked = this.dr[3].ToString() == "1" ? true : false;
+purchase11.Checked = this.dr[3].ToString() == "1" ? true : false;
+UpEta.Checked = this.dr[3].ToString() == "1" ? true : false;
+uostatus.Checked = this.dr[3].ToString() == "1" ? true : false;
+purchase9.Checked = this.dr[3].ToString() == "1" ? true : false;
+purchase10.Checked = this.dr[3].ToString() == "1" ? true : false;
+rc.Checked = this.dr[3].ToString() == "1" ? true : false;
+nrec.Checked = this.dr[3].ToString() == "1" ? true : false;
+evnr.Checked = this.dr[3].ToString() == "1" ? true : false;
+aziziarec.Checked = this.dr[3].ToString() == "1" ? true : false;
+aziziarec2.Checked = this.dr[3].ToString() == "1" ? true : false;
+rpr.Checked = this.dr[3].ToString() == "1" ? true : false;
+evrpr.Checked = this.dr[3].ToString() == "1" ? true : false;
+reprosulai.Checked = this.dr[3].ToString() == "1" ? true : false;
+reprosulai1.Checked = this.dr[3].ToString() == "1" ? true : false;
+rejected1.Checked = this.dr[3].ToString() == "1" ? true : false;
+rejected2.Checked = this.dr[3].ToString() == "1" ? true : false;
+rejected3.Checked = this.dr[3].ToString() == "1" ? true : false;
+rejected4.Checked = this.dr[3].ToString() == "1" ? true : false;
+mat.Checked = this.dr[3].ToString() == "1" ? true : false;
+iofp.Checked = this.dr[3].ToString() == "1" ? true : false;
+veiofp.Checked = this.dr[3].ToString() == "1" ? true : false;
+aziziaissue1.Checked = this.dr[3].ToString() == "1" ? true : false;
+aziziaissue2.Checked = this.dr[3].ToString() == "1" ? true : false;
+iofrp.Checked = this.dr[3].ToString() == "1" ? true : false;
+veiofrp.Checked = this.dr[3].ToString() == "1" ? true : false;
+irtfp.Checked = this.dr[3].ToString() == "1" ? true : false;
+veirtfp.Checked = this.dr[3].ToString() == "1" ? true : false;
+aziziareturn1.Checked = this.dr[3].ToString() == "1" ? true : false;
+aziziareturn2.Checked = this.dr[3].ToString() == "1" ? true : false;
+ureprocess1update.Checked = this.dr[3].ToString() == "1" ? true : false;
+siofto.Checked = this.dr[3].ToString() == "1" ? true : false;
+vpsiofto.Checked = this.dr[3].ToString() == "1" ? true : false;
+isdel.Checked = this.dr[3].ToString() == "1" ? true : false;
+dnfpm.Checked = this.dr[3].ToString() == "1" ? true : false;
+aziziaD.Checked = this.dr[3].ToString() == "1" ? true : false;
+dnfrp.Checked = this.dr[3].ToString() == "1" ? true : false;
+Fin.Checked = this.dr[3].ToString() == "1" ? true : false;
+prcupdate.Checked = this.dr[3].ToString() == "1" ? true : false;
+itdef.Checked = this.dr[3].ToString() == "1" ? true : false;
+obl.Checked = this.dr[3].ToString() == "1" ? true : false;
+cnrec.Checked = this.dr[3].ToString() == "1" ? true : false;
+crpr.Checked = this.dr[3].ToString() == "1" ? true : false;
+rejected5.Checked = this.dr[3].ToString() == "1" ? true : false;
+Rreports.Checked = this.dr[3].ToString() == "1" ? true : false;
+Irepo.Checked = this.dr[3].ToString() == "1" ? true : false;
+Allcat.Checked = this.dr[3].ToString() == "1" ? true : false;
+Allsum.Checked = this.dr[3].ToString() == "1" ? true : false;
+Sdet.Checked = this.dr[3].ToString() == "1" ? true : false;
+pwsum.Checked = this.dr[3].ToString() == "1" ? true : false;
+pwdetail.Checked = this.dr[3].ToString() == "1" ? true : false;
+IRrepo.Checked = this.dr[3].ToString() == "1" ? true : false;
+sposition1.Checked = this.dr[3].ToString() == "1" ? true : false;
+recvoucherrepo.Checked = this.dr[3].ToString() == "1" ? true : false;
+cspec.Checked = this.dr[3].ToString() == "1" ? true : false;
+itdetail.Checked = this.dr[3].ToString() == "1" ? true : false;
+icomparison.Checked = this.dr[3].ToString() == "1" ? true : false;
+matres.Checked = this.dr[3].ToString() == "1" ? true : false;
+matres1.Checked = this.dr[3].ToString() == "1" ? true : false;
+matres3.Checked = this.dr[3].ToString() == "1" ? true : false;
+matres2.Checked = this.dr[3].ToString() == "1" ? true : false;
+matres5.Checked = this.dr[3].ToString() == "1" ? true : false;
+matres7.Checked = this.dr[3].ToString() == "1" ? true : false;
+matres8.Checked = this.dr[3].ToString() == "1" ? true : false;
+matres10.Checked = this.dr[3].ToString() == "1" ? true : false;
+matres11.Checked = this.dr[3].ToString() == "1" ? true : false;
+matres13.Checked = this.dr[3].ToString() == "1" ? true : false;

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAFCO AMS - BALANCE OF WORK</title>
+    <link rel="stylesheet" href="../css/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/printpage.css">
+    
+</head>
+<body>
+   <div class="main-print-conatiner">
+       <div class="print-hidden">
+           <div class="print-hidden-left">
+           <button class="btn print" onclick="printaction()">Print</button>
+           <button class="btn changetitle">Change Title</button>
+        </div>
+        <div class="print-hidden-right">
+            <button class="grupby" onclick="showhiddenlist()">Group Mode <i class="fa fa-angle-down"></i></button>
+            <div class="hidden-list" id="dropdownlist">
+                <div class="groupbylist" onclick="groupbynone()"> Un Gruop </div>
+                <div class="groupbylist" onclick="gropuby('asm_projects_pjregion')"> By Region </div>
+                <div class="groupbylist" onclick="gropuby('asm_projects_pjsite')"> By Site </div>
+                <div class="groupbylist" onclick="gropuby('asm_projects_pjsalesrep')"> By Sales Rep </div>
+                <div class="groupbylist" onclick="gropuby('asm_projects_project_type')"> By Type </div>
+                <div class="groupbylist" onclick="gropuby('asm_projects_projectmgr')"> By Manager </div>
+                <div class="groupbylist" onclick="gropuby('asm_projects_pstatus')"> By Status</div>
+            </div>
+        </div>  
+           
+       </div>
+       <div class="main-print-title">
+           <div class="main-print-logo">
+               <img class="main-print-main-logo" src="./css/mainlogo.png" alt="NAFCO LOGO"/>
+           </div>
+           <div class="main-print-headers">
+               <div class="main-print-cmname">NATIONAL ALUMINIUM FACTORY - NAFCO</div>
+               <div class="main-print-titlesub" id="printtitle">BALANCE OF WORK REPORT</div>
+           </div>
+       </div>
+       <div class="main-print-page" id="printcontainer">
+          
+       </div>
+   </div>
+   <script src="js/balanceofwork.js"></script>
+</body>
+</html>

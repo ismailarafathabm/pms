@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Project Reserved materials</title>
+        <link rel="stylesheet" href="./css/font.css">
+        <style>
+        * {
+            font-size: 12px;
+            font-family: 'roboto';
+
+        }
+        body{
+           
+        }
+        table {
+            width: 11in;
+            margin: 1px auto;
+            border: 1px solid #000;
+            border-collapse: collapse;
+            zoom: 94%;
+
+        }
+
+        table th,
+        table td {
+            border: 1px solid #000;
+            padding: 2px;
+        }
+
+        .theader {
+            background-color: #efefef;
+
+        }
+
+        @page {
+            size:11in 8.20in  ;
+            /* margin: 27mm 16mm 27mm 16mm; */
+        }
+        </style>
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="16" style="align-items: center;background-color: #ffffff;
+                    border-right: 1px solid #0000;
+                    border-top: 1px solid #0000;
+                    border-left: 1px solid #0000;
+                    border-bottom: 1px solid #0000;
+                    ">
+                        <img load="lazy" src="./css/nafco_letter.png" style="width:90%;height: 88px;">
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="15" style="font-size: 18px;
+                 border-right: 1px solid #0000;
+                    border-top: 1px solid #0000;
+                    border-left: 1px solid #0000;
+                    border-left: 1px solid #0000;
+                ">
+                        Materials Reserved List For Project - <span id="materilcats" style="font-size: 16px;"></span>
+                    </th>
+                </tr>
+                <!-- <tr>
+                    <td colspan="15">
+                        Project Name :
+                        <span id="materilcat" style="font-weight: bold;width: 16px;"></span>
+                    </td>
+                </tr> -->
+                <tr>
+                    <td>S.NO</td>
+                    <td>Part No</td>
+                    <td>Description</td>
+                    <td>Alloy</td>
+                    <td>Length</td>
+                    <td>Color</td>
+                    <td>Die Weight</td>
+                    <td>Units</td>
+                    <td>Reserved Qty</td>
+                    <td>Location</td>                   
+                </tr>
+            </thead>
+            <tbody id="maincontent"></tbody>
+        </table>
+        <script>
+       const mat_name = localStorage.getItem("naf_project_items_project");
+       //document.getElementById("materilcat").innerText = mat_name.toUpperCase();
+       document.getElementById("materilcats").innerText = mat_name.toUpperCase();
+       document.title = `Stock Report - ${mat_name}`;
+       const itemlist = JSON.parse(localStorage.getItem("naf_project_items_project_items"));
+       console.log(itemlist);
+       let pr = "";
+       let _rowid = 0;
+       itemlist.map((i,index)=>{
+            if((+i.sqty) !== 0 || 
+                (+i.aqty) !== 0 || 
+                (+i.srqty) !== 0 || 
+                (+i.arqty) !== 0               
+                ){
+                    _rowid += 1;
+            pr += `<tr key=${_rowid}>`;
+            pr += `<td>${_rowid}</td>`
+            pr += `<td>${i.partno}</td>`
+            pr += `<td style="text-align:center;font-style:italic">${i.description}</td>`
+            pr += `<td style="text-align:center">${i.partalloy}</td>`
+            pr += `<td style="text-align:center">${
+                (+i.partlength).toLocaleString(undefined,{maximumFractionDigits:3})
+            }</td>`
+            pr += `<td>${i.partcolor}</td>`
+            pr += `<td style="text-align:center">${i.dieweight}</td>`
+            pr += `<td>${i.partuom}</td>`     
+            pr += `<td style="background:#fcffdf;font-size: 14px;font-weight: bold;text-align:center">
+                ${(+i.reservedqty) === 0 ? '-':
+                (+i.reservedqty).toLocaleString(undefined,{maximumFractionDigits
+                : 2})
+                }
+                </td>`
+            if(i.location === 'A'){
+                pr += `<td style="background:#ffecec;font-size: 14px;font-weight: bold;text-align:center">
+                ${i.location}                
+                </td>`
+            }else{
+                pr += `<td style="background:#aaffcd;font-size: 14px;font-weight: bold;text-align:center">
+                ${i.location}                
+                </td>`
+            }
+           
+            pr += "</tr>"
+            }
+       })
+       document.getElementById("maincontent").innerHTML = pr;
+        </script>
+    </body>
+</html>

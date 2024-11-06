@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Project Reserved materials</title>
+        <link rel="stylesheet" href="./css/font.css">
+        <style>
+        * {
+            font-size: 12px;
+            font-family: 'roboto';
+
+        }
+        
+        table {
+            width: 11in;
+            margin: 1px auto;
+            border: 1px solid #000;
+            border-collapse: collapse;
+            zoom: 94%;
+
+        }
+
+        table th,
+        table td {
+            border: 1px solid #000;
+            padding: 2px;
+        }
+
+        .theader {
+            background-color: #efefef;
+
+        }
+        .noonprint{
+            position: sticky;
+    top: 0;
+    background: #fff;
+    padding: 10px;
+        }
+        @media print{
+            .noonprint{
+                display:none;
+            }
+        }
+        @page {
+            size:11in 8.20in  ;
+            /* margin: 27mm 16mm 27mm 16mm; */
+        }
+        </style>
+    </head>
+    <body>
+        <div class="noonprint">
+            <div>
+                Group By
+                <select id="groupby">
+                    <option value>-</option>
+                    <option value="partno">Part No</option>
+                    <option value="partcolor">Color</option>
+                    <option value="systemcatagory">System Category</option>
+                </select>
+                <button onclick="window.print()">Print</button>
+            </div>
+            <div>
+                <div>
+                    <button type="button" id="allbtn" onclick="changeMode('1')">All</button>
+                    <button type="button" id="instockbtn"
+                        onclick="changeMode('2')">IN-Stock</button>
+                    <button type="button" id="reseverbtn"
+                        onclick="changeMode('3')">Reserved</button>
+                </div>
+            </div>
+        </div>
+        <div id="maincontent"> </div>
+
+        <script>
+       const mat_name = localStorage.getItem("naf_mat_stock_mcat_name");
+      
+       const itemlist = JSON.parse(localStorage.getItem("naf_mat_stock_mcat"));
+       let displaytype = "1";
+       
+       loadReport(itemlist) 
+
+       function rptgen(){
+            const groupby = document.getElementById("groupby").value;
+            if(groupby === ''){
+            loadReport(itemlist)            
+            return;
+           }
+           loadrptgroupby(itemlist,groupby);           
+           return;
+       }
+       document.getElementById("groupby").addEventListener('change', (e)=>{
+            rptgen();
+       })
+     
+       function changeMode(val){
+            console.log(val);
+            displaytype = val;
+            rptgen();
+       }
+       function loadrptgroupby(xitemlist,gby){
+            let itemlist = [];
+            xitemlist.map((i,index)=>{
+                if((+i.sqty) !== 0 || 
+                (+i.aqty) !== 0 || 
+                (+i.srqty) !== 0 || 
+                (+i.arqty) !== 0               
+                ){
+                    itemlist.push(i);
+                }
+            });
+
+           
+           
+            let gitems = [];
+            itemlist.map(i=>{
+                const gitem = i[gby].trim();
+                const xok = gitems.includes(gitem);
+                if(!xok){
+                    gitems.push(gitem);
+                }
+            })
+            console.log(gitems);
+
+            let groupitems =[];
+
+            gitems.map(i=>{
+                let x = {};
+                x['itemname'] = i;
+                let data = [];
+                itemlist.filter(x => {
+                    if(displaytype.toString() === "3"){
+                        //console.log("its called 3 ")
+                        return  (+x.trqty) !== 0;
+                    }else if(displaytype.toString() === "2"){
+                        //console.log("its called 2 ")
+                        return (+x.trqty) - (+x.tqty) !== 0 ;
+                    }else{
+                        //console.log("its called 1 ")
+                        return x
+                    }
+                }
+            ).map(j=>{
+                    if(j[gby].trim() === i){
+                        data.push(j)
+                    }
+                })
+                x['data'] = data;
+                groupitems.push(x);
+            })
+            const gtitles = {
+                'partno' : 'Part Number',
+                'partcolor' : 'Color',
+                'systemcatagory' : "System Category"
+            }
+            const gtitle = gtitles[gby];
+
+           
+            let pr = "";
+            
+            let tot_weight= 0;
+
+            pr += ` <table>
+            <thead>
+                <tr>
+                    <th colspan="17"
+                        style="align-items: center;background-color: #ffffff;
+                    border-right: 1px solid #0000;
+                    border-top: 1px solid #0000;
+                    border-left: 1px solid #0000;
+                    border-bottom: 1px solid #0000;
+                    ">
+                        <img load="lazy" src="./css/nafco_letter.png"
+                            style="width:90%;height: 88px;">
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="16" style="font-size: 18px;
+                 border-right: 1px solid #0000;
+                    border-top: 1px solid #0000;
+                    border-left: 1px solid #0000;
+                    border-left: 1px solid #0000;
+                ">
+                        Stock List - ${mat_name ?? ''}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                `
+            console.log(groupitems);
+            
+            const xgroupitem = groupitems.filter(x => x.data.length !== 0);            
+            console.log(xgroupitem);
+            xgroupitem.map(maindata=>{
+                let _rowid = 0;
+            pr+=`
+                <tr>
+                    <td colspan="16" style="background:#a9fff3;font-weight:bold;font-size:14px;">
+                        ${gtitle} :
+                        <span id="materilcat"
+                            style="font-weight: bold;width: 600px;font-size:15px;">${maindata.itemname}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="background:#f5f5f5" >S.NO</td>
+                    <td style="background:#f5f5f5" >Part No</td>
+                    <td style="background:#f5f5f5" >Description</td>
+                    <td style="background:#f5f5f5" >Alloy</td>
+                    <td style="background:#f5f5f5" >Length</td>
+                    <td style="background:#f5f5f5" >Color</td>
+                    <td style="background:#f5f5f5" >sulai Qty</td>
+                    <td style="background:#f5f5f5" >Azizia Qty</td>
+                    <td style="background:#f5f5f5" >Sulai Res</td>
+                    <td style="background:#f5f5f5" >Azizia Res</td>
+                    <td style="background:#f5f5f5" >Total Res</td>
+                    <td style="background:#f5f5f5" >Sulai Balance</td>
+                    <td style="background:#f5f5f5" >Azizia Balance</td>
+                    <td style="background:#f5f5f5" >Die Weight</td>
+                    <td style="background:#f5f5f5" >Total Weight</td>
+                    <td style="background:#f5f5f5" >Units</td>
+                </tr>`;
+            let item_tot_weight = 0;            
+            maindata.data.sort((a,b)=>{
+                const acolor = a.partcolor.toUpperCase();
+                const bcolor = b.partcolor.toUpperCase();
+                if(acolor < bcolor){
+                    return -1;
+                }
+                if(acolor > bcolor){
+                    return 1;
+                }
+                return 0;
+            }             
+            ).map((i,index)=>{
+                _rowid += 1;
+                tot_weight += (+i.tweight);
+                item_tot_weight += (+i.tweight);
+                pr += `<tr key=${_rowid}>`;
+            pr += `<td>${_rowid}</td>`
+            pr += `<td>${i.partno}</td>`
+            pr += `<td style="text-align:center;font-style:italic">${i.description}</td>`
+            pr += `<td>${i.partalloy}</td>`
+            pr += `<td style="text-align:center">${
+                (+i.partlength).toLocaleString(undefined,{maximumFractionDigits:3})
+            }</td>`
+            pr += `<td>${i.partcolor}</td>`
+            pr += `<td style="background:#dffff1;font-size: 14px;font-weight: bold;text-align:center">
+                ${(+i.sqty) === 0 ? '-':
+                (+i.sqty).toLocaleString(undefined,{maximumFractionDigits
+                : 2})
+                }
+                </td>`
+            pr += `<td style="background:#ffecec;font-size: 14px;font-weight: bold;text-align:center">
+                ${(+i.aqty) === 0 ? '-':
+                (+i.aqty).toLocaleString(undefined,{maximumFractionDigits: 2})
+                }
+                </td>`
+                pr += `<td style="background:#dffff1;font-size: 14px;font-weight: bold;text-align:center">
+                ${(+i.srqty) === 0 ? '-':
+                (+i.srqty).toLocaleString(undefined,{maximumFractionDigits
+                : 2})
+                }
+                </td>`
+                pr += `<td style="background:#ffecec;font-size: 14px;font-weight: bold;text-align:center">
+                ${(+i.arqty) === 0 ? '-':
+                (+i.arqty).toLocaleString(undefined,{maximumFractionDigits
+                : 2})
+                }
+                </td>`
+                pr += `<td style="background:#f1eeff;font-size: 14px;font-weight: bold;text-align:center">
+                ${(+i.trqty) === 0 ? '-':
+                (+i.trqty).toLocaleString(undefined,{maximumFractionDigits
+                : 2})
+                }
+                </td>`
+            pr += `<td style="background:#fbffdf;font-size: 14px;font-weight: bold;text-align:center;font-weight:bold">
+                ${(+(+i.sqty) - (+i.srqty)) === 0 ? '-' : (+(+i.sqty) - (+i.srqty))}
+                </td>`
+                pr += `<td style="background:#fff8ad;font-size: 14px;font-weight: bold;text-align:center">
+                ${(+(+i.aqty) - (+i.arqty)) === 0 ? '-' : (+(+i.aqty) - (+i.arqty))}
+                </td>`
+            pr += `<td style="text-align:center">${i.dieweight}</td>`
+            pr += `<td style="text-align:center">${i.tweight}</td>`
+            pr += `<td>${i.partuom}</td>`            
+            pr += "</tr>"
+            })
+            pr+= `<tr>
+                <td colspan='14' style="font-weight:bold;font-size:14px;text-align:right">Total Weight</td>
+                <td style="font-weight:bold;font-size:15px;text-align:right">${(+item_tot_weight).toLocaleString(undefined,{maximumFractionDigits:3})}</td>
+                <td></td>
+                </tr>                
+                
+                `
+            pr +=`</tbody>`;
+        
+        })
+
+        document.getElementById("maincontent").innerHTML = pr;
+           
+       }
+       function loadReport(xitemlist){
+        let itemlist = [];
+        xitemlist.map((i,index)=>{
+                if(
+                (+i.sqty) === 0 &&
+                (+i.aqty) === 0 && 
+                (+i.srqty) === 0 &&
+                (+i.arqty) === 0               
+                ){
+                    
+                }else{
+                    itemlist.push(i);
+                }
+            });
+       let pr = "";
+       let _rowid = 0;
+       let tot_weight= 0;
+       pr += ` <table>
+            <thead>
+                <tr>
+                    <th colspan="17"
+                        style="align-items: center;background-color: #ffffff;
+                    border-right: 1px solid #0000;
+                    border-top: 1px solid #0000;
+                    border-left: 1px solid #0000;
+                    border-bottom: 1px solid #0000;
+                    ">
+                        <img load="lazy" src="./css/nafco_letter.png"
+                            style="width:90%;height: 88px;">
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="16" style="font-size: 18px;
+                 border-right: 1px solid #0000;
+                    border-top: 1px solid #0000;
+                    border-left: 1px solid #0000;
+                    border-left: 1px solid #0000;
+                ">
+                        Stock List - ${mat_name ?? ''}
+                    </th>
+                </tr>
+                <tr>
+                    <td colspan="16">
+                        Material Category :
+                        <span id="materilcat"
+                            style="font-weight: bold;width: 600px;"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>S.NO</td>
+                    <td>Part No</td>
+                    <td>Description</td>
+                    <td>Alloy</td>
+                    <td>Length</td>
+                    <td>Color</td>
+                    <td>sulai Qty</td>
+                    <td>Azizia Qty</td>
+                    <td>Sulai Res</td>
+                    <td>Azizia Res</td>
+                    <td>Total Res</td>
+                    <td>Sulai Balance</td>
+                    <td>Azizia Balance</td>
+                    <td>Die Weight</td>
+                    <td>Total Weight</td>
+                    <td>Units</td>
+                </tr>
+            </thead>
+            <tbody >
+
+            
+        `;
+           
+            console.log(displaytype);
+            itemlist.filter(x => {
+                    if(displaytype.toString() === "3"){
+                        //console.log("its called 3 ")
+                        return  (+x.trqty) !== 0;
+                    }else if(displaytype.toString() === "2"){
+                        //console.log("its called 2 ")
+                        return (+x.trqty) - (+x.tqty) !== 0 ;
+                    }else{
+                        //console.log("its called 1 ")
+                        return x
+                    }
+                }
+            ).sort((a,b)=>{
+                const acolor = a.partcolor.toUpperCase();
+                const bcolor = b.partcolor.toUpperCase();
+                if(acolor < bcolor){
+                    return -1;
+                }
+                if(acolor > bcolor){
+                    return 1;
+                }
+                return 0;
+            }             
+            ).map((i,index)=>{
+          
+                    
+                    _rowid += 1;
+                    tot_weight += (+i.tweight);
+            pr += `<tr key=${_rowid}>`;
+            pr += `<td>${_rowid}</td>`
+            pr += `<td>${i.partno}</td>`
+            pr += `<td style="text-align:center;font-style:italic">${i.description}</td>`
+            pr += `<td>${i.partalloy}</td>`
+            pr += `<td style="text-align:center">${
+                (+i.partlength).toLocaleString(undefined,{maximumFractionDigits:3})
+            }</td>`
+            pr += `<td>${i.partcolor}</td>`
+            pr += `<td style="background:#dffff1;font-size: 14px;font-weight: bold;text-align:center">
+                ${(+i.sqty) === 0 ? '-':
+                (+i.sqty).toLocaleString(undefined,{maximumFractionDigits
+                : 2})
+                }
+                </td>`
+            pr += `<td style="background:#ffecec;font-size: 14px;font-weight: bold;text-align:center">
+                ${(+i.aqty) === 0 ? '-':
+                (+i.aqty).toLocaleString(undefined,{maximumFractionDigits: 2})
+                }
+                </td>`
+                pr += `<td style="background:#dffff1;font-size: 14px;font-weight: bold;text-align:center">
+                ${(+i.srqty) === 0 ? '-':
+                (+i.srqty).toLocaleString(undefined,{maximumFractionDigits
+                : 2})
+                }
+                </td>`
+                pr += `<td style="background:#ffecec;font-size: 14px;font-weight: bold;text-align:center">
+                ${(+i.arqty) === 0 ? '-':
+                (+i.arqty).toLocaleString(undefined,{maximumFractionDigits
+                : 2})
+                }
+                </td>`
+                pr += `<td style="background:#f1eeff;font-size: 14px;font-weight: bold;text-align:center">
+                ${(+i.trqty) === 0 ? '-':
+                (+i.trqty).toLocaleString(undefined,{maximumFractionDigits
+                : 2})
+                }
+                </td>`
+            pr += `<td style="background:#fbffdf;font-size: 14px;font-weight: bold;text-align:center;font-weight:bold">
+                ${(+(+i.sqty) - (+i.srqty)) === 0 ? '-' : (+(+i.sqty) - (+i.srqty))}
+                </td>`
+                pr += `<td style="background:#fff8ad;font-size: 14px;font-weight: bold;text-align:center">
+                ${(+(+i.aqty) - (+i.arqty)) === 0 ? '-' : (+(+i.aqty) - (+i.arqty))}
+                </td>`
+            pr += `<td style="text-align:center">${i.dieweight}</td>`
+            pr += `<td style="text-align:center">${i.tweight}</td>`
+            pr += `<td>${i.partuom}</td>`            
+            pr += "</tr>"
+            
+
+           
+       })
+       pr+= `<tr>
+                <td colspan='14' style="font-weight:bold;font-size:14px;text-align:right">Total Weight</td>
+                <td style="font-weight:bold;font-size:15px;text-align:right">${(+tot_weight).toLocaleString(undefined,{maximumFractionDigits:3})}</td>
+                <td></td>
+                </tr>
+                </tbody>
+                </table>
+                `
+       document.getElementById("maincontent").innerHTML = pr;
+       document.getElementById("materilcat").innerText = mat_name.toUpperCase();
+       document.title = `Stock Report - ${mat_name}`;
+       }
+       
+        </script>
+    </body>
+</html>

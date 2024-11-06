@@ -1,0 +1,106 @@
+<style>
+    @page {
+        size: portrait
+    }
+    .budget-main-table-header{
+        background: #e6f0ff;
+    }
+    .budget-headers-table {
+        width: 700px
+    }
+
+    .budget-headers-cells-lable {
+        width: 67px;
+        border: 1px solid #0000;
+        font-size: 14px;
+        line-height: 34px;
+    }
+
+    .budget-headers-cells-dt {
+        width: 244px;
+        border: 1px solid #0000;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 34px;
+    }
+
+    .budget-main-table {
+        border-collapse: collapse;
+        width: 960px
+    }
+
+    .budget-main-table th,
+    td {
+        border: 1px solid #000;
+        line-height: 30px;
+        padding: 0px 12px;
+    }
+
+    .red {
+        background: #fff6f6;
+        color: #f00;
+    }
+</style>
+<table class="budget-headers-table">
+    <tr>
+        <td class="budget-headers-cells-lable">CUSTOMER</td>
+        <td class="budget-headers-cells-dt">{{project.project_cname}}</td>
+    </tr>
+    <tr>
+        <td class="budget-headers-cells-lable">PROJECT</td>
+        <td class="budget-headers-cells-dt">{{project.project_name}}</td>
+    </tr>
+</table>
+
+<table class="budget-main-table">
+    <thead>
+        <tr>
+            <th class="budget-main-table-header" style="width:50px">S.NO</th>
+            <th class="budget-main-table-header" style="width: 400px;text-align: left;">TYPES</th>
+            <th class="budget-main-table-header" style="width: 120px;text-align: center;">ESTIMATION PRICE</th>
+            <th class="budget-main-table-header" style="width: 120px;text-align: center">PREVIOUS PO </th>
+            <th class="budget-main-table-header" style="width: 180px;text-align: center">BALANCE </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="x in summary">
+            <td class="budget-main-table-cells" ng-class="{'red':(+x.balance) < 0}">{{$index+1}}</td>
+            <td class="budget-main-table-cells" ng-class="{'red':(+x.balance) < 0}">{{x.bmmaterialtype}}</td>
+            <td class="budget-main-table-cells" style="text-align: right;font-weight: bold;"
+                ng-class="{'red':(+x.balance) < 0}">{{(+x.budgetval) === 0 ? '-' : (+x.budgetval).toLocaleString(2)}}
+            </td>
+            <td class="budget-main-table-cells" style="text-align: right;font-weight: bold"
+                ng-class="{'red':(+x.balance) < 0}">{{(+x.poval) === 0 ? '-' : (+x.poval).toLocaleString(2)}}</td>
+            <td class="budget-main-table-cells" style="text-align: right;font-weight: bold;"
+                ng-class="{'red':(+x.balance) < 0}">
+                <div style="display:flex;
+                flex-direction: row;
+                align-items: center;
+                gap:2px;
+                ">
+                    <span style="flex:1">{{(+x.balance) === 0 ? '-' : (+x.balance).toLocaleString(2)}}</span>
+                    <img src="./../assets/errorup.png" width="8px" ng-show="(+x.balance) < 0" />
+                    <img src="./../assets/okarrow.png" width="8px" ng-show="(+x.balance) >= 0" />
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: right;background-color: #e1f8ff;">Total</td>
+            <td ng-class="{'red':(+summoff.budget) < 0}" style="text-align: right;font-weight: bold;background-color: #e1f8ff;">{{ (+summoff.budget) === 0 ? '-' : (+summoff.budget).toLocaleString(2)}}</td>
+            <td ng-class="{'red':(+summoff.budget) < 0}" style="text-align: right;font-weight: bold;background-color: #e1f8ff;">{{ (+summoff.ordered) === 0 ? '-' : (+summoff.ordered).toLocaleString(2)}}</td>
+            <td ng-class="{'red':(+summoff.budget) < 0}" style="text-align: right;font-weight: bold;background-color: #e1f8ff;">
+                <div style="display:flex;
+                flex-direction: row;
+                align-items: center;
+                gap:2px;
+                
+                ">
+                    <span style="flex:1">{{ (+summoff.balance) === 0 ? '-' : (+summoff.balance).toLocaleString(2)}}</span>
+                    <img src="./../assets/errorup.png" width="8px" ng-show="(+summoff.balance) < 0" />
+                    <img src="./../assets/okarrow.png" width="8px" ng-show="(+summoff.balance) >= 0" />
+                </div>
+                
+            </td>
+        </tr>
+    </tbody>
+</table>

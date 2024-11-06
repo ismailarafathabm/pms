@@ -1,0 +1,424 @@
+app.controller('boq', function($scope, $http) {
+    const inputs = document.querySelectorAll("input");
+    inputs.forEach(i => {
+        i.autocomplete = "off";
+    })
+    $scope.isloading = true;
+    document.getElementById("contract_menu").style.background = '#e84a5f';
+    $("#back_btn").on('click', function() {
+        window.history.back();
+    })
+
+    var bc_home = document.getElementById("back-to-tops");
+    bc_home.addEventListener('click', function() {
+        window.scrollTo(0, 0);
+    })
+    bc_home.style.display = "none";
+    window.addEventListener('scroll', function() {
+        if (pageYOffset > 400) {
+
+            bc_home.style.display = "block";
+        } else {
+
+            bc_home.style.display = "none";
+        }
+    })
+    let project_id;
+    if (!sessionStorage.getItem('nafco_project_current') || sessionStorage.getItem('nafco_project_current') === '') {
+        projectlist();
+    } else {
+        project_id = sessionStorage.getItem('nafco_project_current');
+        get_projectinfo();
+        //$scope.projctname = project_id;
+    }
+    all_techApprovalsType();
+
+    function all_techApprovalsType() {
+        let post_data = {
+            naf_user: userinfo
+        };
+        $http({
+            method: 'post',
+            data: post_data,
+            url: api_url + "Approval_Type/index.php"
+        }).then(
+            function(res) {
+                if (res.data.msg === "1") {
+                    $scope.menu_Techapprovals = res.data.data;
+                } else {
+                    alert(res.data.data);
+                }
+            }
+        )
+    }
+    var project_boq_refno = "";
+    var project_boq_revision = "";
+
+    function get_projectinfo() {
+        let post_data = {
+            naf_user: userinfo,
+            project_no: project_id
+        }
+        var req = $http.post(api_url + "Project/view.php", post_data);
+        req.then(res => {
+            if (res.data.msg === "1") {
+                $scope.viewproject = res.data.data;
+                $scope.newproject = res.data.data;
+                project_id = angular.lowercase(res.data.data.project_no)
+                if (res.data.data.project_boq_refno === "") {
+
+                } else if (res.data.data.project_boq_revision === "") {
+
+                } else {
+                    project_boq_refno = res.data.data.project_boq_refno;
+                    project_boq_revision = res.data.data.project_boq_revision;
+                    project_boq(project_id, project_boq_refno, project_boq_revision);
+                    getboqitemallsfun();
+                }
+            } else {
+                alert(res.data.data);
+            }
+        });
+    }
+
+    function project_boq(project_no, refno, reviewno) {
+        var post_data = {
+            naf_user: userinfo,
+            project_no: project_no,
+            project_refno: refno,
+            project_reviewno: reviewno
+        };
+        $http.post(api_url + "Boq/index.php", post_data)
+            .then(
+                function(res) {
+                    if (res.data.msg === "1") {
+                        $scope.projectboq = res.data.data;
+                        $scope.totamount = res.data.data.total;
+                    } else {
+                        alert(res.data.data);
+                    }
+
+                    $scope.isloading = false;
+                }
+            )
+    }
+
+    $scope.upate_boq_refno = function() {
+        let req = {
+            naf_user: userinfo,
+            project_no: project_id,
+            boq_refno: $("#boq_refno").val(),
+            boq_revision: $("#boq_revision").val(),
+        };
+        $http.post(api_url + "Project/update_boq_ref.php", req)
+            .then(
+                function(response) {
+
+                    if (response.data.msg == "1") {
+                        alert("updated");
+                        _reload();
+                    } else {
+                        alert(response.data.data);
+                    }
+                }
+            )
+    }
+    var modal = document.getElementById("myModal");
+    var modal_close = document.getElementById("close_modal");
+    $scope.save_boq_notes = function(boqno) {
+        modal.style.display = "block";
+        $scope.boq_item_no_notes = boqno;
+    }
+    modal_close.onclick = function() {
+        modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    $scope.boq_notes_new = function() {
+        var post_data = {
+            naf_user: userinfo,
+            project_no: project_id,
+            boq_item_no: $scope.boq_item_no_notes,
+            boq_notes: $scope.boq_notes,
+        }
+
+        $http({
+            method: 'post',
+            data: post_data,
+            url: api_url + 'Boq/notes_add.php',
+        }).then(
+            (res) => {
+                if (res.data.msg === "1") {
+                    alert("saved");
+                    project_boq(project_id, project_boq_refno, project_boq_revision);
+                    $scope.boq_notes = "";
+                } else {
+                    alert(res.data.data);
+                }
+            }
+        )
+    }
+
+    $scope.rmv_notes = function(ids) {
+
+        var post_data = {
+            naf_user: userinfo,
+            notes_id: ids
+        };
+
+        $http({
+            method: 'post',
+            data: post_data,
+            url: api_url + "Boq/notes_remove.php"
+        }).then(
+            (res) => {
+                if (res.data.msg === "1") {
+                    alert("Removed");
+                    project_boq(project_id, project_boq_refno, project_boq_revision);
+                } else {
+                    alert(res.data.data);
+                }
+            }
+        )
+    }
+
+    //search items
+
+    all_ptype()
+
+    function all_ptype() {
+        var post_data = {
+            naf_user: userinfo
+        };
+        var req = $http.post(api_url + "Ptype/index.php", post_data);
+        req.then(
+            function(res) {
+                if (res.status == 200) {
+                    if (res.data.msg === "1") {
+                        $scope._ptype = res.data.data;
+                    } else {
+                        alert(res.data.data);
+                    }
+                } else {
+                    alert("Server Connection error....");
+                }
+
+            }
+        )
+    }
+
+    all_systemType();
+
+    function all_systemType() {
+        var post_data = {
+            naf_user: userinfo
+        };
+
+        var req = $http.post(api_url + "SysType/index.php", post_data);
+        req.then(
+            res => {
+                if (res.data.msg === "1") {
+                    $scope._systype = res.data.data;
+                } else {
+                    alert(res.data.data);
+                }
+            }
+        )
+    }
+    all_systemFinish();
+
+    function all_systemFinish() {
+        var post_data = {
+            naf_user: userinfo,
+        }
+        $http.post(api_url + "SysFinish/index.php", post_data)
+            .then(
+                function(res) {
+                    if (res.data.msg === "1") {
+                        $scope._sysFinish = res.data.data;
+                    } else {
+                        alert(res.data.data);
+                    }
+                }
+            )
+    }
+    $scope.isbusynow = false;
+    var dia_boqitemsnew = document.getElementById("boqitemsnew");
+    $scope.boqnotenew = function() {
+        dia_boqitemsnew.style.display = "block"
+    }
+
+    async function BoqItemsAll() {
+        var datas = {
+            naf_user: userinfo,
+            notesprojectcode: project_id
+
+        };
+
+        console.log(datas);
+
+        var post_data = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(datas)
+        }
+        const response = await fetch(api_url + "Boq/boqnotes/index.php", post_data);
+        return response.json();
+    }
+
+
+    function getboqitemallsfun() {
+        var datas = {
+            naf_user: userinfo,
+            notesprojectcode: project_id
+
+        };
+        $http({
+                url: api_url + "Boq/boqnotes/index.php",
+                data: datas,
+                method: "post"
+
+            }).then(
+                (res) => {
+                    console.log(res.data);
+                    if (res.data.msg === "1") {
+                        $scope.ksboqitemsnotes = res.data.data;
+                    }
+                }
+            )
+            // BoqItemsAll().then(
+            //         data => {
+            //             console.log(data);
+            //             if (data.msg === "1") {
+            //                 $scope.ksboqitemsnotes = data.data;
+            //                 console.log($scope.ksboqitemsnotes);
+            //                 $("#disps").text(JSON.stringify(data.data));
+            //                 console.log("data work");
+            //             } else {
+            //                 alert(data.data);
+            //             }
+            //         }
+            //     )
+            //     .catch((error) => {
+            //         console.error('Error:', error);
+            //     });
+    }
+
+
+    $scope.savenewboqnotes = function() {
+        console.log("itw working");
+        $scope.isbusynow = true;
+        var fd = {
+            naf_user: userinfo,
+            newboqitems: $scope.newboqnotes,
+            notesprojectcode: project_id
+        };
+
+        saveUserinfos(fd)
+            .then(
+                res => {
+                    console.log(res)
+                    if (res.msg === "1") {
+                        alert("saved");
+                        document.getElementById("boqnotesnews").reset();
+                        getboqitemallsfun();
+                    } else {
+                        alert(res.data);
+                    }
+                    $scope.isbusynow = false;
+                }
+            ).catch((error) => {
+                console.log(error);
+            })
+
+    }
+
+    async function saveUserinfos(fd = {}) {
+        var post_data = {
+            method: "post",
+            mode: 'cors',
+            cache: 'no-cache',
+            body: JSON.stringify(fd),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        const req = await fetch(api_url + "Boq/boqnotes/new.php", post_data);
+        //console.log(req.text());
+        return req.json();
+    }
+
+    async function RemoveBoqitems(fd = {}) {
+        var post_data = {
+            method: "post",
+            mode: "cors",
+            cache: 'no-cache',
+            body: JSON.stringify(fd),
+            headers: {
+                'content-type': 'application/json'
+            }
+        };
+
+        const req = await fetch(api_url + "Boq/boqnotes/remove.php", post_data);
+        return req.json();
+    }
+
+    $scope.removen = (id) => {
+        var c = confirm("Are Your Sure Delete This?");
+        if (c) {
+            var fd = {
+                naf_user: userinfo,
+                ids: id
+            };
+            RemoveBoqitems(fd).then(
+                res => {
+                    console.log(res);
+                    if (res.msg === "1") {
+                        alert("Removed");
+                        getboqitemallsfun();
+                    } else {
+                        alert(res.data);
+                    }
+                }
+            )
+        }
+
+    }
+
+    $scope.spitemnotesedit = (items) => {
+        $("#dia_boqitemsEdits").css('display', 'block');
+        $scope.boqitemsEdit = items;
+    }
+
+    $scope.Editboqnotes = () => {
+        var post_data = {
+            naf_user: userinfo,
+            notesid: $scope.boqitemsEdit.notesid,
+            notesdescription: $scope.boqitemsEdit.notesdescription,
+            notesimportats: $scope.boqitemsEdit.notesimportats
+        };
+
+        EditInfos(post_data).then(
+            (res) => {
+                console.log(res.data);
+                if (res.data.msg === "1") {
+                    alert("save");
+                    getboqitemallsfun();
+                } else {
+                    alert(res.data.data);
+                }
+            }
+        )
+    }
+    async function EditInfos(data = {}) {
+        var req = await $http.post(api_url + "Boq/boqnotes/edit.php", data);
+        return req;
+    }
+})

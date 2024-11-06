@@ -1,0 +1,225 @@
+<style>
+    
+    .budget-main-table-header{
+        background: #e6f0ff;
+    }
+    .budget-headers-table {
+        width: 700px
+    }
+
+    .budget-headers-cells-lable {
+        width: 67px;
+        border: 1px solid #0000;
+        font-size: 14px;
+        line-height: 34px;
+    }
+
+    .budget-headers-cells-dt {
+        width: 244px;
+        border: 1px solid #0000;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 34px;
+    }
+
+    .budget-main-table {
+        border-collapse: collapse;
+        width: 960px
+    }
+
+    .budget-main-table th,
+    td {
+        border: 1px solid #000;
+        line-height: 30px;
+        padding: 0px 12px;
+    }
+
+    .red {
+        background: #fff6f6;
+        color: #f00;
+    }
+    .mainprint-table th{
+        background-color: #f6f6f6;
+        color :#242222;
+    }
+    .mainprint-table th,
+    td{
+        border: 0.5px solid #b5b3b3;
+        color :#242222;
+    }
+    
+  
+</style>
+<table class="mainprint-table">
+    <thead>
+        <tr>
+            <th class="budget-headers-cells-lable" rowspan="2">#SNO</th>
+            <th class="budget-headers-cells-lable" rowspan="2">Project No</th>
+            <th class="budget-headers-cells-lable" rowspan="2"
+                style="width: 240px;">Project Name</th>
+            <th colspan="3" class="budget-headers-cells-lable"
+                style="
+            border-right:1px solid #000;
+            ">
+                Budget Total
+            </th>
+            <th colspan="3" class="budget-headers-cells-lable"
+                style="
+            border-right:1px solid #000;
+            ">
+                Material Summary
+            </th>
+            <th colspan="3" class="budget-headers-cells-lable"
+                style="
+            border-right:1px solid #000;
+            ">
+                Glass Summary
+            </th>
+        </tr>
+        <tr>
+
+            <th class="budget-headers-cells-lable">Budge Total</th>
+            <th class="budget-headers-cells-lable">Po Total</th>
+            <th class="budget-headers-cells-lable"
+                style="
+            border-right:1px solid #000;
+            ">Balance of Total</th>
+            <th class="budget-headers-cells-lable">Material Budget</th>
+            <th class="budget-headers-cells-lable">Material PO</th>
+            <th class="budget-headers-cells-lable"
+                style="
+            border-right:1px solid #000;
+            ">Material Balance</th>
+            <th class="budget-headers-cells-lable">Glass Budget</th>
+            <th class="budget-headers-cells-lable">Glass PO</th>
+            <th class="budget-headers-cells-lable"
+                style="
+            border-right:1px solid #000;
+            ">Glass Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="x in data">
+            <td>{{$index+1}}</td>
+            <td>{{x.project_no | uppercase}}</td>
+            <td style="
+                color: #4900ff;
+                font-weight: 600;
+                text-align: left;
+            ">{{x.project_name}}</td>
+            <td
+                style="text-align: right;font-size: 12px;font-weight: bold;color:#b00">{{
+                (+x.totbudget) === 0 ? "-"
+                : (+x.totbudget).toLocaleString(
+                undefined,
+                {maximumFractionDigits : 2}
+                )
+                }}</td>
+            <td
+                style="text-align: right;font-size: 12px;font-weight: bold;color:#b00">{{
+                (+x.poamount) === 0 ? "-"
+                : (+x.poamount).toLocaleString(
+                undefined,
+                {maximumFractionDigits : 2}
+                )
+                }}</td>
+            <td
+                style="text-align: right;font-size: 12px;font-weight: bold;border-right:1px solid #000;color:#b00">
+                <div style="
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                    ">
+                    <img src="./../assets/errorup.png" width="8px"
+                        ng-show="(+x.balancebudget) < 0" />
+                    <img src="./../assets/okarrow.png" width="8px"
+                        ng-show="(+x.balancebudget) >= 0" />
+                    {{
+                    (+x.balancebudget) === 0 ? "-" :
+                    (+x.balancebudget).toLocaleString(
+                    undefined,
+                    {maximumFractionDigits : 2}
+                    )
+                    }}
+                </div>
+            </td>
+
+            <td
+                style="text-align: right;font-size: 12px;font-weight: bold;color:#5601c9">{{
+                (+x.materialtotal) === 0 ? "-" :
+                (+x.materialtotal).toLocaleString(
+                undefined,
+                {maximumFractionDigits : 2}
+                )
+                }}</td>
+            <td
+                style="text-align: right;font-size: 12px;font-weight: bold;color:#5601c9">{{
+                (+x.pomtotal) === 0 ? "-" :
+                (+x.pomtotal).toLocaleString(
+                undefined,
+                {maximumFractionDigits : 2}
+                )
+                }}</td>
+            <td
+                style="text-align: right;font-size: 12px;font-weight: bold;border-right:1px solid #000;color:#5601c9">
+                <div style="
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                    ">
+                    <img src="./../assets/errorup.png" width="8px"
+                        ng-show="(+x.mbalance) < 0" />
+                    <img src="./../assets/okarrow.png" width="8px"
+                        ng-show="(+x.mbalance) >= 0" />
+                    {{
+                    (+x.mbalance) === 0 ? "-" :
+                    (+x.mbalance).toLocaleString(
+                    undefined,
+                    {maximumFractionDigits : 2}
+                    )
+                    }}
+                </div>
+            </td>
+
+            <td
+                style="text-align: right;font-size: 12px;font-weight: bold;color:#365a39">{{
+                (+x.gtot) === 0 ? "-" :
+                (+x.gtot).toLocaleString(
+                undefined,
+                {maximumFractionDigits : 2}
+                )
+                }}</td>
+            <td
+                style="text-align: right;font-size: 12px;font-weight: bold;color:#365a39">{{
+                (+x.pogtotal) === 0 ? "-" :
+                (+x.pogtotal).toLocaleString(
+                undefined,
+                {maximumFractionDigits : 2}
+                )
+                }}</td>
+            <td
+                style="text-align: right;font-size: 12px;font-weight: bold;border-right:1px solid #000;color:#365a39">
+                <div style="
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                ">
+                    <img src="./../assets/errorup.png" width="8px"
+                        ng-show="(+x.gbalance) < 0" />
+                    <img src="./../assets/okarrow.png" width="8px"
+                        ng-show="(+x.gbalance) >= 0" />
+                    {{
+                    (+x.gbalance) === 0 ? "-" :
+                    (+x.gbalance).toLocaleString(
+                    undefined,
+                    {maximumFractionDigits : 2}
+                    )
+                    }}
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

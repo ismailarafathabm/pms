@@ -1,0 +1,15 @@
+[27-Feb-2024 15:21:14 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: date_format(): Argument #1 ($object) must be of type DateTimeInterface, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/Project/update.php:71
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/Project/update.php(71): date_format()
+#1 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/Project/update.php on line 71
+[03-Aug-2024 09:07:22 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: date_format(): Argument #1 ($object) must be of type DateTimeInterface, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/Project/update.php:74
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/Project/update.php(74): date_format()
+#1 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/Project/update.php on line 74
+[05-Aug-2024 10:10:00 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: date_format(): Argument #1 ($object) must be of type DateTimeInterface, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/Project/update.php:74
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/Project/update.php(74): date_format()
+#1 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/Project/update.php on line 74

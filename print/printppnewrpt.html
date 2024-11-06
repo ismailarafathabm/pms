@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAFCO PMS - PRINT REPORT</title>
+    <style>
+        @font-face {
+            font-family: def;
+            src: url('../themes/fonts/opensans/OpenSans-Regular.ttf');
+        }
+
+        @font-face {
+            font-family: defbold;
+            src: url('../themes/fonts/opensans/OpenSans-ExtraBold.ttf');
+        }
+
+        :root {
+            --def-size: 1090px;
+            --def-font: 'def'
+        }
+
+        body{
+            zoom : 120%;
+        }
+
+        .printPart {
+            width: var(--def-size);
+            font-family: 'def';
+            margin: 0px auto;
+            padding: 3px;
+            display: block;
+        }
+
+        .topHead {
+            display: flex;
+            background-color: #f3f3ff;
+            border: 1px dashed #adaeff;
+            border-radius: 10px;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .logopart {
+            padding: 5px;
+        }
+
+        .titlepart {
+            padding: 5px;
+
+        }
+
+        .MainTitle {
+            font-family: 'defbold';
+            font-size: 35px;
+            color: #3d3ed8;
+        }
+
+        .subTitle {
+            font-family: 'defbold';
+            font-size: 20px;
+            text-align: center;
+            color: #000;
+        }
+
+        .top_title {
+            display: block;
+            padding: 10px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #f4fefb;
+            margin: 10px auto;
+            border-radius: 10px;
+            border: 1px dashed #8bc7b5;
+        }
+
+        .reportInfo {
+            margin: 10px auto;
+            display: block;
+        }
+
+        .rpt_table {
+            display: table;
+            border-collapse: collapse;
+            width: var(--def-size);
+        }
+
+        th {
+            text-align: left;
+        }
+
+        th,
+        td {
+            border: 1px solid #efeffa;
+            padding: 4px 5px;
+            font-size: 10px;
+        }
+
+        .rpt_head {
+            background-color: #d6d6fc;
+        }
+
+        .rpt_body {
+            background-color: #f8f8ff;
+        }
+        .rownan {
+            background-color: #ffffff;
+        }
+        .rowGreen {
+            background-color: #def0eb;
+        }
+        .rowGreens {
+            background-color: #edfffa;
+        }
+
+        .rowRed {
+            background-color: #fbeded;
+        }
+        .rowReds {
+            background-color: #fbedf0;
+        }
+
+        .rowOrange {
+            background-color: #ffefe2;
+        }
+
+        .rowBlue {
+            background-color: #ecfaff;
+        }
+
+        .rowash {
+            background-color: #e8eaff;
+        }
+        .rowyellow{
+            background-color: #fff8e7;
+        }
+
+        ._n {
+            background-color: #f0f5ff;
+            color: #679;
+            border: 1px dashed #1c58d1;
+        }
+
+        .t_left {
+            text-align: left;
+        }
+
+        .t_center {
+            text-align: center;
+        }
+
+        .t_left {
+            text-align: center;
+        }
+
+        .t_bold {
+            font-weight: bold;
+        }
+
+
+
+        @page {
+            size: A3;
+            size: landscape;
+        }
+
+        @media print{
+            button{
+                display : none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button type="button" onclick="print()">Print</button>
+    <div class="printPart">
+        <div class="topHead">
+            <div class="logopart">
+                <img src="./mainlogo.png" width="75px" />
+            </div>
+            <div class="titlepart">
+                <div class="maintitle">NATIONAL ALUMINIUM FACTORY - NAFCO</div>
+                <div class="subTitle">PROJECT MANAGEMENT SYSTEM</div>                
+            </div>
+        </div>
+        <div class="printinfos" id="_z13">
+
+        </div>
+    </div>
+    <script>
+        // let _z13 = document.getElementById('_z13');
+        // let prinfos = localStorage.getItem('rpt');
+        // _z13.innerHTML = prinfos;
+        // localStorage.removeItem('rpt');
+
+        function _today() {
+            let _d = new Date();
+            let _day = _d.getDate();
+            let _month = _d.getMonth() + 1;
+            let _year = _d.getFullYear();
+            let _disp = `${_day}-${_month}-${_year}`;
+            return _disp.toString();
+        }
+        printData();
+        function printData() {
+
+
+            let pptitile = localStorage.getItem("printppnewreporttitle");
+            
+            let _datas = JSON.parse(localStorage.getItem('printppnewrpt'));
+            let Cdate = _today();
+            let prdata = `
+                <div class="top_title">${pptitile}</div>
+            `;
+            _datas.map((_p) => {
+                prdata += `
+                        <div style="border: 1px dashed #1c58d1;
+                        padding: 3px;
+                        display: block;
+                        margin: 5px;">
+                        <div class="top_title _n">${_p.pname.toUpperCase()} - ${_p.pno.toUpperCase()}</div>
+                    `;
+                prdata += `
+                <div class="reportInfo">
+                    <table class="rpt_table" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th class="rpt_head" style="width:20px">S.No</th>                                                              
+                            <th class="rpt_head">TYPE</th>                            
+                            <th class="rpt_head">DESCRIPTION</th>                            
+                            <th class="rpt_head">COLOR</th>                            
+                            <th class="rpt_head">QTY/PCS</th>
+                            <th class="rpt_head">RETURN</th>
+                            <th class="rpt_head">BALANCE</th>
+                            <th class="rpt_head">WT/KG</th>
+                            <th class="rpt_head">DEL.No</th>
+                            <th class="rpt_head">Date</th>                            
+                            <th class="rpt_head">ETA</th>
+                            <th class="rpt_head">Location</th>
+                            <th class="rpt_head">Remarks</th>                            
+                        </tr>
+                    </thead>
+                    <tbody>`;
+                _p.list.map((_t, index) => {                   
+                    let _themes = "";
+                    let txt = (+_t.balance) === 0 ? "color:black" : "color:red;text-decoration:underline";
+                    prdata += ` <tr>
+                            <td class="rpt_body ${_themes}" style="width:20px">${index + 1}</td>                                                                                    
+                            <td class="rpt_body ${_themes}" style="width:100px">${_t.pptype}</td>                            
+                            <td class="rpt_body ${_themes}" style="width:170px">${_t.ppdescription}</td>
+                            <td class="rpt_body ${_themes}" style="width:170px">${_t.ppcolor}</td>
+                            <td class="rpt_body ${_themes}" style="width:80px">${_t.qty}</td>
+                            <td class="rpt_body ${_themes}" style="width:80px">${_t.receiptqty}</td>
+                            <td class="rpt_body ${_themes}" style="width:80px;${txt}">${_t.balance}</td>
+                            <td class="rpt_body ${_themes}" style="width:80px">${_t.totkg}</td>
+                            <td class="rpt_body ${_themes}" style="width:95px">${_t.delno}</td>                            
+                            <td class="rpt_body ${_themes}" style="width:110px">${_t.ppdate_d}</td>
+                            <td class="rpt_body ${_themes}" style="width:130px">${_t.eta}</td>
+                            <td class="rpt_body ${_themes}" style="width:130px">${_t.location}</td>
+                            <td class="rpt_body ${_themes}" style="width:130px">${_t.remarks}</td>
+                        </tr>`
+                })
+                prdata +=` </tbody>
+                    </table>
+                </div>
+                </div>
+            `;
+
+            })
+
+            document.getElementById('_z13').innerHTML = prdata;
+            localStorage.clear('printppreportstitle');
+            localStorage.clear('printppreports');
+        }
+
+    </script>
+</body>
+
+</html>

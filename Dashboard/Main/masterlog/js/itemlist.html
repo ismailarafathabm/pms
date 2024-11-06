@@ -1,0 +1,19 @@
+<div class="ism-pms-dia-optionibox-container" style="height: 100%;">
+    <div class="ism-pms-dia-optioinbox-inputs">
+        <input placeholder="Search..." 
+        type="text"
+        name = "directive_item_search_inputs"         
+        ng-model="srcitems"
+        class="ism-dialog-rows-input-controller" 
+        ng-keydown="items_filter_input_keydown($event)"/>
+    </div>
+    <div class="ism-pms-dia-optionbox-list" style="height:calc(100% - 45px)">
+        <button type="button" 
+                class="ism-pms-dia-optionbox-list-items" 
+                id="itemlist_list_{{$index+1}}" 
+                ng-keyup="itemlist_select($event,x)"  
+                ng-click="getiteminfo(x)" 
+                ng-repeat="x in itemlist | filter:srcitems | orderBy:'itemdescription'"
+                style="cursor: pointer;border:1px solid #0000;display:flex" >{{x.itemdescription}}</button>        
+    </div>
+</div>

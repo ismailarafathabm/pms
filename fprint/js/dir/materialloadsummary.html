@@ -1,0 +1,103 @@
+
+<div ng-show="summarya">
+    <style>
+        @media print{@page {size: landscape}}
+     </style>
+    <table class="mainprint-table" ng-show="!ungroupdisp">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th style="width: 180px;">Description</th>
+                <th>Qty</th>
+                <th>Area</th>
+                <th>Unit</th>
+                <th>Driver</th>
+                <th>Loading Date</th>
+                <th>At Site</th>
+                <th>Status</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="x in ungroup">
+                <td style="font-size:0.7em">{{$index+1}}</td>
+                <td style="font-size:0.7em;text-align: center;line-height: 1.1em;color: #8304a3;font-weight: 600;">{{x.description}}</td>
+                <td style="font-size:0.7em">{{x.qty}}</td>
+                <td style="font-size:0.7em;text-align:center">{{x.area}}</td>
+                <td style="font-size:0.7em;text-align:center">{{x.unit}}</td>
+                <td style="font-size:0.7em;text-align: center;line-height: 1.1em;">{{x.driver}}</td>
+                <td style="font-size:0.7em">{{x.loadingdate_p}}</td>
+                <td style="font-size:0.7em">{{x.ascurrentdate_p}}</td>
+                <td style="font-size:0.7em" class="{{x.status === 'Delivered' ? 'okgg' : 'dang' }}">{{x.status}}</td>
+                <td>{{x.remark}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="display:flex;font-size: 10px;" ng-show="ungroupdisp">
+        <input ng-show="ungroupdisp" class="print-hidden" type="checkbox" ng-model="newpageadd"/><span class="print-hidden" style="font-size:10px" > Break Page For Each Group</span>
+    </div>
+    <table class="mainprint-table" ng-show="ungroupdisp">
+        <thead>
+            <tr>
+                <th style="font-size:0.7em">S.No</th>                
+                <th ng-hide="groupColumn === 'description'" style="width: 180px;font-size:0.7em">Description</th>                
+                <th style="font-size:0.7em">Qty</th>
+                <th style="font-size:0.7em">Area</th>
+                <th style="font-size:0.7em">Unit</th>
+                <th style="font-size:0.7em;white-space: break-spaces;text-align: center;line-height: 1.1em;" ng-hide="groupColumn === 'driver'">Driver</th>
+                <th style="font-size:0.7em" ng-hide="groupColumn === 'loadingdate_p'">Loading Date</th>
+                <th style="font-size:0.7em" ng-hide="groupColumn === 'ascurrentdate_p'">At Site</th>
+                <th style="font-size:0.7em" ng-hide="groupColumn === 'status'">Status</th>
+                <th style="font-size:0.7em">Notes</th>
+            </tr>
+        </thead>
+        <tbody  ng-repeat="y in groupdata" class="{{newpageadd  && y.$index !== 0 ? 'pagebreak' : ''}}">
+            <tr>
+                <td colspan="8" class='grouptitle'> {{groupdataTitle}} : {{y.cols.toUpperCase()}}</td>
+            </tr>
+            <tr ng-repeat="x in y.xdata">
+                <td style="font-size:0.7em">{{$index+1}}</td>
+                <td ng-hide="groupColumn === 'description'" style="font-size:0.7em;white-space: break-spaces;text-align: center;line-height: 1.1em;color: #8304a3;font-weight: 600;">{{x.description}}</td>
+                <td style="font-size:0.7em;text-align:center">{{x.qty}}</td>
+                <td style="font-size:0.7em;text-align:center">{{x.area}}</td>
+                <td style="font-size:0.7em">{{x.unit}}</td>
+                <td ng-hide="groupColumn === 'driver'" style="font-size:0.7em;white-space: break-spaces;text-align: center;line-height: 1.1em;">{{x.driver}}</td>
+                <td style="font-size:0.7em" ng-hide="groupColumn === 'loadingdate_p'">{{x.loadingdate_p}}</td>
+                <td style="font-size:0.7em" ng-hide="groupColumn === 'ascurrentdate_p'">{{x.ascurrentdate_p}}</td>
+                <td style="font-size:0.7em" ng-hide="groupColumn === 'status'" class="{{x.status === 'Delivered' ? 'okgg' : 'dang' }}">{{x.status}}</td>
+                <td style="white-space: normal;">{{x.remark}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+<div ng-show="!summarya">    
+    <style>
+        
+        @media print{@page {size: portrait}}
+     </style>
+    <table class="mainprint-table">
+        <thead>
+            <tr>
+                <th style="width:35px">S.No</th>
+                <th style="width:220px">Description</th>
+                <th style="width:80px">Unit</th>
+                <th style="width:80px">Issued</th>
+                <th style="width:80px">Delivered</th>
+                <th style="width:80px">Balance</th>                
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="x in ungroup">
+                <td style="font-size:0.7em">{{$index+1}}</td>
+                <td style="font-size:0.7em;white-space: break-spaces;text-align: center;line-height: 1.1em;color: #8304a3;font-weight: 600;font-size:0.7em">{{x.dname.toUpperCase()}}</td>
+                <td style="font-size:0.7em">{{x.dunit}}</td>
+                <td style="font-size:0.7em">{{(+x.dtotal) === 0 ? '-' : x.dtotal}}</td>
+                <td style="font-size:0.7em">{{(+x.ddele) === 0 ? '-' : x.ddele}}</td>
+                <td style="font-size:0.7em">{{(+x.dpend) === 0 ? '-' : x.dpend}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

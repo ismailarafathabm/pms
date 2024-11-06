@@ -1,0 +1,26 @@
+<div class="ism-new-pms-auto-container">
+    <div class="ism-new-pms-auto-row" style="position: sticky;top:0;">
+        <div class="ism-new-pms-auto-search-container">
+            <input type="text" name="" id="search_listed_supplier" ng-model="search_listed_supplier" ng-keyup="supplier_list_search_input_change($event)" class="ism-new-pms-auto-search-controller" ng-model="filter_project">
+            <button type="button" class="ism-new-pms-auto-search-controller-button" ng-click="addnewsupplier_click()">
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="ism-new-pms-auto-row">
+        <div class="ism-new-pms-auto-table-container">
+            <div class="ism-new-psm-auto-list-item" ng-repeat="x in get_supplier_list | filter:search_listed_supplier | orderBy : 'glasssuppliername'" ng-click="select_supplier(x)">
+                <div class="ism-new-pms-list-container">
+                    <div class="ism-new-pms-list-rows" >
+                        <div class="ism-new-pms-list-columns">
+                            <div class="ism-new-pms-list-cells projectname">{{x.glasssuppliername}}</div>
+                        </div>
+                        <div class="ism-new-pms-list-columns">
+                            <div class="ism-new-pms-list-cells contractor">{{x.glasssuppliercountry}}</div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

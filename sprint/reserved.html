@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Project Reserved materials</title>
+        <link rel="stylesheet" href="./css/font.css">
+        <style>
+        * {
+            font-size: 12px;
+            font-family: 'roboto';
+
+        }
+        body{
+            zoom:75%
+        }
+        table {
+            width: 10.5in;
+            margin: 1px auto;
+            border: 1px solid #000;
+            border-collapse: collapse;
+            zoom: 94%;
+
+        }
+        .noonprint{
+            position: sticky;
+    top: 0;
+    background: #fff;
+    padding: 10px;
+        }
+        table th,
+        table td {
+            border: 1px solid #000;
+            padding: 2px;
+        }
+
+        .theader {
+            background-color: #efefef;
+
+        }
+
+        @page {
+            size: 8.20in 10.5in ;
+            /* margin: 27mm 16mm 27mm 16mm; */
+        }
+    </style>
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="16"
+                        style="align-items: center;background-color: #ffffff;
+                    border-right: 1px solid #0000;
+                    border-top: 1px solid #0000;
+                    border-left: 1px solid #0000;
+                    border-bottom: 1px solid #0000;
+                    ">
+                        <img load="lazy" src="./css/nafco_letter.png"
+                            style="width:90%;height: 88px;">
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="16" style="font-size: 18px;
+                 border-right: 1px solid #0000;
+                    border-top: 1px solid #0000;
+                    border-left: 1px solid #0000;
+                    border-left: 1px solid #0000;
+                ">
+                        Reserved Material For Project
+                    </th>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td id="itemdescription"
+                        style="font-weight: bold;width: 600px;">-</td>
+                    <td>Part NO</td>
+                    <td id="itempartno" style="font-weight: bold;">-</td>
+
+                </tr>
+                <tr>
+                    <td colspan="3"
+                        style="line-height: 20px;font-weight: 600;background: #e0e0e0;text-align: left;font-size: 16px;">Project</td>
+                    <td
+                        style="line-height: 20px;font-weight: 600;background: #e0e0e0;text-align: left;font-size: 16px;">Qty</td>
+                </tr>
+            </thead>
+            <tbody id="maincontent">
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3"
+                        style="font-weight: bold;width: 600px;text-align: right;font-style: italic;">Total
+                        Reserved Qty</td>
+                    <td id="totalreserved"
+                        style="line-height: 20px;font-weight: 600;text-align: left;font-size: 16px;color:#a50000"></td>
+                </tr>
+            </tfoot>
+        </table>
+        <script>
+        const item = JSON.parse(localStorage.getItem("reserved_items_info"));
+        console.log(item)
+        document.getElementById("itempartno").innerText = item.partno;
+        document.getElementById("itemdescription").innerText = item.description;
+        const reserve = JSON.parse(localStorage.getItem("wtreserveritems"));
+        let pr = "";
+        let totres = 0;
+        let totrows = 30;
+        let usedrows = 0;
+        let sno = 0;
+        reserve.map((i,index)=>{
+            if((+i.qutybalance) !== 0){
+                sno += 1;
+                totres += (+i.qutybalance);
+                pr += `<tr id="rowid_${sno}">`;
+                pr += `<td colspan="3" style="font-size: 12px;font-weight: 600;color: #9e1717;padding:10px">(${sno}) . ${i.costcentername}</td>`
+                pr += `<td  style="font-size: 14px;font-weight: 600;color: #014104;">
+                    ${(+i.qutybalance).toLocaleString(undefined,{maximumFractionDigits:2})}
+                    </td>`;
+                pr += "</tr>"
+                usedrows += 1;
+                if(usedrows === totrows){
+                    usedrows = 0;
+                }
+            }
+        })
+        pr += `<tr id="rowid_emptyend">`;
+            pr += `<td colspan="3" style="height: 30px;border-bottom:1px solid #0000;color:red;text-align:center">-------------------------------END-----------------------------------</td>`
+            pr += `<td style="height: 30px;border-bottom:1px solid #0000"></td>`;
+            pr += "</tr>"
+        let balancerows = totrows - usedrows;
+        console.log(usedrows)
+        for(var i =0 ; i < balancerows ; i++ ){
+            pr += `<tr id="rowid_empty_${i}">`;
+            pr += `<td colspan="3" style="height: 30px;border-bottom:1px solid #0000"></td>`
+            pr += `<td style="height: 30px;border-bottom:1px solid #0000"></td>`;
+            pr += "</tr>"
+        }
+        document.getElementById("totalreserved").innerText = totres;
+        document.getElementById("maincontent").innerHTML = pr;
+    </script>
+    </body>
+</html>

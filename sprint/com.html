@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>NAFCO SUBMITAL FORM</title>
+        <link rel="stylesheet" href="./css/font.css">
+        <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'roboto';
+            font-size: 12px;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 16.2;
+            height: 11.5;
+            margin: 10px auto;
+            padding: 1px;
+            border: 1px solid #000;
+            display: block;
+        }
+
+        .main-top {
+            padding: 3px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 700;
+            border-bottom: 1px solid #000;
+            background: #efefef;
+            line-height: 26px;
+        }
+
+        .maincontent {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+
+        .leftside {
+            flex: 2;
+            display: block;
+
+        }
+
+        .rightside {
+            flex: 3;
+            border-left: 1px solid;
+            display: block;
+        }
+
+        .left-top {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+
+        .projectinfo {
+            flex: 2;
+            display: block;
+            border-right: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .projectinfo-header {
+            padding: 5px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            border-bottom: 1px solid #cdcdcd;
+            background: #efefef;
+        }
+
+        .projecttable {
+            border-collapse: collapse;
+            border: 1px solid #eee;
+            width: 100%;
+        }
+
+        .projecttable td,
+        .projecttable th {
+            border: 1px solid #eee;
+            font-size: 12px;
+            line-height: 16px;
+            padding: 5px;
+        }
+
+        .systeminfo {
+            flex: 2;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .left-bottom {
+            border-top: 1px solid #ddd;
+            display: block;
+        }
+
+        .approved_color {
+            color: #003509;
+            font-weight: 700;
+        }
+
+        .submitted_color {
+            
+            color: #1e00ff;
+        }
+
+        .cancelled_color {
+            color: #ff5050;
+        }
+
+        .code_A {
+        background: #c9ffd5;
+        color: #007b49;
+        font-weight: 600;
+    }
+
+    .code_B {
+        background: #c2e7cb;
+    }
+
+    .code_BC {
+        background: #effff3;
+    }
+
+    .code_C {
+        background-color: #ffe2be;
+    }
+
+    .code_D {
+        background-color: #ffc3c3;
+        color: #bd0000;
+        font-weight: 600;
+    }
+
+    .code_U {
+        background-color: #feebff;
+    }
+
+    .code_E {
+        background-color: #ebe8ff;
+    }
+
+    .code_F {
+        background-color: #e3e3e3;
+        color: #bd0000;
+        font-weight: bold;
+    }
+
+        @page {
+            size: 16.5in 11.7in;
+            /* margin: 27mm 16mm 27mm 16mm; */
+        }
+    </style>
+
+    </head>
+
+    <body ng-app="pms" ng-controller="pmscontroller">
+        <div class="main-top">
+            TECHNICAL COMPREHENSIVE REPORT
+        </div>
+        <div class="maincontent">
+            <div class="leftside">
+                <div class="left-top">
+                    <div class="projectinfo">
+                        <div class="projectinfo-header">Project / Contract</div>
+                        <table class="projecttable">
+                            <tbody>
+                                <tr>
+                                    <td style="font-weight: bold;">{{data.projectinfo.project_no}}</td>
+                                    <td style="font-weight: bold;">{{data.projectinfo.project_name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Sales Rep</td>
+                                    <td style="font-weight: bold;">{{data.projectinfo.Sales_Representative}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Location</td>
+                                    <td style="font-weight: bold;">{{data.projectinfo.project_location}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Contract Duration</td>
+                                    <td style="font-weight: bold;">{{data.projectinfo.Sales_Representative}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="systeminfPo" ng-if="data.approvedsystems.length !== 0">
+                        <div class="projectinfo-header">System</div>
+                        <table class="projecttable">
+                            <tbody>
+                                <tr ng-repeat="x in data.approvedsystems">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{x.techsyssystem}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="left-bottom" ng-if="data.tech_colorslist.length !== 0">
+                    <table class="projecttable" style="zoom: 87%;">
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>Submitted</th>
+                                <th>Status</th>
+                                <th>Approved</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="x in data.tech_colorslist">
+                                <td
+                                    ng-class="
+                                    {
+                                        'code_A' : x.tcapprovedstatus === 'A' , 
+                                        'code_B' : x.tcapprovedstatus === 'B' , 
+                                        'code_BC' : x.tcapprovedstatus === 'BC' , 
+                                        'code_C' : x.tcapprovedstatus === 'C' , 
+                                        'code_D' : x.tcapprovedstatus === 'D' , 
+                                        'code_U' : x.tcapprovedstatus === 'U' , 
+                                        'code_E' : x.tcapprovedstatus === 'E' , 
+                                        'code_F' : x.tcapprovedstatus === 'F' , 
+                                    }
+                                    ">
+                                    {{$index+1}}</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.tcapprovedstatus === 'A' , 
+                                        'code_B' : x.tcapprovedstatus === 'B' , 
+                                        'code_BC' : x.tcapprovedstatus === 'BC' , 
+                                        'code_C' : x.tcapprovedstatus === 'C' , 
+                                        'code_D' : x.tcapprovedstatus === 'D' , 
+                                        'code_U' : x.tcapprovedstatus === 'U' , 
+                                        'code_E' : x.tcapprovedstatus === 'E' , 
+                                        'code_F' : x.tcapprovedstatus === 'F' , 
+                                    }">
+                                    {{x.tcmaterial}}</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.tcapprovedstatus === 'A' , 
+                                        'code_B' : x.tcapprovedstatus === 'B' , 
+                                        'code_BC' : x.tcapprovedstatus === 'BC' , 
+                                        'code_C' : x.tcapprovedstatus === 'C' , 
+                                        'code_D' : x.tcapprovedstatus === 'D' , 
+                                        'code_U' : x.tcapprovedstatus === 'U' , 
+                                        'code_E' : x.tcapprovedstatus === 'E' , 
+                                        'code_F' : x.tcapprovedstatus === 'F' , 
+                                    }">
+                                    {{x.tecdescription}}</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.tcapprovedstatus === 'A' , 
+                                        'code_B' : x.tcapprovedstatus === 'B' , 
+                                        'code_BC' : x.tcapprovedstatus === 'BC' , 
+                                        'code_C' : x.tcapprovedstatus === 'C' , 
+                                        'code_D' : x.tcapprovedstatus === 'D' , 
+                                        'code_U' : x.tcapprovedstatus === 'U' , 
+                                        'code_E' : x.tcapprovedstatus === 'E' , 
+                                        'code_F' : x.tcapprovedstatus === 'F' , 
+                                    }"
+                                    style="width:110px">{{x.tcsubmitteddate_d}}
+                                    [{{x.tcsubmittedby}}]</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.tcapprovedstatus === 'A' , 
+                                        'code_B' : x.tcapprovedstatus === 'B' , 
+                                        'code_BC' : x.tcapprovedstatus === 'BC' , 
+                                        'code_C' : x.tcapprovedstatus === 'C' , 
+                                        'code_D' : x.tcapprovedstatus === 'D' , 
+                                        'code_U' : x.tcapprovedstatus === 'U' , 
+                                        'code_E' : x.tcapprovedstatus === 'E' , 
+                                        'code_F' : x.tcapprovedstatus === 'F' , 
+                                    }"
+                                    style="width:110px">{{x.tcapprovedstatus | StatusFilter}}</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.tcapprovedstatus === 'A' , 
+                                        'code_B' : x.tcapprovedstatus === 'B' , 
+                                        'code_BC' : x.tcapprovedstatus === 'BC' , 
+                                        'code_C' : x.tcapprovedstatus === 'C' , 
+                                        'code_D' : x.tcapprovedstatus === 'D' , 
+                                        'code_U' : x.tcapprovedstatus === 'U' , 
+                                        'code_E' : x.tcapprovedstatus === 'E' , 
+                                        'code_F' : x.tcapprovedstatus === 'F' , 
+                                    }"
+                                    style="width:110px">
+                                    {{
+                                    x.tcapprovedstatus === "U" ? '-' :
+                                    x.tcapproveddate_d
+                                    }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="rightside">
+                <div ng-if="data.hardwareapprovals.length !== 0">
+                    <div class="projectinfo-header">HARDWARE SUBMITTAL TECHNICAL
+                        DATA</div>
+                    <table class="projecttable" style="zoom: 87%;">
+                        <thead>
+                            <tr>
+                                <th>S.NO</th>
+                                <th>System</th>
+                                <th>Submitted Accessories</th>
+                                <th>Remarks</th>
+                                <th>Ref. Date</th>
+                                <th>Status</th>
+                                <th>Approved Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="x in data.hardwareapprovals">
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.thstatus === 'A' , 
+                                        'code_B' : x.thstatus === 'B' , 
+                                        'code_BC' : x.thstatus === 'BC' , 
+                                        'code_C' : x.thstatus === 'C' , 
+                                        'code_D' : x.thstatus === 'D' , 
+                                        'code_U' : x.thstatus === 'U' , 
+                                        'code_E' : x.thstatus === 'E' , 
+                                        'code_F' : x.thstatus === 'F' , 
+                                    }">
+                                    {{$index+1}}</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.thstatus === 'A' , 
+                                        'code_B' : x.thstatus === 'B' , 
+                                        'code_BC' : x.thstatus === 'BC' , 
+                                        'code_C' : x.thstatus === 'C' , 
+                                        'code_D' : x.thstatus === 'D' , 
+                                        'code_U' : x.thstatus === 'U' , 
+                                        'code_E' : x.thstatus === 'E' , 
+                                        'code_F' : x.thstatus === 'F' , 
+                                    }">
+                                    {{x.thsystem}}</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.thstatus === 'A' , 
+                                        'code_B' : x.thstatus === 'B' , 
+                                        'code_BC' : x.thstatus === 'BC' , 
+                                        'code_C' : x.thstatus === 'C' , 
+                                        'code_D' : x.thstatus === 'D' , 
+                                        'code_U' : x.thstatus === 'U' , 
+                                        'code_E' : x.thstatus === 'E' , 
+                                        'code_F' : x.thstatus === 'F' , 
+                                    }">
+                                    {{x.thdescriptions}}</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.thstatus === 'A' , 
+                                        'code_B' : x.thstatus === 'B' , 
+                                        'code_BC' : x.thstatus === 'BC' , 
+                                        'code_C' : x.thstatus === 'C' , 
+                                        'code_D' : x.thstatus === 'D' , 
+                                        'code_U' : x.thstatus === 'U' , 
+                                        'code_E' : x.thstatus === 'E' , 
+                                        'code_F' : x.thstatus === 'F' , 
+                                    }">
+                                    {{x.thnotes}}</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.thstatus === 'A' , 
+                                        'code_B' : x.thstatus === 'B' , 
+                                        'code_BC' : x.thstatus === 'BC' , 
+                                        'code_C' : x.thstatus === 'C' , 
+                                        'code_D' : x.thstatus === 'D' , 
+                                        'code_U' : x.thstatus === 'U' , 
+                                        'code_E' : x.thstatus === 'E' , 
+                                        'code_F' : x.thstatus === 'F' , 
+                                    }"
+                                    style="width:110px">{{x.thsapprovedate_d}}
+                                    [{{x.tcsubmittedby}}]</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.thstatus === 'A' , 
+                                        'code_B' : x.thstatus === 'B' , 
+                                        'code_BC' : x.thstatus === 'BC' , 
+                                        'code_C' : x.thstatus === 'C' , 
+                                        'code_D' : x.thstatus === 'D' , 
+                                        'code_U' : x.thstatus === 'U' , 
+                                        'code_E' : x.thstatus === 'E' , 
+                                        'code_F' : x.thstatus === 'F' , 
+                                    }"
+                                    style="width:110px">{{x.thstatus | StatusFilter}}</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.thstatus === 'A' , 
+                                        'code_B' : x.thstatus === 'B' , 
+                                        'code_BC' : x.thstatus === 'BC' , 
+                                        'code_C' : x.thstatus === 'C' , 
+                                        'code_D' : x.thstatus === 'D' , 
+                                        'code_U' : x.thstatus === 'U' , 
+                                        'code_E' : x.thstatus === 'E' , 
+                                        'code_F' : x.thstatus === 'F' , 
+                                    }"
+                                    style="width:110px">
+                                    {{
+                                    x.thstatus === "U" ? '-' :
+                                    x.thsapprovedate_d
+                                    }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-if="data.technicalapproval_datas.length !== 0">
+                    <div class="projectinfo-header">TECHNICAL SUBMITTAL
+                        TECHNICAL DATA</div>
+                    <table class="projecttable" style="zoom: 87%;">
+                        <tbody>
+                            <tr ng-repeat="x in data.technicalapproval_datas">
+                                <td
+                                    ng-class="
+                                    {
+                                        'code_A' : x.tastatus === 'A' , 
+                                        'code_B' : x.tastatus === 'B' , 
+                                        'code_BC' : x.tastatus === 'BC' , 
+                                        'code_C' : x.tastatus === 'C' , 
+                                        'code_D' : x.tastatus === 'D' , 
+                                        'code_U' : x.tastatus === 'U' , 
+                                        'code_E' : x.tastatus === 'E' , 
+                                        'code_F' : x.tastatus === 'F' , 
+                                    }">
+                                    {{$index+1}}</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.tastatus === 'A' , 
+                                        'code_B' : x.tastatus === 'B' , 
+                                        'code_BC' : x.tastatus === 'BC' , 
+                                        'code_C' : x.tastatus === 'C' , 
+                                        'code_D' : x.tastatus === 'D' , 
+                                        'code_U' : x.tastatus === 'U' , 
+                                        'code_E' : x.tastatus === 'E' , 
+                                        'code_F' : x.tastatus === 'F' , 
+                                    }">
+                                    {{x.taapproval}}</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.tastatus === 'A' , 
+                                        'code_B' : x.tastatus === 'B' , 
+                                        'code_BC' : x.tastatus === 'BC' , 
+                                        'code_C' : x.tastatus === 'C' , 
+                                        'code_D' : x.tastatus === 'D' , 
+                                        'code_U' : x.tastatus === 'U' , 
+                                        'code_E' : x.tastatus === 'E' , 
+                                        'code_F' : x.tastatus === 'F' , 
+                                    }">
+                                    {{x.tadescription}}</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.tastatus === 'A' , 
+                                        'code_B' : x.tastatus === 'B' , 
+                                        'code_BC' : x.tastatus === 'BC' , 
+                                        'code_C' : x.tastatus === 'C' , 
+                                        'code_D' : x.tastatus === 'D' , 
+                                        'code_U' : x.tastatus === 'U' , 
+                                        'code_E' : x.tastatus === 'E' , 
+                                        'code_F' : x.tastatus === 'F' , 
+                                    }">
+                                    {{x.taremarks}}</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.tastatus === 'A' , 
+                                        'code_B' : x.tastatus === 'B' , 
+                                        'code_BC' : x.tastatus === 'BC' , 
+                                        'code_C' : x.tastatus === 'C' , 
+                                        'code_D' : x.tastatus === 'D' , 
+                                        'code_U' : x.tastatus === 'U' , 
+                                        'code_E' : x.tastatus === 'E' , 
+                                        'code_F' : x.tastatus === 'F' , 
+                                    }"
+                                    style="width:110px">{{x.tasubmitteddate_d}}
+                                    [{{x.tasubmittedby}}]</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.tastatus === 'A' , 
+                                        'code_B' : x.tastatus === 'B' , 
+                                        'code_BC' : x.tastatus === 'BC' , 
+                                        'code_C' : x.tastatus === 'C' , 
+                                        'code_D' : x.tastatus === 'D' , 
+                                        'code_U' : x.tastatus === 'U' , 
+                                        'code_E' : x.tastatus === 'E' , 
+                                        'code_F' : x.tastatus === 'F' , 
+                                    }"
+                                    style="width:110px">{{x.tastatus | StatusFilter}}</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.tastatus === 'A' , 
+                                        'code_B' : x.tastatus === 'B' , 
+                                        'code_BC' : x.tastatus === 'BC' , 
+                                        'code_C' : x.tastatus === 'C' , 
+                                        'code_D' : x.tastatus === 'D' , 
+                                        'code_U' : x.tastatus === 'U' , 
+                                        'code_E' : x.tastatus === 'E' , 
+                                        'code_F' : x.tastatus === 'F' , 
+                                    }"
+                                    style="width:110px">
+                                    {{
+                                    x.tastatus === "U" ? '-' :
+                                    x.taapproveddate_d
+                                    }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-if="data.calculation_datas.length !== 0">
+                    <div class="projectinfo-header">CALCULATION SUBMITTAL</div>
+                    <table class="projecttable" style="zoom: 87%;">
+                        <tbody>
+                            <tr ng-repeat="x in data.calculation_datas">
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.tcstatus === 'A' , 
+                                        'code_B' : x.tcstatus === 'B' , 
+                                        'code_BC' : x.tcstatus === 'BC' , 
+                                        'code_C' : x.tcstatus === 'C' , 
+                                        'code_D' : x.tcstatus === 'D' , 
+                                        'code_U' : x.tcstatus === 'U' , 
+                                        'code_E' : x.tcstatus === 'E' , 
+                                        'code_F' : x.tcstatus === 'F' , 
+                                    }">
+                                    {{$index+1}}</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.tcstatus === 'A' , 
+                                        'code_B' : x.tcstatus === 'B' , 
+                                        'code_BC' : x.tcstatus === 'BC' , 
+                                        'code_C' : x.tcstatus === 'C' , 
+                                        'code_D' : x.tcstatus === 'D' , 
+                                        'code_U' : x.tcstatus === 'U' , 
+                                        'code_E' : x.tcstatus === 'E' , 
+                                        'code_F' : x.tcstatus === 'F' , 
+                                    }">
+                                    {{x.tcsubmitall}}</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.tcstatus === 'A' , 
+                                        'code_B' : x.tcstatus === 'B' , 
+                                        'code_BC' : x.tcstatus === 'BC' , 
+                                        'code_C' : x.tcstatus === 'C' , 
+                                        'code_D' : x.tcstatus === 'D' , 
+                                        'code_U' : x.tcstatus === 'U' , 
+                                        'code_E' : x.tcstatus === 'E' , 
+                                        'code_F' : x.tcstatus === 'F' , 
+                                    }">
+                                    {{x.tcsubmittalno}}</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.tcstatus === 'A' , 
+                                        'code_B' : x.tcstatus === 'B' , 
+                                        'code_BC' : x.tcstatus === 'BC' , 
+                                        'code_C' : x.tcstatus === 'C' , 
+                                        'code_D' : x.tcstatus === 'D' , 
+                                        'code_U' : x.tcstatus === 'U' , 
+                                        'code_E' : x.tcstatus === 'E' , 
+                                        'code_F' : x.tcstatus === 'F' , 
+                                    }">
+                                    {{x.tcsubmittalrv}}</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.tcstatus === 'A' , 
+                                        'code_B' : x.tcstatus === 'B' , 
+                                        'code_BC' : x.tcstatus === 'BC' , 
+                                        'code_C' : x.tcstatus === 'C' , 
+                                        'code_D' : x.tcstatus === 'D' , 
+                                        'code_U' : x.tcstatus === 'U' , 
+                                        'code_E' : x.tcstatus === 'E' , 
+                                        'code_F' : x.tcstatus === 'F' , 
+                                    }"
+                                    style="width:110px">{{x.tcsubmittaldate_d}}
+                                    [{{x.tcsubmittedby}}]</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.tcstatus === 'A' , 
+                                        'code_B' : x.tcstatus === 'B' , 
+                                        'code_BC' : x.tcstatus === 'BC' , 
+                                        'code_C' : x.tcstatus === 'C' , 
+                                        'code_D' : x.tcstatus === 'D' , 
+                                        'code_U' : x.tcstatus === 'U' , 
+                                        'code_E' : x.tcstatus === 'E' , 
+                                        'code_F' : x.tcstatus === 'F' , 
+                                    }"
+                                    style="width:110px">{{x.tcstatus_txt}}</td>
+                                <td
+                                    ng-class="{
+                                        'code_A' : x.tcstatus === 'A' , 
+                                        'code_B' : x.tcstatus === 'B' , 
+                                        'code_BC' : x.tcstatus === 'BC' , 
+                                        'code_C' : x.tcstatus === 'C' , 
+                                        'code_D' : x.tcstatus === 'D' , 
+                                        'code_U' : x.tcstatus === 'U' , 
+                                        'code_E' : x.tcstatus === 'E' , 
+                                        'code_F' : x.tcstatus === 'F' , 
+                                    }"
+                                    style="width:110px">
+                                    {{
+                                    x.tcstatus === "U" ? '-' :
+                                    x.tcapproveddate_d
+                                    }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <script src="./../themes/angular/angular.js"></script>
+        <script>
+        const app = angular.module('pms', []);
+        app.controller("pmscontroller", function ($scope) {            
+            $scope.data = JSON.parse(localStorage.getItem('pms_comp_print'));
+            const title = `COMPREHENSIVE REPORT OF - ${$scope.data.projectinfo.project_name} [${$scope.data.projectinfo.project_no}]`;
+            document.title = title;
+        })
+        app.filter('StatusFilter', () => {
+            return function(code) {
+                switch (code) {
+                    case 'A':
+                        return 'A - Approved as Submitted';
+                    case 'B':
+                        return 'B - Approved as Noted';
+                    case 'BC':
+                        return 'BC - Approved with Conditions';
+                    case 'C':
+                        return 'C - Revise and resubmit';
+                    case 'D':
+                        return 'D - Rejected';
+                    case 'U':
+                        return 'U - Under review';
+                    case 'E':
+                        return 'E - For Information';
+                    case 'F':
+                        return 'F - Cancelled';
+                    default : return "NO CODE....";
+                }
+            }
+        })
+    </script>
+    </body>
+
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glass Order Print</title>
+    <link rel="stylesheet" href="./../../../../fprint/css/fonts.css">
+    <link rel="stylesheet" href="./../../../../fprint/css/printpage.css">
+    <style>
+        table td {
+            font-size: 14px !important;
+            font-weight: 700;
+        }
+
+        .titletd {
+            background-color: #f8f7ff !important;
+            color: #000;
+            font-weight: 500;
+            line-height: 28px !important;
+            font-size: 13.5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-print-conatiner">
+        <div class="print-hidden">
+            <div class="print-hidden-left">
+                <button class="btn print" onclick="printaction()">Print</button>
+            </div>
+        </div>
+        <header class="main-print-title">
+            <div class="main-print-logo">
+                <img class="main-print-main-logo" src="./../../../../fprint/css/mainlogo.png" alt="NAFCO LOGO" />
+            </div>
+            <div class="main-print-headers">
+                <div class="main-print-cmname">NATIONAL ALUMINIUM FACTORY - NAFCO</div>
+                <div class="main-print-titlesub" id="printtitle">glass order cover letter</div>
+            </div>
+        </header>
+        <div class="main-print-page" id="printcontainer">
+            <table class="mainprint-table">
+                <tbody>
+                    <tr>
+                        <td class="titletd">To</td>
+                        <td>Sales Manager</td>
+                        <td class="titletd">From</td>
+                        <td>From Purchasing Dept NAFCO</td>
+                    </tr>
+                    <tr>
+                        <td class="titletd">Date</td>
+                        <td>30-March-2023</td>
+                        <td class="titletd">REF</td>
+                        <td>0425/22</td>
+                    </tr>
+                    <tr>
+                        <td class="titletd">Project</td>
+                        <td colspan="3">Commercial Office Building Al Mousa (P08/22)</td>
+                    </tr>
+                    <tr>
+                        <td class="titletd">Type</td>
+                        <td colspan="3">DOUBE GLASS</td>
+                    </tr>
+                    <tr>
+                        <td class="titletd">Description</td>
+                        <td colspan="3"> 6mm thk. guardian ds steeel gery on clear heat strengthened glass / 20mm a.s/
+                            13.52mm clear tempered glass see attached drawing</td>
+                    </tr>
+                    <tr>
+                        <td class="titletd">Qty</td>
+                        <td>3</td>
+                        <td class="titletd">Area</td>
+                        <td>150 Sqm</td>
+                    </tr>
+                    <tr>
+                        <td class="titletd">P/Sqm</td>
+                        <td>3</td>
+                        <td class="titletd">Total</td>
+                        <td>SAR. 125554</td>
+                    </tr>
+                    <tr>
+                        <td class="titletd" colspan="4">Previous Order Summary</td>
+                    </tr>
+                    <tr>
+                        <td class="titletd">Area</td>
+                        <td>350Sqm</td>
+                        <td class="titletd">Area</td>
+                        <td>SAR. 75887874</td>
+                    </tr>
+                    <tr>
+                        <td class="titletd" colspan="4">Balance</td>
+                    </tr>
+                    <tr>
+                        <td class="titletd">Area</td>
+                        <td>50Sqm</td>
+                        <td class="titletd">Area</td>
+                        <td>SAR. 7588</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+</body>
+<script>
+    function printaction() {
+        window.print();
+    }
+</script>
+
+</html>

@@ -1,0 +1,32 @@
+[13-Apr-2024 08:40:04 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'enc_mode' in 'field list' in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php:699
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php(699): PDOStatement->execute()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php(714): BOQ->_boqautocompleate()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/boqop/index.php(17): BOQ->boqautocompleate()
+#3 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php on line 699
+[13-Apr-2024 08:46:35 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'enc_mode' in 'field list' in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php:699
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php(699): PDOStatement->execute()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php(714): BOQ->_boqautocompleate()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/boqop/index.php(17): BOQ->boqautocompleate()
+#3 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php on line 699
+[13-Apr-2024 08:46:58 Asia/Riyadh] PHP Warning:  Undefined variable $boq_type in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php on line 923
+[13-Apr-2024 08:46:58 Asia/Riyadh] PHP Warning:  Undefined variable $boq_type_refno in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php on line 924
+[13-Apr-2024 08:46:58 Asia/Riyadh] PHP Warning:  Undefined variable $boq_type_rno in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php on line 925
+[13-Apr-2024 08:46:58 Asia/Riyadh] PHP Warning:  Undefined variable $boq_calby in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php on line 926
+[13-Apr-2024 08:46:58 Asia/Riyadh] PHP Warning:  Undefined variable $issupersede in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php on line 927
+[13-Apr-2024 08:46:58 Asia/Riyadh] PHP Warning:  Undefined variable $oldboqid in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php on line 928
+[13-Apr-2024 08:46:58 Asia/Riyadh] PHP Warning:  Undefined variable $totprice in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php on line 929
+[13-Apr-2024 08:46:58 Asia/Riyadh] PHP Warning:  Undefined variable $enc_mode in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php on line 930
+[13-Apr-2024 08:46:58 Asia/Riyadh] PHP Warning:  Undefined variable $boq_calby in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php on line 947
+[13-Apr-2024 08:46:58 Asia/Riyadh] PHP Warning:  Undefined variable $boq_type in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php on line 923
+[13-Apr-2024 08:46:58 Asia/Riyadh] PHP Warning:  Undefined variable $boq_type_refno in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php on line 924
+[13-Apr-2024 08:46:58 Asia/Riyadh] PHP Warning:  Undefined variable $boq_type_rno in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php on line 925
+[13-Apr-2024 08:46:58 Asia/Riyadh] PHP Warning:  Undefined variable $boq_calby in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php on line 926
+[13-Apr-2024 08:46:58 Asia/Riyadh] PHP Warning:  Undefined variable $issupersede in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php on line 927
+[13-Apr-2024 08:46:58 Asia/Riyadh] PHP Warning:  Undefined variable $oldboqid in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php on line 928
+[13-Apr-2024 08:46:58 Asia/Riyadh] PHP Warning:  Undefined variable $totprice in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php on line 929
+[13-Apr-2024 08:46:58 Asia/Riyadh] PHP Warning:  Undefined variable $enc_mode in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php on line 930
+[13-Apr-2024 08:46:58 Asia/Riyadh] PHP Warning:  Undefined variable $boq_calby in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/boq.php on line 947

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PROJECT LIST</title>
+        <link rel="stylesheet" href="./css/font.css">
+        <style>
+        * {
+            font-size: 0.85rem;
+            font-family: 'owh';
+
+        }
+       
+        
+        table {
+            width: auto;
+            margin: 1px auto;
+            border: 1px solid #000;
+            border-collapse: collapse;
+            
+
+        }
+
+        table th,
+        table td {
+            border: 1px solid #000;
+            padding: 3px;
+            word-break: break-all;
+        }
+
+        .theader {
+            background-color: #efefef;
+
+        }
+        .noonprint{
+            position: sticky;
+    top: 0;
+    background: #fff;
+    padding: 10px;
+        }
+        @media print{
+            body{
+                width : auto;
+                margin: 0.39in 0.39in 0.75in 0.39in;
+            }
+            table{
+                zoom: 85%;
+            }
+            .noonprint{
+                display:none;
+            }
+        }
+        @page {
+            size:auto ;
+            margin: 0.39in 0.39in 0.75in 0.39in;
+            /* margin: 27mm 16mm 27mm 16mm; */
+        }
+        </style>
+
+    </head>
+
+    <body>
+        <div class="noonprint">
+            <div>
+                Group By
+                <select id="groupby">
+                    <option value>-</option>
+                    <option value="project_location">By Location</option>
+                    <option value="projectRegion">By Region</option>
+                    <option value="Sales_Representative">Sales Representative</option>
+                    <option value="project_cname">By Contractor</option>                    
+                </select>
+                <input type="text" id="print_titlex"
+                    placeholder="Enter Title" style="display: none;" />
+                <button type="button" id="rptload">Load Report</button>
+                <button type="button" id="summaryload">Load Summary</button>
+                <button onclick="window.print()">Print</button>
+                <button id="exportexcel" class="ism-btns btn-normal"
+                    style="display: none;">
+                    Export Excel
+                </button>
+            </div>
+        </div>
+        <div id="maincontent">
+
+        </div>
+        <script
+            src="./../themes/loginscreen/vendor/jquery/jquery-3.2.1.min.js"></script>
+        <script src="./../Dashboard/Main/excelnn.js"></script>
+        <script>
+            let groupby = document.getElementById("groupby");
+            const filters = {
+                project_location : "By Location",
+                projectRegion : "By Region",
+                Sales_Representative : "By Sales Rep#",                
+                project_cname : "By Contractor",                             
+            }
+            let data = [];
+            let cols = [];
+            let ptype = "";
+            let pgtitle = "";
+            let priceaccess = "";
+
+            let gdata = [];  
+            let ctqty = 0;
+            let delqty = 0;
+            let delbal = 0;
+            function GTotal(){
+                // ctqty = data.reduce((r,j)=> r + (+j.ct_qty),0);
+                // delqty = data.reduce((r,j)=> r + (+j.dis_qty),0);
+                // delbal = data.reduce((r,j)=> r + (+j.bal_qty),0);             
+            } 
+            
+            function _groupdata(){
+                const gby = groupby.value;
+                gorupbytitle = filters[gby]
+                console.log(gorupbytitle);
+                gdata = [];
+                let gnames = [];
+                data.map(i=>{
+                    const gname = i[gby].trim();
+                    if(!gnames.includes(gname)){
+                        gnames.push(gname);
+                    }
+                });
+                gnames.map(i=>{
+                    let x = {};
+                    x['gbyname'] = i;
+                    const datas = data.filter(y=> y[gby].trim() === i);
+                    x['data'] = datas;
+                    gdata.push(x);
+                    
+                })
+                console.log(gdata);
+            }
+            let rptload = document.getElementById('rptload');
+            rptload.onclick = () => {
+                const gbyval = groupby.value;
+                if(gbyval === ''){
+                    PrintNormal()
+                }else{
+                    _groupdata();
+                    printbygroup();
+                }
+            }
+            groupby.onchange = () => {
+                const gbyval = groupby.value;
+                if(gbyval === ''){
+                    PrintNormal()
+                }else{
+                    _groupdata();
+                    printbygroup();
+                }
+            }
+            window.onload = () => {
+                //let _data = window.pms_boms; // must be change to window params                
+                let _data = localStorage.getItem("pms_project_list");
+                let _cols = localStorage.getItem("pms_project_list_config");
+                ptype = localStorage.getItem("pms_project_ptype");
+                ptype = localStorage.getItem("pms_project_pdf_access");
+                pgtitle = localStorage.getItem("pms_project_printtile");
+                //console.log(_data);
+                data = JSON.parse(_data);     
+                cols = JSON.parse(_cols)           
+                GTotal();
+                PrintNormal();
+            }
+
+            function PrintNormal(){
+                document.title = `${pgtitle}`;
+                let pr = "";
+                pr += ` <table style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th colspan="8"   style="align-items: center;background-color: #ffffff;
+                                border-right: 1px solid transparent;
+                                border-top: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                border-bottom: 1px solid transparent;">
+                                <img load="lazy" src="./css/nafco_letter.png"
+                                        style="width:90%;height: 88px;">
+                            </th>
+                        </tr>
+                        <tr>
+                                <th id="pagetitlex" colspan="8" style="font-size: 18px;
+                                border-right: 1px solid transparent;
+                                border-bottom: 1px solid transparent;
+                                border-top: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                            ">
+                                    ${pgtitle}
+                                </th>
+                            </tr>
+                    </thead>                  
+                    </table> `
+                    pr += ` <table style="width:auto">
+                    <thead>                        
+                    `;
+                    pr += `<tr>`;
+                    pr += `<td style="background:#f5f5f5;padding:9px">S.No</td>`;    
+                    cols.map(i=>{
+                        if(i.colshow){
+                            console.log(i.colid)
+                            if(i.colid === "f_status"){
+
+                            }
+                            else{
+                                pr += `<th style="background:#f5f5f5;padding:9px;width:${i.colwidth}px">${i.colname}</th>`
+                            }                         
+                        }                
+                     })
+                     pr += `</tr>`;                    
+                    pr +=`</head>`;
+                    pr += `<tbody>`;
+                    data.map((i,index)=>{
+                        pr += `<tr>`;
+                        pr += `<td>${index+1}</td>`
+                        cols.map(c=>{
+                            if(c.colshow){
+                                if(c.colid === "f_status"){
+
+                                }   
+                                else if(c.colid === "project_expiry_date"){
+                                    pr += `<td style="width:${c.colwidth}px;"">                                        
+                                        ${i.project_expiry_date_d.display}
+                                    </td>`
+                                }                             
+                                else if(c.colid === "techapprovals_status"){
+                                    pr += `<td style="width:${c.colwidth}px;text-align:right;font-weight:bold">                                        
+                                        ${(+i.techapprovals_cnt) === 0 ?  '-' :(+i.techapprovals_cnt).toLocaleString(undefined,{maximumFractionDigits:2})}
+                                    </td>`
+                                }
+                                else if(c.colid === "drawingapprovals_status"){
+                                    pr += `<td style="width:${c.colwidth}px;text-align:right;font-weight:bold">                                        
+                                        ${(+i.drawingapprovals_cnt) === 0 ?  '-' :(+i.drawingapprovals_cnt).toLocaleString(undefined,{maximumFractionDigits:2})}
+                                    </td>`
+                                }
+                                else if(c.colid === "mr_status"){
+                                    pr += `<td style="width:${c.colwidth}px;text-align:right;font-weight:bold">                                        
+                                        ${(+i.mr_cnt) === 0 ?  '-' :(+i.mr_cnt).toLocaleString(undefined,{maximumFractionDigits:2})}
+                                    </td>`
+                                }
+                                else if(c.colid === "bom_status"){
+                                    pr += `<td style="width:${c.colwidth}px;text-align:right;font-weight:bold">                                        
+                                        ${(+i.bom_cnt) === 0 ?  '-' :(+i.bom_cnt).toLocaleString(undefined,{maximumFractionDigits:2})}
+                                    </td>`
+                                }
+                                else if(c.colid === "cl_status"){
+                                    pr += `<td style="width:${c.colwidth}px;text-align:right;font-weight:bold">                                        
+                                        ${(+i.cl_cnt) === 0 ?  '-' :(+i.cl_cnt).toLocaleString(undefined,{maximumFractionDigits:2})}
+                                    </td>`
+                                }
+                                else if(c.colid === "gos_status"){
+                                    pr += `<td style="width:${c.colwidth}px;text-align:right;font-weight:bold">                                        
+                                        ${(+i.gos_cnt) === 0 ?  '-' :(+i.gos_cnt).toLocaleString(undefined,{maximumFractionDigits:2})}
+                                    </td>`
+                                }
+                                else if(c.colid === "clp_status"){
+                                    pr += `<td style="width:${c.colwidth}px;text-align:right;font-weight:bold">                                        
+                                        ${(+i.clp_cnt) === 0 ?  '-' :(+i.clp_cnt).toLocaleString(undefined,{maximumFractionDigits:2})}
+                                    </td>`
+                                }
+                                else if(c.colid === "project_singdate"){
+                                   pr += `<td>
+                                    ${i.project_singdate_d.display}
+                                    </td>`
+                                }else if(c.colid === "project_expiry_date"){
+                                    pr += `<td>
+                                    ${i.project_expiry_date.display}
+                                    </td>`
+                                }else if(c.colid === "project_hadnover"){
+                                    let txt = "";
+                                    switch(i.project_hadnover.toString()){
+                                        case '1' : txt = "Initial Handing Over";break;
+                                        case '2' : txt = "Partial Handing Over";break;
+                                        case '3' : txt = "Final Handing Over";break;
+                                        default : txt = "-";break;
+                                    }
+                                    pr += `<td style="width:${c.colwidth}px;text-align:right;font-weight:bold">                                        
+                                        ${txt}
+                                    </td>`
+                                }else if(c.colid === "project_handover_date"){
+                                    if(i.project_hadnover.toString() === "3"){
+                                        pr += `<td style="width:${c.colwidth}px;text-align:right;font-weight:bold">                                        
+                                            ${i.project_handover_date.display}
+                                    </td>`
+                                    }else{
+                                        pr += `<td>-</td>`
+                                    }                                    
+                                }else{
+                                    pr += `<td style="width:${c.colwidth}px;">                                        
+                                        ${i[c.colid]}
+                                    </td>`
+                                }
+                            }
+                        });
+                    });
+                     document.getElementById("maincontent").innerHTML = pr; 
+                    }
+
+                    function printbygroup() {
+                        console.log("working");
+                        document.title = `Cutting List Dlivery Report ${gorupbytitle}`;
+                        let pr = "";
+                        pr += ` <table style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th colspan="8"   style="align-items: center;background-color: #ffffff;
+                                        border-right: 1px solid transparent;
+                                        border-top: 1px solid transparent;
+                                        border-left: 1px solid transparent;
+                                        border-bottom: 1px solid transparent;">
+                                        <img load="lazy" src="./css/nafco_letter.png"
+                                                style="width:90%;height: 88px;">
+                                    </th>
+                                </tr>
+                                <tr>
+                                        <th id="pagetitlex" colspan="8" style="font-size: 18px;
+                                        border-right: 1px solid transparent;
+                                        border-bottom: 1px solid transparent;
+                                        border-top: 1px solid transparent;
+                                        border-left: 1px solid transparent;
+                                        border-left: 1px solid transparent;
+                                    ">
+                                        ${pgtitle} ${gorupbytitle}
+                                        </th>
+                                    </tr>
+                            </thead>                  
+                            </table> `;
+                        
+                        pr += `<table style="width: 100%;">`;
+                            pr += `<tr>`;                            
+                            pr += `<td style="background:#f5f5f5;padding:9px">S.No</td>`;   
+                            cols.map(i=>{
+                                if(i.colshow){
+                                    console.log(i.colid)
+                                    if(i.colid === "f_status"){
+
+                                    }
+                                    else{
+                                        pr += `<th style="background:#f5f5f5;padding:9px;width:${i.colwidth}px">${i.colname}</th>`
+                                    }                         
+                                }                
+                            })
+                            pr += `</tr>`; 
+                        gdata.map(x => { 
+                            pr += `<thead><tr>`;
+                            pr +=`<td colspan="19" style="background: #e9fcff;font-weight: 600;font-size: 0.95rem;padding: 6px;">${x.gbyname === "" ? '-' : x.gbyname.toUpperCase()}</td>`;  
+                            pr +=`</tr></head>`;
+                                       
+                            pr +=`<tbody>`;
+                            x.data.map((i,index)=>{
+                                pr += `<tr key="${index}">` 
+                                pr += `<td>${index+1}</td>`;
+                                cols.map(c=>{
+                                    if(c.colshow){
+                                if(c.colid === "f_status"){
+
+                                }    
+                                else if(c.colid === "project_expiry_date"){
+                                    pr += `<td style="width:${c.colwidth}px;text-align:right;font-weight:bold">                                        
+                                        ${i.project_expiry_date_d.display}
+                                    </td>`
+                                }                           
+                                else if(c.colid === "techapprovals_status"){
+                                    pr += `<td style="width:${c.colwidth}px;text-align:right;font-weight:bold">                                        
+                                        ${(+i.techapprovals_cnt) === 0 ?  '-' :(+i.techapprovals_cnt).toLocaleString(undefined,{maximumFractionDigits:2})}
+                                    </td>`
+                                }
+                                else if(c.colid === "drawingapprovals_status"){
+                                    pr += `<td style="width:${c.colwidth}px;text-align:right;font-weight:bold">                                        
+                                        ${(+i.drawingapprovals_cnt) === 0 ?  '-' :(+i.drawingapprovals_cnt).toLocaleString(undefined,{maximumFractionDigits:2})}
+                                    </td>`
+                                }
+                                else if(c.colid === "mr_status"){
+                                    pr += `<td style="width:${c.colwidth}px;text-align:right;font-weight:bold">                                        
+                                        ${(+i.mr_cnt) === 0 ?  '-' :(+i.mr_cnt).toLocaleString(undefined,{maximumFractionDigits:2})}
+                                    </td>`
+                                }
+                                else if(c.colid === "bom_status"){
+                                    pr += `<td style="width:${c.colwidth}px;text-align:right;font-weight:bold">                                        
+                                        ${(+i.bom_cnt) === 0 ?  '-' :(+i.bom_cnt).toLocaleString(undefined,{maximumFractionDigits:2})}
+                                    </td>`
+                                }
+                                else if(c.colid === "cl_status"){
+                                    pr += `<td style="width:${c.colwidth}px;text-align:right;font-weight:bold">                                        
+                                        ${(+i.cl_cnt) === 0 ?  '-' :(+i.cl_cnt).toLocaleString(undefined,{maximumFractionDigits:2})}
+                                    </td>`
+                                }
+                                else if(c.colid === "gos_status"){
+                                    pr += `<td style="width:${c.colwidth}px;text-align:right;font-weight:bold">                                        
+                                        ${(+i.gos_cnt) === 0 ?  '-' :(+i.gos_cnt).toLocaleString(undefined,{maximumFractionDigits:2})}
+                                    </td>`
+                                }
+                                else if(c.colid === "clp_status"){
+                                    pr += `<td style="width:${c.colwidth}px;text-align:right;font-weight:bold">                                        
+                                        ${(+i.clp_cnt) === 0 ?  '-' :(+i.clp_cnt).toLocaleString(undefined,{maximumFractionDigits:2})}
+                                    </td>`
+                                }
+                                else if(c.colid === "project_singdate"){
+                                   pr += `<td>
+                                    ${i.project_singdate_d.display}
+                                    </td>`
+                                }else if(c.colid === "project_expiry_date"){
+                                    pr += `<td>
+                                    ${i.project_expiry_date.display}
+                                    </td>`
+                                }else if(c.colid === "project_hadnover"){
+                                    let txt = "";
+                                    switch(i.project_hadnover.toString()){
+                                        case '1' : txt = "Initial Handing Over";break;
+                                        case '2' : txt = "Partial Handing Over";break;
+                                        case '3' : txt = "Final Handing Over";break;
+                                        default : txt = "-";break;
+                                    }
+                                    pr += `<td style="width:${c.colwidth}px;text-align:right;font-weight:bold">                                        
+                                        ${txt}
+                                    </td>`
+                                }else if(c.colid === "project_handover_date"){
+                                    if(i.project_hadnover.toString() === "3"){
+                                        pr += `<td style="width:${c.colwidth}px;text-align:right;font-weight:bold">                                        
+                                            ${i.project_handover_date.display}
+                                    </td>`
+                                    }else{
+                                        pr += `<td>-</td>`
+                                    }                                    
+                                }else{
+                                    pr += `<td style="width:${c.colwidth}px;">                                        
+                                        ${i[c.colid]}
+                                    </td>`
+                                }
+                            }
+                                });
+                            })
+                        })
+                        document.getElementById("maincontent").innerHTML = pr;     
+                    }
+
+                    const summaryload = document.getElementById("summaryload");
+            summaryload.onclick = () =>{
+                const groupby = document.getElementById("groupby").value;
+                if(groupby === ''){
+                    alert("Choose Group By Option.");
+                    return;
+                }
+
+                summaryprint();
+            }
+            function summaryprint(){
+                document.title = `Cutting List Dlivery Summary Report ${gorupbytitle}`;
+                let pr = "";
+                pr += ` <table style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th colspan="8"   style="align-items: center;background-color: #ffffff;
+                                border-right: 1px solid transparent;
+                                border-top: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                border-bottom: 1px solid transparent;">
+                                <img load="lazy" src="./css/nafco_letter.png"
+                                        style="width:90%;height: 88px;">
+                            </th>
+                        </tr>
+                        <tr>
+                                <th id="pagetitlex" colspan="8" style="font-size: 18px;
+                                border-right: 1px solid transparent;
+                                border-bottom: 1px solid transparent;
+                                border-top: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                            ">
+                                CUTTING LIST DELIVER REPORT ${gorupbytitle}
+                                </th>
+                            </tr>
+                    </thead>                  
+                    </table> `;
+                    pr += `<table style="width: auto;">`;        
+                    pr += `<thead>`
+                    pr += `<tr>`
+                    pr += `<th>S.NO</th>`
+                    pr += `<th>Title</th>`
+                    pr += `<th>CL Qty</th>`
+                    pr += `<th>Deliverd Qty</th>`
+                    pr += `<th>Balance Qty</th>`
+                    pr += `<th>%</th>`
+                    pr += `</tr>`
+                    pr += `</thead>`
+                    pr += `<tbody>`
+                    gdata.map((i,index)=>{
+                        let xctqty = 0 ;
+                        xctqty =(+i.g_ctqty);
+                        let xdelqty = 0;
+                        xdelqty = (+i.g_delqty);
+                        console.log(xctqty);
+                        console.log(xdelqty);
+                        console.log((xdelqty / xctqty) * 100 );
+                        let prs = (xdelqty / xctqty) * 100;
+                        pr += `<tr>`
+                            pr +=`<td>${index+1}</td>`
+                            pr +=`<td>${i.gbyname === "" ? '-' : i.gbyname.toUpperCase()}</td>`
+                            pr +=`<td>                                
+                                ${(+i.g_ctqty) === 0 ?  '-' :(+i.g_ctqty).toLocaleString(undefined,{maximumFractionDigits:2})}
+                                </td>`
+                            pr +=`<td>
+                                ${(+i.g_delqty) === 0 ?  '-' :(+i.g_delqty).toLocaleString(undefined,{maximumFractionDigits:2})}
+                                </td>`
+                            pr +=`<td>
+                                ${(+i.g_delbal) === 0 ?  '-' :(+i.g_delbal).toLocaleString(undefined,{maximumFractionDigits:2})}
+                                </td>`
+                           
+                            pr +=`<td>`
+                                if((+prs) === 0) {
+                                    pr += '-'
+                                }else{
+                                    pr += `${(+prs).toLocaleString(undefined,{maximumFractionDigits:2})} %`
+                                }
+                            pr +=`</td>`
+                        pr += `</tr>`
+                    })                                 
+                    pr += `</tbody>`
+                    pr += `</table>`
+
+                    document.getElementById("maincontent").innerHTML = pr;     
+            }
+            
+        </script>
+    </body>
+</html>

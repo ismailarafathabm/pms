@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MATERILA REQUEST</title>
+        <link rel="stylesheet" href="./css/font.css">
+        <style>
+        * {
+            font-size: 0.85rem;
+            font-family: 'owh';
+
+        }
+    
+
+        table {
+            width: 10.5in;
+            margin: 1px auto;
+            border: 1px solid #000;
+            border-collapse: collapse;
+            zoom: 100%;
+
+        }
+
+        table th,
+        table td {
+            border: 1px solid #000;
+            padding: 2px;
+        }
+
+        .theader {
+            background-color: #efefef;
+
+        }
+
+        @page {
+            size: 27cm 20.8cm;            
+            /* margin: 27mm 16mm 27mm 16mm; */
+        }
+    </style>
+    </head>
+
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="17"
+                        style="align-items: center;background-color: #ffffff;
+                    border-right: 1px solid #0000;
+                    border-top: 1px solid #0000;
+                    border-left: 1px solid #0000;
+                    border-bottom: 1px solid #0000;
+                    ">
+                        <img load="lazy" src="./css/nafco_letter.png"
+                            style="width:90%;height: 88px;">
+                    </th>
+                </tr>
+            </thead>
+        </table>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="17" style="font-size: 18px;
+                 border-right: 1px solid #0000;
+                    border-top: 1px solid #0000;
+                    border-left: 1px solid #0000;
+                    border-left: 1px solid #0000;
+                ">
+                        MATERIALS REQUEST <span id="statusx" style="color:red;font-size: 0.8rem;"></span>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2" style="line-height: 18px;">Project Name</th>
+                    <th colspan="9" id="projectname"
+                        style="text-align: left;color:red;font-size: 0.8rem;"></th>
+                    <th>MR NO</th>
+                    <th colspan="2" id="mrno"
+                        style="text-align: left;color:blue"></th>
+                    <th>DATE</th>
+                    <th colspan="2" id="mrdate" style="text-align: left;"></th>
+                </tr>
+            </thead>
+        </table>
+        <table>
+            <thead>
+                <tr>
+                    <th rowspan="2" class="theader">S.NO</th>
+                    <th rowspan="2" class="theader">Item Description</th>
+                    <th rowspan="2" class="theader">Part NO</th>
+                    <th rowspan="2" class="theader">For Compay</th>
+                    <th rowspan="2" class="theader">Die Weight</th>
+                    <th colspan="4" class="theader">Quantity Required</th>
+                    <th rowspan="2" class="theader">Contract BOQ</th>
+                    <th rowspan="2" class="theader">Contract Item Description</th>
+                    <th colspan="2" class="theader">Stock Available</th>
+                    <th colspan="2" class="theader">Qty. To Be Ordered</th>
+                    <th rowspan="2" class="theader">Finish</th>
+                    <th rowspan="2" class="theader">Remarks</th>
+                </tr>
+                <tr>
+                    <th class="theader">Length In mm</th>
+                    <th class="theader">Qty</th>
+                    <th class="theader">Unit</th>
+                    <th class="theader">Total WT (KG)</th>
+                    <th class="theader">Stock Qty</th>
+                    <th class="theader">Stock WT (KG)</th>
+                    <th class="theader">Balance To Order</th>
+                    <th class="theader">Balance WT (KG)</th>
+                </tr>
+            </thead>
+            <tbody id="maincontent">
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="7" id="mrcheckby"></td>
+                    <td colspan="7" id="mrcby"></td>
+                    <td colspan="7" id="mrokby"></td>
+
+                </tr>
+            </tfoot>
+        </table>
+        <div
+            style="display: flex;justify-content: space-between;margin-top: 10px;color:#666666">
+            <div id="mrcode"></div>
+            <div id="checkdate"></div>
+        </div>
+        <script>
+        function Display() {
+            const res = JSON.parse(localStorage.getItem('pms_print_mr_info'));
+            const prj = JSON.parse(localStorage.getItem('pms_currentproject'));
+            console.log(res);
+            document.getElementById("projectname").innerText = prj.project_name + "(" + prj.project_no + ")";
+            document.getElementById("mrno").innerText = res.infos.mrno;
+            document.getElementById("mrdate").innerText = res.infos.mrdates.display;
+            document.getElementById("statusx").innerText = res.infos.mrflags === "P" ? '' : 'This M.R Not Finalized';
+            document.getElementById("mrcode").innerText = res.infos.mrcode;
+            document.getElementById("mrcby").innerHTML = "Checked By Engr. <strong>" + res.infos.mrcheckedby+"</strong>";
+            document.getElementById("mrcheckby").innerHTML = "Prepared By Engr. <strong>" + res.infos.preparedby +"</strong>";
+            document.getElementById("mrokby").innerHTML = "Approved By Engr. <strong>" + res.infos.mrapprovedby+"</strong>";
+            document.getElementById("checkdate").innerHTML = "Released : <strong>" + res.infos.releaseddates.display+"</strong>";
+            let printdata = '';
+            let pagerows = 22;
+            let totcnt = 0;
+            let rq_qty = 0;
+            let rq_wt = 0;
+            let avai_qty = 0;
+            let avai_wt = 0;
+            let or_qty = 0;
+            let or_wt = 0;
+            let pageno = 1;
+            let rqweight = 0;
+            let aviweight = 0;
+            let balweight = 0;
+            res.dt.map((i, index) => {
+                totcnt += 1;
+
+                rq_qty +=  (+i.mrreqqty);
+                rq_wt +=  (+i.mrreqtotweight);
+
+                avai_qty +=  (+i.mravaiqty);
+                avai_wt +=  (+i.mraviweight);
+
+                or_qty +=  (+i.mrorderedqty);
+                or_wt +=  (+i.mrorderedweight);
+
+                rqweight += (+i.mrreqtotweight);
+                aviweight += (+i.mravaiqty);
+                balweight += (+i.mrorderedweight);
+                printdata += '<tr>';
+                printdata += `<td>${index + 1}</td>`
+                printdata += `<td style="font-size:0.7rem">${i.mritem}</td>`
+                printdata += `<td style="font-size:0.7rem">${i.mrpartno}</td>`
+                printdata += `<td style="font-size:0.7rem">${i.mrpartnotai}</td>`
+                printdata += `<td style='text-align:center'>
+                    ${(+i.mrdieweight) === 0 ? '' : +i.mrdieweight}
+                    </td>`
+                printdata += `<td style='text-align:center'>
+                    ${(+i.mrreqlength) === 0 ? '' : i.mrreqlength}
+                    </td>`
+                printdata += `<td style='text-align:center'>
+                    ${(+i.mrreqqty) === 0 ? '' : i.mrreqqty}
+                    </td>`
+                printdata += `<td style='text-align:center'>
+                     ${i.mrunit}
+                    </td>`
+                printdata += `<td style='text-align:center'>
+                    ${(+i.mrreqtotweight) === 0 ? '' : (+i.mrreqtotweight).toLocaleString(undefined,{maximumFractionDigits:2})}
+                    </td>`
+                printdata += `<td>${i.poq_item_no === false ? '' : i.poq_item_no}</td>`
+                printdata += `<td>${i.ptype_name === false ? '' : i.ptype_name}</td>`
+                printdata += `<td style='text-align:center'>${(+i.mravaiqty) === 0 ? '-' : i.mravaiqty}</td>`
+                printdata += `<td style='text-align:center'>${(+i.mraviweight) === 0 ? '-' : (+i.mraviweight).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`
+                printdata += `<td style='text-align:center'>${(+i.mrorderedqty) === 0 ? '-' : i.mrorderedqty}</td>`
+                printdata += `<td style='text-align:center'>${(+i.mrorderedweight) === 0 ? '-' : (+i.mrorderedweight).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`
+                printdata += `<td style="font-size:0.7rem">${i.mrfinish}</td>`
+                printdata += `<td style="font-size:0.7rem">${i.mrremarks}</td>`
+                printdata += '</tr>';
+                if (totcnt === pagerows - 1) {
+                    totcnt = 0;
+
+                    pageno += 1;
+                    if (pageno > 1) {
+                        pagerows = 22
+                    }
+                }
+
+
+
+            })
+            printdata += _finalrow();
+            printdata += '<tr>';
+            printdata += `<td></td>`
+            printdata += `<td></td>`
+            printdata += `<td></td>`
+            printdata += `<td></td>`
+            printdata += `<td ></td>`
+            printdata += `<td style='text-align:center;height:14px'></td>`
+            printdata += `<td style='text-align:center;font-weight:bold;background-color:yellow'>${rq_qty}</td>`
+            printdata += `<td style='text-align:center'></td>`
+            printdata += `<td style='text-align:center;background-color:yellow'>${(+rq_wt).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`
+            printdata += `<td></td>`
+            printdata += `<td></td>`
+            printdata += `<td style='text-align:center;background-color:yellow'>${avai_qty}</td>`
+            printdata += `<td style='text-align:center;background-color:yellow'>${(+avai_wt).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`
+            printdata += `<td style='text-align:center;background-color:yellow;font-weight:bold'>${or_qty}</td>`
+            printdata += `<td style='text-align:center;background-color:yellow;font-weight:bold'>${(+or_wt).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`
+            printdata += `<td></td>`
+            printdata += `<td></td>`
+            printdata += '</tr>';
+            let _balance = pagerows - totcnt - 3;
+            console.log(_balance);
+            for (var i = 0; i < _balance; i++) {
+                printdata += _emptyrows();
+            }
+            document.getElementById("maincontent").innerHTML = printdata;
+        }
+
+        function _finalrow() {
+            let printdata = '';
+            printdata += '<tr>';
+            printdata += `<td ></td>`
+            printdata += `<td ></td>`
+            
+            
+            printdata += `<td colspan="11" style='text-align:center;height:14px;    font-style: italic;'> 
+                    ------------------------------------------------END---------------------------------------------------
+                    </td>`            
+            
+            printdata += `<td ></td>`
+            printdata += `<td ></td>`
+            printdata += `<td ></td>`
+            printdata += `<td ></td>`
+            printdata += '</tr>';
+
+            return printdata;
+        }
+
+        function _emptyrows() {
+            let printdata = '';
+            printdata += '<tr>';
+            printdata += `<td></td>`
+            printdata += `<td></td>`
+            printdata += `<td></td>`
+            printdata += `<td></td>`
+            printdata += `<td ></td>`
+            printdata += `<td style='text-align:center;height:14px'></td>`
+            printdata += `<td style='text-align:center'></td>`
+            printdata += `<td style='text-align:center'></td>`
+            printdata += `<td style='text-align:center'></td>`
+            printdata += `<td></td>`
+            printdata += `<td></td>`
+            printdata += `<td style='text-align:center'></td>`
+            printdata += `<td style='text-align:center'></td>`
+            printdata += `<td style='text-align:center'></td>`
+            printdata += `<td style='text-align:center'></td>`
+            printdata += `<td></td>`
+            printdata += `<td></td>`
+            printdata += '</tr>';
+            return printdata;
+        }
+        Display();
+    </script>
+    </body>
+
+</html>

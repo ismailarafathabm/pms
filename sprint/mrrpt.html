@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Material Request Report</title>
+        <link rel="stylesheet" href="./css/font.css">
+        <style>
+        * {
+            font-size: 0.85rem;
+            font-family: 'owh';
+
+        }
+       
+        
+        table {
+            width: auto;
+            margin: 1px auto;
+            border: 1px solid #000;
+            border-collapse: collapse;
+            
+
+        }
+
+        table th,
+        table td {
+            border: 1px solid #000;
+            padding: 3px;
+        }
+
+        .theader {
+            background-color: #efefef;
+
+        }
+        .noonprint{
+            position: sticky;
+    top: 0;
+    background: #fff;
+    padding: 10px;
+        }
+        @media print{
+            body{
+                width : auto;
+                margin: 0.39in 0.39in 0.75in 0.39in;
+            }
+            table{
+                zoom: 85%;
+            }
+            .noonprint{
+                display:none;
+            }
+        }
+        @page {
+            size:auto ;
+            margin: 0.39in 0.39in 0.75in 0.39in;
+            /* margin: 27mm 16mm 27mm 16mm; */
+        }
+        </style>
+
+    </head>
+    <body>
+        <div class="noonprint">
+            <div>
+                Group By
+                <select id="groupby">
+                    <option value>-</option>
+                    <option value="project_name">Project Name</option>
+                    <option value="preparedby">Prepare By</option>
+                    <option value="mrpartno">Item</option>
+                    <option value="mrflags">Status</option>
+                </select>
+                <input type="text" id="print_titlex"
+                    placeholder="Enter Title" />
+                <button onclick="window.print()">Print</button>
+                <button id="exportexcel" class="ism-btns btn-normal">
+                    Export Excel
+                </button>
+            </div>
+            <!-- <div>
+                <div>
+                    <button type="button" id="allbtn" onclick="changeMode('1')">All</button>
+                    <button type="button" id="instockbtn"
+                        onclick="changeMode('2')">IN-Stock</button>
+                    <button type="button" id="reseverbtn"
+                        onclick="changeMode('3')">Reserved</button>
+                </div>
+            </div> -->
+        </div>
+        <div id="maincontent">
+
+        </div>
+        <script
+            src="http://172.0.1.5:8082/PMS/themes/loginscreen/vendor/jquery/jquery-3.2.1.min.js"></script>
+        <script
+            src="http://172.0.1.5:8082/PMS/Dashboard/Main/excelnn.js"></script>
+        <script>
+            const _data = JSON.parse(window.forprintdata);
+            console.log(_data);
+            const groupby = document.getElementById('groupby');
+            print_rpt()
+            function print_rpt(){
+                if(groupby.value === ''){
+                    printa_rpt();
+                }else{
+                    printg_rpt();
+                }
+            }
+            groupby.onchange = () => {
+                print_rpt();
+            }
+            //for normal print out
+            function printa_rpt(){
+                let pr = "";
+                pr += ` <table style="width:70%">
+                        <thead>
+                            <tr>
+                                <th colspan="20"
+                                    style="align-items: center;background-color: #ffffff;
+                                border-right: 1px solid transparent;
+                                border-top: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                border-bottom: 1px solid transparent;
+                                ">
+                                    <img load="lazy" src="./css/nafco_letter.png"
+                                        style="width:90%;height: 88px;">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th id="pagetitle" colspan="20" style="font-size: 18px;
+                                border-right: 1px solid transparent;
+                                border-bottom: 1px solid transparent;
+                                border-top: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                "
+                            ">
+                                    M.R REPORT
+                                </th>
+                            </tr>
+                        </thead>
+                        </table>
+                        <table style="width: 100%;" >                        
+                        `;
+                pr += `
+                <table style="width: 100%;" >
+                    <thead>
+                    <tr>
+                        <th rowspan="2" style="background:#f5f5f5">S.NO</th>
+                        <th rowspan="2" style="background:#f5f5f5">Status</th>
+                        <th rowspan="2" style="background:#f5f5f5">MR.NO</th>
+                        <th rowspan="2" style="background:#f5f5f5">Date</th>
+                        <th rowspan="2" style="background:#f5f5f5">Project</th>
+                        <th rowspan="2" style="background:#f5f5f5">Item Description</th>
+                        <th rowspan="2" style="background:#f5f5f5">Part NO</th>
+                        <th rowspan="2" style="background:#f5f5f5">Part NO Taiseer</th>
+                        <th rowspan="2" style="background:#f5f5f5">Die Weight</th>
+                        <th colspan="4" style="background:#f5f5f5">Quantity Required</th>
+                        <th rowspan="2" style="background:#f5f5f5">Contract BOQ</th>
+                        <th rowspan="2" style="background:#f5f5f5">Contract Item Description</th>
+                        <th colspan="2" style="background:#f5f5f5">Stock Available</th>
+                        <th colspan="2" style="background:#f5f5f5">Qty. To Be Ordered</th>
+                        <th rowspan="2" style="background:#f5f5f5">Finish</th>
+                        <th rowspan="2" style="background:#f5f5f5">Remarks</th>
+                        <th rowspan="2" style="background:#f5f5f5">Prepare By</th>
+                        
+                    </tr>
+                    <tr>
+                        <th style="background:#f5f5f5">Length In mm</th>
+                        <th style="background:#f5f5f5">Qty</th>
+                        <th style="background:#f5f5f5">Unit</th>
+                        <th style="background:#f5f5f5">Total WT (KG)</th>
+                        <th style="background:#f5f5f5">Stock Qty</th>
+                        <th style="background:#f5f5f5">Stock WT (KG)</th>
+                        <th style="background:#f5f5f5">Balance To Order</th>
+                        <th style="background:#f5f5f5">Balance WT (KG)</th>
+                    </tr>
+                    </thead>
+                `; 
+                _data.map((i,index)=>{
+                    pr += `<tr>`
+                    pr += `<td>${index+1}</td>`
+                    pr += `<td>${i.mrflags}</td>`                     
+                    pr += `<td>${i.mrno}</td>`
+                    pr += `<td style="width:90px">${i.mrdates.display}</td>`
+                    pr += `<td>${i.project_name}</td>`                    
+                    pr += `<td>${i.mritem}</td>`
+                    pr += `<td>${i.mrpartno}</td>`
+                    pr += `<td>${i.mrpartnotai}</td>`
+                    pr += `<td>${(+i.mrdieweight) === 0 ? '' : (+i.mrdieweight).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`
+                    pr += `<td>${(+i.mrreqlength) === 0 ? '' : (+i.mrreqlength).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`
+                    pr += `<td>${(+i.mrreqqty) === 0 ? '' : (+i.mrreqqty).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`
+                    pr += `<td>${i.mrunit}</td>`
+                    pr += `<td>${(+i.mrreqtotweight) === 0 ? '' : (+i.mrreqtotweight).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`
+                    pr += `<td>${(+i.poq_item_no) === 0 ? '' : i.poq_item_no}</td>`
+                    pr += `<td>${(+i.poq_item_no) === 0 ? 'Miscellaneous' : i.poq_item_type}</td>`
+                    pr += `<td>${(+i.mravaiqty) === 0 ? '' : (+i.mravaiqty).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`
+                    pr += `<td>${(+i.mraviweight) === 0 ? '' : (+i.mraviweight).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`
+                    pr += `<td>${(+i.mrorderedqty) === 0 ? '' : (+i.mrorderedqty).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`
+                    pr += `<td>${(+i.mrorderedweight) === 0 ? '' : (+i.mrorderedweight).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`                        
+                    pr += `<td>${i.mrfinish}</td>`
+                    pr += `<td>${i.mrremarks}</td>`  
+                    pr += `<td>${i.preparedby}</td>`   
+                     
+                    pr += `</tr>`
+                })
+                pr +=  `</tbody></table>`
+                document.getElementById("maincontent").innerHTML = pr;
+            }
+            //for group by
+            function printg_rpt(){
+                //console.log(_data);
+                const gby = groupby.value;
+                const gitem = [];
+                _data.map(i=>{
+                    const item = i[gby].trim();
+                    const xok = gitem.includes(item);
+                    if(!xok){ gitem.push(item) }
+                })
+
+                let rptitem = [];
+
+                gitem.map(i=>{
+                    let x = {};
+                    x["itemname"] = i;
+                    const datas = _data.filter(y => y[gby].trim() === i);
+                    x["data"] = datas;
+                    rptitem.push(x);
+                });
+                let pr = "";
+                pr += ` <table style="width:70%">
+                        <thead>
+                            <tr>
+                                <th colspan="20"
+                                    style="align-items: center;background-color: #ffffff;
+                                border-right: 1px solid transparent;
+                                border-top: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                border-bottom: 1px solid transparent;
+                                ">
+                                    <img load="lazy" src="./css/nafco_letter.png"
+                                        style="width:90%;height: 88px;">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th id="pagetitle" colspan="20" style="font-size: 18px;
+                                border-right: 1px solid transparent;
+                                border-bottom: 1px solid transparent;
+                                border-top: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                border-left: 1px solid transparent;
+                                "
+                            ">
+                                    M.R REPORT
+                                </th>
+                            </tr>
+                        </thead>
+                        </table>
+                        <table style="width: 100%;" >
+                        
+                        `;
+                rptitem.map(y=>{
+                    pr += `<tr>`;
+                    pr+= `<td colspan="21"  style="background: #e9fcff;font-weight: 600;font-size: 0.95rem;padding: 6px;">${y.itemname}</td>`;                        
+                    pr += `</tr>`;   
+
+                    pr += `<thead>`;
+                  
+                    pr += `
+                    <tr>
+                    <th rowspan="2" style="background:#f5f5f5">S.NO</th>
+                    <th rowspan="2" style="background:#f5f5f5">Status</th>
+                    <th rowspan="2" style="background:#f5f5f5">MR#</th>
+                    <th rowspan="2" style="background:#f5f5f5">Date</th>
+                    `
+                    
+                    
+                    if(groupby.value !== 'project_name')
+                    {
+                        pr +=`<th rowspan="2" style="background:#f5f5f5">Project</th>`
+                    }
+                    if(groupby.value !== 'mritem')
+                    {
+                        pr +=`<th rowspan="2" style="background:#f5f5f5">Item Description</th>`
+                    }
+                    pr += `<th rowspan="2" style="background:#f5f5f5">Part NO</th>
+                    <th rowspan="2" style="background:#f5f5f5">Part NO Taiseer</th>
+                    <th rowspan="2" style="background:#f5f5f5">Die Weight</th>
+                    <th colspan="4" style="background:#f5f5f5">Quantity Required</th>
+                    <th rowspan="2" style="background:#f5f5f5">Contract BOQ</th>
+                    <th rowspan="2" style="background:#f5f5f5">Contract Item Description</th>
+                    <th colspan="2" style="background:#f5f5f5">Stock Available</th>
+                    <th colspan="2" style="background:#f5f5f5">Qty. To Be Ordered</th>
+                    <th rowspan="2" style="background:#f5f5f5">Finish</th>
+                    <th rowspan="2" style="background:#f5f5f5">Remarks</th>                    
+                    `
+                    
+                    if(groupby.value !== 'preparedby')
+                    {
+                    pr += ` <th rowspan="2" style="background:#f5f5f5">Prepare By</th>`
+                    }
+                 
+                    pr += `</tr>
+                <tr>
+                    <th style="background:#f5f5f5">Length In mm</th>
+                    <th style="background:#f5f5f5">Qty</th>
+                    <th style="background:#f5f5f5">Unit</th>
+                    <th style="background:#f5f5f5">Total WT (KG)</th>
+                    <th style="background:#f5f5f5">Stock Qty</th>
+                    <th style="background:#f5f5f5">Stock WT (KG)</th>
+                    <th style="background:#f5f5f5">Balance To Order</th>
+                    <th style="background:#f5f5f5">Balance WT (KG)</th>
+                </tr>
+                    `;                  
+                    pr += `</thead> <tbody>`;
+                    y.data.map((i,index)=>{
+                        pr += `<tr>`
+                        pr += `<td>${index+1}</td>`
+                        pr += `<td>${i.mrflags}</td>` 
+                        pr += `<td>${i.mrno}</td>`
+                        pr += `<td style="width:90px">${i.mrdates.display}</td>`
+                        if(groupby.value !== 'project_name')
+                    {
+                        pr += `<td>${i.project_name}</td>`
+                    }
+                    if(groupby.value !== 'mritem')
+                    {
+                        pr += `<td>${i.mritem}</td>`
+                    }
+                       
+                       
+                        pr += `<td>${i.mrpartno}</td>`
+                        pr += `<td>${i.mrpartnotai}</td>`
+                        pr += `<td>${(+i.mrdieweight) === 0 ? '' : (+i.mrdieweight).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`
+                        pr += `<td>${(+i.mrreqlength) === 0 ? '' : (+i.mrreqlength).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`
+                        pr += `<td>${(+i.mrreqqty) === 0 ? '' : (+i.mrreqqty).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`
+                        pr += `<td>${i.mrunit}</td>`
+                        pr += `<td>${(+i.mrreqtotweight) === 0 ? '' : (+i.mrreqtotweight).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`
+                        pr += `<td>${(+i.poq_item_no) === 0 ? '' : i.poq_item_no}</td>`
+                        pr += `<td>${(+i.poq_item_no) === 0 ? 'Miscellaneous' : i.poq_item_type}</td>`
+                        pr += `<td>${(+i.mravaiqty) === 0 ? '' : (+i.mravaiqty).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`
+                        pr += `<td>${(+i.mraviweight) === 0 ? '' : (+i.mraviweight).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`
+                        pr += `<td>${(+i.mrorderedqty) === 0 ? '' : (+i.mrorderedqty).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`
+                        pr += `<td>${(+i.mrorderedweight) === 0 ? '' : (+i.mrorderedweight).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`                        
+                        pr += `<td>${i.mrfinish}</td>`
+                        pr += `<td>${i.mrremarks}</td>`  
+                        if(groupby.value !== 'preparedby')
+                    {
+                        pr += `<td>${i.preparedby}</td>`   
+                    }
+                                          
+                        pr += `</tr>`
+                    })
+                });
+                pr +=  `</tbody></table>`
+
+                document.getElementById("maincontent").innerHTML = pr;
+            }
+        </script>
+        <script>
+             $("#exportexcel").click(function() {                       
+                $("#maincontent").table2excel({
+                    // exclude CSS class
+                    exclude: ".noExl",
+                    name: "Worksheet Name",
+                    filename: "M.R", //do not include extension
+                    fileext: ".xls" // file extension
+                });
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,212 @@
+<style>
+    @media print {
+        @page {
+            size: portrait
+        }
+    }
+
+    .main-div {
+        display: block;
+        position: relative;
+        margin: 10px 10px;
+        font-family: 'roboto','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        /* height: 100vh; */
+    }
+
+    .purchase-table {
+        display: table;
+        border-collapse: separate;
+        border-spacing: 0px;
+        margin-bottom: 11px;
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .purchase-table td {
+        border: 1px solid #e7e7e7;
+        padding: 5px;
+        line-height: 16px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .table-title {
+        font-weight: 200 !important;
+    }
+
+    .ntitle {
+        width: 35%
+    }
+
+    .bottom {
+        width: 100%;
+        position: fixed;
+        bottom: 10px;
+        display: block;
+    }
+
+    .maintable td {
+        font-size: 14px;
+        line-height: 28px;
+        position: relative;
+        border : 1px solid #9bd5ef;
+    }
+
+    .signbox {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sinature-div {
+        height: 80%;
+    }
+
+
+
+    .bluetheme {
+        background: #ecf5ff;
+        border: 1px solid #0045ff !important;
+        color: #0045ff;
+    }
+
+    .projectinfotable td {
+        border: 1px solid #414141 !important;
+    }
+
+    .project-celltitle {
+        background-color: #d5e9ff !important;
+    }
+
+
+
+    .maintable>tbody>tr:nth-child(odd) {
+        background-color: #fff;
+    }
+
+    .maintable>tbody>tr:nth-child(even) {
+        background-color: #f5fcff;
+    }
+</style>
+<div class="main-div">
+    <table class="purchase-table">
+        <tr>
+            <td class="table-title bluetheme">Ref No</td>
+            <td class="bluetheme">{{printdata.bmo.bmorefno}}</td>
+            <td class="table-title bluetheme">Date</td>
+            <td class="bluetheme">{{printdata.bmo.bmodate_d}}</td>
+        </tr>
+
+    </table>
+
+    <table class="purchase-table projectinfotable" style="margin-top:20px;margin-bottom:10px">
+        <tr>
+            <td class="table-title project-celltitle">Contract</td>
+            <td>{{printdata.project.project_no | uppercase}}</td>
+            <td class="table-title project-celltitle">Project</td>
+            <td>{{printdata.project.project_name }}</td>
+        </tr>
+        <tr>
+            <td class="table-title project-celltitle">Contractor</td>
+            <td>{{printdata.project.project_cname}}</td>
+            <td class="table-title project-celltitle">Sales Man</td>
+            <td>{{printdata.project.Sales_Representative}}</td>
+        </tr>
+    </table>
+
+    <table class="purchase-table" style="width:95%;margin: 50px auto 5px auto;">
+        <tr>
+            <td style="font-size: 18px;font-size: 18px;
+            background: #fff1f1;
+            border: 1px solid #940000;
+            color: #940000;" class="ntitle">{{'material' | uppercase}} </td>
+            <td style="font-size: 18px;font-size: 18px;
+            background: #fff1f1;
+            border: 1px solid #940000;
+            color: #940000;">{{printdata.bmo.bmotype | uppercase}}</td>
+        </tr>
+    </table>
+
+    <table class="purchase-table maintable" style="margin-top:10px">
+        <tbody></tbody>
+        <tr>
+            <td class="table-title ntitle"> Po.Ref# </td>
+            <td>{{printdata.bmo.bmoorefno}}</td>
+        </tr>
+        <tr>
+            <td class="table-title ntitle"> Type </td>
+            <td>{{printdata.bmo.bmomtype}}</td>
+        </tr>
+        <tr>
+            <td class="table-title ntitle"> Total Material Budget (SAR) </td>
+            <td>{{printdata.sumoff.totbudget}}</td>
+        </tr>
+        <tr>
+            <td class="table-title ntitle"> Previous Ordered Value (SAR) </td>
+            <td>{{printdata.bmo.bmopval}}</td>
+        </tr>
+        <tr>
+            <td class="table-title ntitle"> Qty/Area/Tonnage </td>
+            <td>{{printdata.bmo.bmoqty}} ({{printdata.bmo.bmounit}})</td>
+        </tr>
+        <tr>
+            <td class="table-title ntitle"> Ordered Value (SAR) </td>
+            <td>{{printdata.bmo.bmoval}} #</td>
+        </tr>
+        <tr>
+            <td class="table-title ntitle"> Balance Available Budget (SAR) </td>
+            <td>{{printdata.sumoff.balance}}</td>
+        </tr>
+    </table>
+
+    <table class="purchase-table bottom">
+        <tr>
+            <td class="table-title " style="width: 230px;
+    text-align: center;
+    background: #efefef;
+    font-weight: bold;
+    color: #3c0c0c;"> Prepared By </td>
+            <td class="table-title " style="width: 230px;
+    text-align: center;
+    background: #efefef;
+    font-weight: bold;
+    color: #3c0c0c;"> Checked By </td>
+            <td class="table-title " style="width: 230px;
+    text-align: center;
+    background: #efefef;
+    font-weight: bold;
+    color: #3c0c0c;"> Approved By </td>
+        </tr>
+        <tr>
+            <td class="table-title" style="text-align: center;
+    font-weight: 800 !important;"> {{printdata.bgo.bgocby}} </td>
+            <td class="table-title" style="text-align: center;
+    font-weight: 800 !important;"> Procurement Manager </td>
+            <td class="table-title" style="text-align: center;
+    font-weight: 800 !important;"> GM/DGM </td>
+        </tr>
+        <tr>
+            <td class="table-title" style="height:110px;padding : 10px">
+                <div class="signbox">
+                    <div class="sinature-div">Signature</div>
+                    <div class="date-div">Date : </div>
+                </div>
+            </td>
+            <td class="table-title" style="height:110px;padding : 10px">
+                <div class="signbox">
+                    <div class="sinature-div">Signature</div>
+                    <div class="date-div">Date : </div>
+                </div>
+            </td>
+            <td class="table-title" style="height:110px;padding : 10px">
+                <div class="signbox">
+                    <div class="sinature-div">Signature</div>
+                    <div class="date-div">Date : </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

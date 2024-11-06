@@ -1,0 +1,146 @@
+<style>
+    @media print {
+        @page {
+            size: portrait
+        }
+    }
+    .budget-main-table-header{
+        background: #e6f0ff;
+    }
+    .budget-headers-table {
+        width: 700px
+    }
+
+    .budget-headers-cells-lable {
+        width: 67px;
+        border: 1px solid #0000;
+        font-size: 14px;
+        line-height: 14px;
+    }
+
+    .budget-headers-cells-dt {
+        width: 244px;
+        border: 1px solid #0000;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 34px;
+    }
+
+    .budget-main-table {
+        border-collapse: collapse;
+        width: 960px
+    }
+
+    .budget-main-table th,
+    td {
+        border: 1px solid #000;
+        line-height: 30px;
+        padding: 0px 12px;
+    }
+
+    .red {
+        background: #fff6f6;
+        color: #f00;
+    }
+    .mainprint-table th{
+        background-color: #f6f6f6;
+        color :#242222;
+    }
+    .mainprint-table th,
+    td{
+        border: 0.5px solid #b5b3b3;
+        color :#242222;
+    }
+    
+  
+</style>
+<table class="mainprint-table" style="margin-bottom: 10px;">
+    <tr>
+        <td style="width: 120px;">Contract No</td>
+        <td style="font-weight: bold;">
+            {{project.project_no}}
+        </td>
+        <td style="width: 120px;">Contractor</td>
+        <td style="font-weight: bold;">
+            {{project.project_cname}}
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 120px;">Project Name</td>
+        <td  colspan="3" style="font-weight: bold;"> {{project.project_name}}</td>
+    </tr>
+</table>
+
+<table class="mainprint-table">
+    <thead>
+        <tr>
+            <th class="budget-headers-cells-lable" rowspan="2">#SNO</th>
+            <th class="budget-headers-cells-lable" rowspan="2"  style="width:450px">Type</th>            
+            <th class="budget-headers-cells-lable" rowspan="2">QTY</th>
+            <th colspan="2" class="budget-headers-cells-lable"
+                style="
+            border-right:1px solid #000;
+            ">
+            Estimated
+            </th>
+            <th colspan="2" class="budget-headers-cells-lable"
+                style="
+            border-right:1px solid #000;
+            ">
+            Discount
+            </th>
+        </tr>
+        <tr>
+            <th class="budget-headers-cells-lable">Unit Price</th>
+            <th class="budget-headers-cells-lable"  style="
+            border-right:1px solid #000;
+            ">Total Price</th>
+            <th class="budget-headers-cells-lable"  >Discount Price</th>
+            <th style="
+            border-right:1px solid #000;
+            " class="budget-headers-cells-lable">Total Price</th>
+        </tr>        
+    </thead>
+    <tbody>
+        <tr ng-repeat="x in data">
+            <td>{{$index+1}}</td>
+            <td style="width:150px;text-align: left;color:#021f7c">{{x.bmtype}}</td>
+            <td style="text-align: center;font-weight: bold;color:#795200">{{
+                (+x.bmqty) === 0 ? '-' : (+x.bmqty).toLocaleString(undefined,{maximumFractionDigits:3})
+            }}</td>
+            <td style="text-align: right;color:#000000d7">{{
+                (+x.bmeprice) === 0 ? "-" : (+x.bmeprice).toLocaleString(undefined,{maximumFractionDigits:2})
+            }}</td>
+            <td   style="
+            border-right:1px solid #000; text-align: right;font-weight: bold;color:#580000
+            ">{{
+                (+x.bmeval) === 0 ? '-' : (+x.bmeval).toLocaleString(undefined,{maximumFractionDigits:2})
+            }}</td>
+            <td style="text-align: right;">{{
+                (+x.bmdiscountprice) === 0 ? "-" : (+x.bmdiscountprice).toLocaleString(undefined,{maximumFractionDigits:2})
+            }}</td>
+            <td   style="
+            border-right:1px solid #000;text-align: right;font-weight: bold;color:#273f22
+            ">{{
+                (+x.bmdiscountval) === 0 ? "-" : (+x.bmdiscountval).toLocaleString(undefined,{maximumFractionDigits:2})
+            }}</td>
+        </tr>
+        <tr>
+            <td colspan="6" style="text-align: right; background: #f2fdff;">Total Cost</td>
+            <td style="
+                border-right: 1px solid #000;
+                text-align: right;
+                font-weight: bold;
+                color: #105d00;
+                background: #f2fdff;
+                font-size: 14px;
+            ">
+                {{
+                    (+summofbudget) === 0 ? "-" : (+summofbudget).toLocaleString(undefined,{maximumFractionDigits:2})
+                }}
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+

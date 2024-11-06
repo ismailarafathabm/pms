@@ -1,0 +1,28 @@
+@font-face {
+    font-family: roboto;
+    src: url('./../../themes/fonts/roboto/Roboto-Regular.ttf');
+}
+
+@font-face {
+    font-family: pop;
+    src: url('./../../themes/fonts/pop/Poppins-Regular.ttf');
+}
+
+@font-face {
+    font-family: ops;
+    src: url('./../../themes/fonts/opensans/OpenSans-Regular.ttf');
+}
+@font-face {
+    font-family: opsbold;
+    src: url('./../../themes/fonts/opensans/OpenSans-ExtraBold.ttf');
+}
+
+@font-face {
+    font-family: arb;
+    src: url('./../../../../EMS/pprint/css/ar/NotoKufiArabic-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'owh';
+    src: url('./../../themes/fonts/sfpro/FontsFree-Net-SFProDisplay-Regular.ttf');
+}

@@ -1,0 +1,386 @@
+[19-Feb-2024 08:43:08 Asia/Riyadh] PHP Warning:  Array to string conversion in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 509
+[19-Feb-2024 09:58:18 Asia/Riyadh] PHP Warning:  Array to string conversion in /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php on line 78
+[19-Feb-2024 10:06:22 Asia/Riyadh] PHP Warning:  Undefined variable $response in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 492
+[19-Feb-2024 10:20:31 Asia/Riyadh] PHP Warning:  Undefined variable $response in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 492
+[19-Feb-2024 11:24:52 Asia/Riyadh] PHP Warning:  Undefined variable $response in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 492
+[19-Feb-2024 11:45:56 Asia/Riyadh] PHP Warning:  Undefined variable $response in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 492
+[19-Feb-2024 12:41:15 Asia/Riyadh] PHP Warning:  Undefined variable $response in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 492
+[19-Feb-2024 12:41:58 Asia/Riyadh] PHP Warning:  Undefined variable $response in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 492
+[19-Feb-2024 13:11:27 Asia/Riyadh] PHP Parse error:  syntax error, unexpected token "exit", expecting ";" in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 494
+[25-Feb-2024 09:26:24 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[25-Feb-2024 09:26:24 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[25-Feb-2024 09:26:24 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[25-Feb-2024 09:26:24 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[25-Feb-2024 09:26:24 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 567
+[25-Feb-2024 09:26:24 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 567
+[25-Feb-2024 09:26:24 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:322
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(322): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(586): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/save.php(47): MR->saveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(30): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 322
+[11-Mar-2024 13:58:12 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:322
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(322): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(736): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/removemr.php(31): MR->RemoveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(57): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 322
+[25-Mar-2024 09:27:49 Asia/Riyadh] PHP Warning:  Undefined variable $_SESSION in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mac.php on line 109
+[25-Mar-2024 09:27:49 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mac.php on line 109
+[25-Mar-2024 09:27:49 Asia/Riyadh] PHP Warning:  Undefined variable $_SESSION in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mac.php on line 110
+[25-Mar-2024 09:27:49 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mac.php on line 110
+[25-Mar-2024 09:30:42 Asia/Riyadh] PHP Warning:  Undefined variable $_SESSION in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mac.php on line 109
+[25-Mar-2024 09:30:42 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mac.php on line 109
+[25-Mar-2024 09:30:42 Asia/Riyadh] PHP Warning:  Undefined variable $_SESSION in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mac.php on line 110
+[25-Mar-2024 09:30:42 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mac.php on line 110
+[07-Apr-2024 09:42:47 Asia/Riyadh] PHP Warning:  Undefined variable $_SESSION in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mac.php on line 109
+[07-Apr-2024 09:42:47 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mac.php on line 109
+[07-Apr-2024 09:42:47 Asia/Riyadh] PHP Warning:  Undefined variable $_SESSION in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mac.php on line 110
+[07-Apr-2024 09:42:47 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mac.php on line 110
+[21-Apr-2024 09:23:27 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(735): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/removemr.php(31): MR->RemoveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(57): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324
+[21-Apr-2024 09:23:36 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(735): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/removemr.php(31): MR->RemoveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(57): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324
+[21-Apr-2024 09:23:48 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(735): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/removemr.php(31): MR->RemoveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(57): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324
+[07-May-2024 09:00:53 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 564
+[07-May-2024 09:00:53 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 564
+[07-May-2024 09:00:53 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[07-May-2024 09:00:53 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[07-May-2024 09:00:53 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[07-May-2024 09:00:53 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[07-May-2024 09:00:53 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(585): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/save.php(47): MR->saveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(30): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324
+[07-May-2024 09:00:58 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 564
+[07-May-2024 09:00:58 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 564
+[07-May-2024 09:00:58 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[07-May-2024 09:00:58 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[07-May-2024 09:00:58 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[07-May-2024 09:00:58 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[07-May-2024 09:00:58 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(585): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/save.php(47): MR->saveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(30): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324
+[26-May-2024 11:01:48 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 564
+[26-May-2024 11:01:48 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 564
+[26-May-2024 11:01:48 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[26-May-2024 11:01:48 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[26-May-2024 11:01:48 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[26-May-2024 11:01:48 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[26-May-2024 11:01:48 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(585): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/save.php(47): MR->saveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(30): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324
+[04-Jun-2024 13:37:29 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 564
+[04-Jun-2024 13:37:29 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 564
+[04-Jun-2024 13:37:29 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[04-Jun-2024 13:37:29 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[04-Jun-2024 13:37:29 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[04-Jun-2024 13:37:29 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[04-Jun-2024 13:37:29 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(585): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/save.php(47): MR->saveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(30): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324
+[22-Jun-2024 08:54:02 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 564
+[22-Jun-2024 08:54:02 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 564
+[22-Jun-2024 08:54:02 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[22-Jun-2024 08:54:02 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[22-Jun-2024 08:54:02 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[22-Jun-2024 08:54:02 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[22-Jun-2024 08:54:02 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(585): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/save.php(47): MR->saveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(30): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324
+[22-Jun-2024 08:54:39 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 564
+[22-Jun-2024 08:54:39 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 564
+[22-Jun-2024 08:54:39 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[22-Jun-2024 08:54:39 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[22-Jun-2024 08:54:39 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[22-Jun-2024 08:54:39 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[22-Jun-2024 08:54:39 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(585): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/save.php(47): MR->saveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(30): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324
+[22-Jun-2024 08:55:17 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 564
+[22-Jun-2024 08:55:17 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 564
+[22-Jun-2024 08:55:17 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[22-Jun-2024 08:55:17 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[22-Jun-2024 08:55:17 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[22-Jun-2024 08:55:17 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[22-Jun-2024 08:55:17 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(585): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/save.php(47): MR->saveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(30): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324
+[22-Jun-2024 08:56:18 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 564
+[22-Jun-2024 08:56:18 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 564
+[22-Jun-2024 08:56:18 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[22-Jun-2024 08:56:18 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[22-Jun-2024 08:56:18 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[22-Jun-2024 08:56:18 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[22-Jun-2024 08:56:18 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(585): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/save.php(47): MR->saveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(30): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324
+[24-Jun-2024 16:10:10 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 564
+[24-Jun-2024 16:10:10 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 564
+[24-Jun-2024 16:10:10 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[24-Jun-2024 16:10:10 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[24-Jun-2024 16:10:10 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[24-Jun-2024 16:10:10 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[24-Jun-2024 16:10:10 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(585): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/save.php(47): MR->saveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(30): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324
+[24-Jun-2024 16:10:26 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 564
+[24-Jun-2024 16:10:26 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 564
+[24-Jun-2024 16:10:26 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[24-Jun-2024 16:10:26 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[24-Jun-2024 16:10:26 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[24-Jun-2024 16:10:26 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[24-Jun-2024 16:10:26 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(585): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/save.php(47): MR->saveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(30): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324
+[15-Jul-2024 08:35:26 Asia/Riyadh] PHP Warning:  Undefined variable $_SESSION in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mac.php on line 109
+[15-Jul-2024 08:35:26 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mac.php on line 109
+[15-Jul-2024 08:35:26 Asia/Riyadh] PHP Warning:  Undefined variable $_SESSION in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mac.php on line 110
+[15-Jul-2024 08:35:26 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mac.php on line 110
+[15-Jul-2024 08:35:37 Asia/Riyadh] PHP Warning:  Undefined variable $_SESSION in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mac.php on line 109
+[15-Jul-2024 08:35:37 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mac.php on line 109
+[15-Jul-2024 08:35:37 Asia/Riyadh] PHP Warning:  Undefined variable $_SESSION in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mac.php on line 110
+[15-Jul-2024 08:35:37 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mac.php on line 110
+[18-Jul-2024 16:09:16 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(735): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/removemr.php(31): MR->RemoveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(57): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324
+[18-Jul-2024 16:09:18 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(735): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/removemr.php(31): MR->RemoveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(57): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324
+[18-Jul-2024 16:09:22 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(735): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/removemr.php(31): MR->RemoveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(57): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324
+[01-Aug-2024 10:23:32 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'mrreqtotweight' cannot be null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:554
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(554): PDOStatement->execute()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(569): MR->_savemr()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/save.php(47): MR->saveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(30): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 554
+[01-Aug-2024 10:23:35 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'mrreqtotweight' cannot be null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:554
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(554): PDOStatement->execute()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(569): MR->_savemr()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/save.php(47): MR->saveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(30): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 554
+[01-Aug-2024 10:24:06 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'mrreqtotweight' cannot be null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:554
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(554): PDOStatement->execute()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(569): MR->_savemr()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/save.php(47): MR->saveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(30): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 554
+[01-Aug-2024 10:24:49 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'mrreqtotweight' cannot be null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:554
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(554): PDOStatement->execute()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(569): MR->_savemr()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/save.php(47): MR->saveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(30): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 554
+[26-Aug-2024 10:15:55 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 564
+[26-Aug-2024 10:15:55 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 564
+[26-Aug-2024 10:15:55 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[26-Aug-2024 10:15:55 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 565
+[26-Aug-2024 10:15:55 Asia/Riyadh] PHP Warning:  Undefined array key 0 in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[26-Aug-2024 10:15:55 Asia/Riyadh] PHP Warning:  Trying to access array offset on value of type null in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 566
+[26-Aug-2024 10:15:55 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(585): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/save.php(47): MR->saveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(30): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324
+[19-Sep-2024 14:21:06 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(735): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/removemr.php(31): MR->RemoveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(57): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324
+[19-Sep-2024 14:22:53 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(735): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/removemr.php(31): MR->RemoveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(57): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324
+[19-Sep-2024 14:23:04 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(735): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/removemr.php(31): MR->RemoveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(57): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324
+[22-Sep-2024 13:50:26 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(735): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/removemr.php(31): MR->RemoveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(57): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324
+[22-Oct-2024 12:26:16 Asia/Riyadh] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [2002] No such file or directory in /home/rgldmfofqq9y/public_html/pms.alunafco.net/connection/connection.php:11
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/connection/connection.php(11): PDO->__construct()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(18): connection->connect()
+#2 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/connection/connection.php on line 11
+[24-Oct-2024 15:02:06 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(735): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/removemr.php(31): MR->RemoveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(57): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324
+[24-Oct-2024 15:04:20 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:902
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(902): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(982): MR->_getmrprintx()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/update.php(31): MR->UpdateMR()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(107): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 902
+[24-Oct-2024 15:04:23 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:902
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(902): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(982): MR->_getmrprintx()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/update.php(31): MR->UpdateMR()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(107): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 902
+[24-Oct-2024 15:04:28 Asia/Riyadh] PHP Fatal error:  Uncaught TypeError: extract(): Argument #1 ($array) must be of type array, bool given in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php:324
+Stack trace:
+#0 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(324): extract()
+#1 /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php(735): MR->_getmrprint()
+#2 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/removemr.php(31): MR->RemoveMr()
+#3 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/mr/index.php(57): include_once('/home/rgldmfofq...')
+#4 /home/rgldmfofqq9y/public_html/pms.alunafco.net/api/index.php(88): include_once('/home/rgldmfofq...')
+#5 {main}
+  thrown in /home/rgldmfofqq9y/public_html/pms.alunafco.net/controller/mr.php on line 324

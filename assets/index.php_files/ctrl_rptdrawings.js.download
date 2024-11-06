@@ -1,0 +1,5 @@
+app.controller('ctrl_rptdrawings', rptdrawings);
+
+function rptdrawings($scope, $http, $filter) {
+    console.log("its working")
+}

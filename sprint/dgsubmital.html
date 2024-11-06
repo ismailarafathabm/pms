@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NAFCO SUBMITAL FORM</title>
+    <link rel="stylesheet" href="./css/font.css" />
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: "roboto";
+        font-size: 12px;
+        box-sizing: border-box;
+      }
+
+      body {
+        width: 8.100in;
+        /* height: 11.1in; */
+        border: 1px solid #000;
+        margin: 0.2in auto;
+        padding: 1px;
+      }
+
+      .print-main-header {
+        border: 1px solid #000;
+        display: flex;
+      }
+
+      .print-logopart {
+        padding: 2px;
+        border-right: 1px solid #000;
+      }
+
+      .print-information-div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: 100%;
+      }
+
+      .print-contact-div {
+        width: 100%;
+        border-bottom: 1px solid #000;
+        display: flex;
+        padding: 2px;
+      }
+
+      .print-contact-table {
+        width: 98%;
+        margin: 2px auto;
+        border-collapse: separate;
+        border-spacing: 1px;
+      }
+
+      .print-contact-table td {
+        font-size: 10px;
+      }
+
+      .print-main-title-info {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+        height: 100%;
+      }
+
+      .print-main-title {
+        /* flex: 5; */
+        height: 100%;
+        padding: 2px;
+        border-right: 1px solid #000;
+        font-size: 23px;
+        font-weight: 600;
+        font-family: "opsbold";
+        letter-spacing: 14px;
+        text-align: center;
+        line-height: 44px;
+        width: 478px;
+      }
+
+      .print-submital-info {
+        flex: 2;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 1px;
+      }
+
+      .print-submital-info-box {
+        display: flex;
+        flex-direction: row;
+        gap: 1px;
+        padding: 1px;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .print-submital-info-box-lable {
+        width: 70px;
+        margin-left: 2px;
+        margin-right: 2px;
+        font-size: 10px;
+      }
+
+      .print-submital-info-box-informations {
+        font-weight: 600;
+        border-bottom: 1px dotted;
+        width: 110px;
+        text-align: center;
+      }
+
+      .print-header-table-headers {
+        margin-top: 1px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid #000;
+      }
+
+      .print-header-table-header-title {
+        background-color: #d6ecff;
+        width: 100%;
+        padding: 2px;
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .f-4 {
+        width: 583px;
+        border-right: 1px solid #818181;
+      }
+
+      .f-2 {
+        flex: 2;
+      }
+
+      .remarksinfo {
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 1px;
+        /* border-left: 1px solid #000; */
+      }
+
+      .print-remark-box {
+        display: flex;
+        flex-direction: row;
+        gap: 3px;
+        align-items: center;
+        justify-content: flex-start;
+        margin-left: 10px;
+      }
+
+      .print-rmark-check-box {
+        width: 15px;
+        height: 15px;
+        border: 1px solid #000;
+      }
+
+      .box-checked {
+        background-color: #50a6f1;
+      }
+
+      .print-rmark-title {
+        font-weight: normal;
+        font-size: 11px;
+      }
+
+      .project-info {
+        background-color: #fff;
+        border-right: 1px solid #000;
+        width: 583px;
+      }
+
+      .print-project-purpose {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 2px;
+      }
+
+      .print-prject-purpose-header {
+        font-size: 9px;
+        font-weight: bold;
+        margin-left: 10px;
+        text-decoration: underline;
+      }
+
+      .print-prject-purpose-body {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        align-items: flex-start;
+      }
+
+      .purose-body-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 0 auto;
+        /* justify-content: space-between; */
+        /* width: 100%; */
+      }
+
+      .sizedbox {
+        width: 220px;
+      }
+
+      .print-project-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 2px;
+        border-bottom: 1px solid #cbcbcb;
+      }
+
+      .project-info-dtcontainer {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+      }
+
+      .project-info-label {
+        width: 60px;
+        text-align: left;
+        font-size: 10px;
+        font-weight: normal;
+      }
+
+      .project-info-dt {
+        width: 100%;
+        text-align: left;
+        border-bottom: 1px solid #cbcbcb;
+        font-size: 12px;
+      }
+
+      .main-table {
+        /* margin-top: 2px;
+            border-collapse: collapse;
+            border: 1px solid #000;
+            width: 100%; */
+
+        margin-top: 2px;
+        border-collapse: separate;
+        border-spacing: 0px;
+        border: 1px solid #000 !important;
+        width: 100%;
+      }
+
+      .main-table th {
+        border: 1px solid #000;
+        background-color: #d6ecff;
+      }
+
+      .main-table td {
+        border: 0.3px solid #cbcbcb;
+        line-height: 25px;
+        padding: 0px 3px;
+        font-weight: 600;
+        font-size: 10px;
+      }
+
+      .main-table tbody {
+        border: 1px solid #cbcbcb;
+      }
+
+      .bordered-none td {
+        border: 1px solid #0000;
+      }
+
+      .inside-code {
+        width: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .customer-sign-page {
+        border: 1px solid #000;
+      }
+
+      .customer-sing {
+        margin-top: 50px;
+      }
+
+      .scafoldtable {
+        border: 1px solid #0000;
+        width: 100%;
+      }
+
+      /* .scafoldtable td{
+            border: 1px solid #0000;
+        } */
+      #footprint {
+        width: 765.594px;
+        margin: 0 auto;
+      }
+
+      @media print {
+        #footprint {
+          left: 5px;
+          position: fixed;
+          bottom: -10px;
+        }
+      }
+      /* @page {
+        size: A4;
+        margin: 0;
+      }
+      @media print {
+        html,
+        body {
+          width: 210mm;
+          height: 297mm;
+        }
+        /* ... the rest of the rules ... 
+      } */
+    </style>
+  </head>
+
+  <body ng-app="pms" ng-controller="pmscontroller">
+    <table class="scafoldtable">
+      <thead>
+        <tr>
+          <td>
+            <div class="print-main-header">
+              <div class="print-logopart">
+                <img
+                  src="./css/mainlogoprint.png"
+                  alt="print head logo"
+                  loading="lazy"
+                  style="width: 65px"
+                />
+              </div>
+              <div class="print-information-div">
+                <div class="print-contact-div">
+                  <table class="print-contact-table">
+                    <tbody>
+                      <tr>
+                        <td style="font-weight: bold">Head Office</td>
+                        <td></td>
+                        <td style="font-weight: bold">Jeddah Office</td>
+                        <td style="font-weight: bold; width: 149px">
+                          Powder Coatings
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="width: 143px">P.O.Box 42204 Riyadh 11541</td>
+                        <td>Tel. No: (01)2650105</td>
+                        <td>Tel. No: (02)6607822</td>
+                        <td>Tel. No: (01)4487800</td>
+                      </tr>
+                      <tr>
+                        <td>Kingdom of Saudi Arabia</td>
+                        <td>Fax. No: (01)2650081</td>
+                        <td>Fax. No: (02)6600494</td>
+                        <td>Fax. No: (01)4486826</td>
+                      </tr>
+                      <tr>
+                        <td style="line-height: 13px">
+                          E-mail:
+                          <span
+                            style="
+                              color: blue;
+                              font-size: 9px;
+                              font-weight: bold;
+                            "
+                            >aluminum@alunafco.com</span
+                          >
+                        </td>
+                        <td></td>
+                        <td style="line-height: 13px">
+                          E-mail:
+                          <span
+                            style="
+                              color: blue;
+                              font-size: 9px;
+                              font-weight: bold;
+                            "
+                            >aluminum-j@alunafco.com</span
+                          >
+                        </td>
+                        <td style="line-height: 13px">
+                          E-mail:
+                          <span
+                            style="
+                              color: blue;
+                              font-size: 9px;
+                              font-weight: bold;
+                            "
+                            >coatings@alunafco.com</span
+                          >
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="print-main-title-info">
+                  <div class="print-main-title">SUBMITTAL FORM</div>
+                  <div class="print-submital-info">
+                    <div class="print-submital-info-box">
+                      <div class="print-submital-info-box-lable">
+                        Submittal No
+                      </div>
+                      <div class="print-submital-info-box-informations">
+                        {{data.submitalinfo.ds_submitalno}}
+                      </div>
+                    </div>
+
+                    <div class="print-submital-info-box">
+                      <div class="print-submital-info-box-lable">Revision</div>
+                      <div
+                        class="print-submital-info-box-informations"
+                        style="font-style: italic"
+                      >
+                        R{{data.submitalinfo.ds_rvno}}
+                      </div>
+                    </div>
+
+                    <div class="print-submital-info-box">
+                      <div class="print-submital-info-box-lable">Date</div>
+                      <div
+                        class="print-submital-info-box-informations"
+                        style="font-weight: normal"
+                      >
+                        {{data.submitalinfo.ds_date | date : 'dd-MMM-yyyy' }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="print-header-table-headers">
+              <div class="print-header-table-header-title f-4">
+                Contractor / Project
+              </div>
+              <div class="print-header-table-header-title f-2">Remarks</div>
+            </div>
+            <div class="print-header-table-headers">
+              <div class="print-header-table-header-title f-4 project-info">
+                <div class="print-project-info">
+                  <div class="project-info-dtcontainer">
+                    <div class="project-info-label">To</div>
+                    <div class="project-info-dt">
+                      {{data.submitalinfo.project_cname | uppercase}}
+                    </div>
+                  </div>
+                  <div class="project-info-dtcontainer">
+                    <div class="project-info-label">Project</div>
+                    <div class="project-info-dt">
+                      {{data.submitalinfo.project_name | uppercase}}
+                      [{{data.submitalinfo.project_no | uppercase}}]
+                    </div>
+                  </div>
+                  <div class="project-info-dtcontainer">
+                    <div class="project-info-label">Location</div>
+                    <div class="project-info-dt" style="margin-bottom: 1px">
+                      {{data.submitalinfo.project_location | uppercase}}
+                      [{{data.submitalinfo.projectRegion | uppercase}}]
+                    </div>
+                  </div>
+                </div>
+                <div class="print-project-purpose">
+                  <div class="print-prject-purpose-header">PURPOSE :</div>
+                  <div class="print-prject-purpose-body">
+                    <div class="purose-body-row">
+                      <div
+                        class="print-remark-box sizedbox"
+                        style="margin-left: 20px"
+                      >
+                        <div
+                          class="print-rmark-check-box"
+                          ng-class="{'box-checked' : purposestatus.approval}"
+                        ></div>
+                        <div class="print-rmark-title">For Approval</div>
+                      </div>
+                      <div class="print-remark-box sizedbox">
+                        <div
+                          class="print-rmark-check-box"
+                          ng-class="{'box-checked' : purposestatus.furtheractions}"
+                        ></div>
+                        <div class="print-rmark-title">For further action</div>
+                      </div>
+                      <div class="print-remark-box sizedbox">
+                        <div
+                          class="print-rmark-check-box"
+                          ng-class="{'box-checked' : purposestatus.review}"
+                        ></div>
+                        <div class="print-rmark-title">For Review</div>
+                      </div>
+                    </div>
+                    <div class="purose-body-row">
+                      <div
+                        class="print-remark-box sizedbox"
+                        style="margin-left: 20px"
+                      >
+                        <div
+                          class="print-rmark-check-box"
+                          ng-class="{'box-checked' : purposestatus.comments}"
+                        ></div>
+                        <div class="print-rmark-title">For comments</div>
+                      </div>
+                      <div class="print-remark-box sizedbox">
+                        <div
+                          class="print-rmark-check-box"
+                          ng-class="{'box-checked' : purposestatus.informations}"
+                        ></div>
+                        <div class="print-rmark-title">For Information</div>
+                      </div>
+                      <div class="print-remark-box sizedbox">
+                        <div
+                          class="print-rmark-check-box"
+                          ng-class="{'box-checked' : purposestatus.sample}"
+                        ></div>
+                        <div class="print-rmark-title">For Sample</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="print-header-table-header-title f-2 remarksinfo">
+                <div class="print-remark-box">
+                  <div
+                    class="print-rmark-check-box"
+                    ng-class="{'box-checked' : remarkstatu.drawing}"
+                  ></div>
+                  <div class="print-rmark-title">SHOP DRAWING</div>
+                </div>
+                <div class="print-remark-box">
+                  <div
+                    class="print-rmark-check-box"
+                    ng-class="{'box-checked' : remarkstatu.technicalsubmital}"
+                  ></div>
+                  <div class="print-rmark-title">TECHNICAL SUBMITAL</div>
+                </div>
+                <div class="print-remark-box">
+                  <div
+                    class="print-rmark-check-box"
+                    ng-class="{'box-checked' : remarkstatu.hardwaresubmital}"
+                  ></div>
+                  <div class="print-rmark-title">HARDWARE SUBMITALL</div>
+                </div>
+                <div class="print-remark-box">
+                  <div
+                    class="print-rmark-check-box"
+                    ng-class="{'box-checked' : remarkstatu.calculation}"
+                  ></div>
+                  <div class="print-rmark-title">CALCULATIONS</div>
+                </div>
+                <div class="print-remark-box">
+                  <div
+                    class="print-rmark-check-box"
+                    ng-class="{'box-checked' : remarkstatu.prequalification}"
+                  ></div>
+                  <div class="print-rmark-title">PRE-QUALIFICATION</div>
+                </div>
+                <div class="print-remark-box">
+                  <div
+                    class="print-rmark-check-box"
+                    ng-class="{'box-checked' : remarkstatu.sample}"
+                  ></div>
+                  <div class="print-rmark-title">SAMPLE</div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <table class="main-table" id="tablebody"></table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div id="footprint">
+      <table class="main-table bordered-none">
+        <tbody>
+          <tr>
+            <td>Submitted By :</td>
+            <td>{{data.submitalinfo.ds_submittedby}}</td>
+            <td>Signature :</td>
+            <td></td>
+            <td>Date :</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="main-table bordered-none">
+        <tbody>
+          <tr>
+            <td>
+              Customer Remarks :
+              ..........................................................................................................................................................................................................................................................
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              .............................................................................................................................................................................................................................................................................................
+            </td>
+          </tr>
+          <tr>
+            <td>
+              .............................................................................................................................................................................................................................................................................................
+            </td>
+          </tr>
+          <tr>
+            <td>
+              .............................................................................................................................................................................................................................................................................................
+            </td>
+          </tr>
+          <tr>
+            <td>
+              .............................................................................................................................................................................................................................................................................................
+            </td>
+          </tr>
+          <tr>
+            <td>
+              .............................................................................................................................................................................................................................................................................................
+            </td>
+          </tr>
+          <tr>
+            <td>
+              .............................................................................................................................................................................................................................................................................................
+            </td>
+          </tr>
+          <!-- <tr>
+                <td>.............................................................................................................................................................................................................................................................................................</td>
+            </tr>
+            <tr>
+                <td>.............................................................................................................................................................................................................................................................................................</td>
+            </tr> -->
+        </tbody>
+      </table>
+
+      <table class="main-table bordered-none">
+        <tbody>
+          <tr>
+            <td>
+              <div class="print-remark-box">
+                <div class="print-rmark-check-box inside-code">A</div>
+                <div class="print-rmark-title">Approved</div>
+              </div>
+            </td>
+            <td>
+              <div class="print-remark-box">
+                <div class="print-rmark-check-box inside-code">B</div>
+                <div class="print-rmark-title">Approved as noted</div>
+              </div>
+            </td>
+            <td>
+              <div class="print-remark-box">
+                <div class="print-rmark-check-box inside-code">C</div>
+                <div class="print-rmark-title">Approved as noted,Resubmit</div>
+              </div>
+            </td>
+            <td>
+              <div class="print-remark-box">
+                <div class="print-rmark-check-box inside-code">D</div>
+                <div class="print-rmark-title">
+                  Revised and Resubmit as noted
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="customer-sign-page">
+        <div
+          style="
+            width: 80%;
+            height: 88px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            margin: 0 auto;
+          "
+        >
+          <div class="customer-sing">
+            <span style="text-decoration: underline"> Customer </span>
+            :
+            <span style="width: 220px"
+              >...................................</span
+            >
+          </div>
+          <div class="customer-sing">
+            <span style="text-decoration: underline"> Date </span>
+            :
+            <span style="width: 220px">
+              .....................................................
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./../themes/angular/angular.js"></script>
+    <script>
+      const app = angular.module("pms", []);
+      app.controller("pmscontroller", ($scope) => {
+        $scope.data = JSON.parse(
+          localStorage.getItem("naf_print_submital_drawings")
+        );
+        console.log($scope.data);
+        $scope.remarkstatu = JSON.parse($scope.data.submitalinfo.ds_remark);
+        console.log($scope.remarkstatu);
+        $scope.purposestatus = JSON.parse($scope.data.submitalinfo.ds_purpose);
+        console.log($scope.purposestatus);
+        $scope.submitalinfo = $scope.data.submitaldt;
+        console.log($scope.submitalinfo);
+
+        const bodydata = bodydataget($scope.data.submital, $scope.submitalinfo);
+        document.getElementById("tablebody").innerHTML = bodydata;
+        function bodydataget(xdata, ydata) {
+          let tot_rows = 0;
+          ydata.map((i, index) => {
+            tot_rows += 1;
+            // i.categorylist.map((j, index) => {
+            //     tot_rows += 1;
+            //     j.subcategorylist.map((z, j) => {
+            //         tot_rows += 1
+            //     })
+            // })
+          });
+
+          //break page calculatios
+          let break_rowcount = 13;
+          let totpagecount = 1;
+          if (tot_rows > 13) {
+            console.log("need break;");
+            totpagecount = Math.round(tot_rows / 13) + 1;
+            console.log("totalpage", totpagecount);
+            if (totpagecount > 2) {
+              break_rowcount = 13;
+            }
+          }
+          balancerow = 0;
+
+          console.log("tot rows", tot_rows);
+          let pagecount = 1;
+          let tot_ros = 1;
+          let print = "";
+          print += `<thead>
+                            <tr>
+                                <th style="width: 50px;">SI.No</th>
+                                <th style="width: 50px;">QTY</th>
+                                <th style="width: 120px;">Dwg. / Spec. Referance</th>
+                                <th style="width: 312px;">Description</th>
+                                <th style="width: 145px;">Remarks</th>
+                            </tr>
+                        </thead>`;
+          print += "<tbody>";
+
+          ydata.map((i, index) => {
+            tot_ros += 1;
+            balancerow += 1;
+            if (tot_ros >= break_rowcount) {
+              pagecount += 1;
+              tot_ros = 1;
+              console.log(tot_ros);
+              console.log(break_rowcount);
+              console.log(pagecount);
+              print += `
+                    <tr >
+                        <td style="text-align: center;width: 50px;">
+                            ${index + 1}
+                        </td>
+                        <td style="text-align: center;width: 50px;">
+                            ${i.dsdt_dsqty}  
+                        </td>
+                        <td style="text-align: center;width: 80px;">
+                            ${i.dsdt_drawingno}                            
+                        </td>
+                        <td style="text-align: left;width: 382px;">
+                            ${i.dsdt_description}
+                        </td>
+                        <td style="text-align: left;width: 145px;">
+                            ${i.dsdt_remarks}
+                        </td>
+                    </tr>
+                    
+                    `;
+
+              print += `
+                    <tr style="page-break-after: always;">
+                        <td style="text-align: center;width: 50px;">
+                           
+                        </td>
+                        <td style="text-align: center;width: 50px;">
+                            
+                        </td>
+                        <td style="text-align: center;width: 80px;">
+                            
+                        </td>
+                        <td style="text-align: left;width: 382px;">
+                          
+                        </td>
+                        <td style="text-align: left;width: 145px;">
+                            pages: ${pagecount - 1} / ${totpagecount}
+                        </td>
+                    </tr>
+                    `;
+            } else {
+              print += `
+                        <tr >
+                        <td style="text-align: center;width: 50px;">
+                            ${index + 1}
+                        </td>
+                        <td style="text-align: center;width: 50px;">
+                            ${i.dsdt_dsqty}  
+                        </td>
+                        <td style="text-align: center;width: 80px;">
+                            ${i.dsdt_drawingno}                            
+                        </td>
+                        <td style="text-align: left;width: 382px;">
+                            ${i.dsdt_description}
+                        </td>
+                        <td style="text-align: left;width: 145px;">
+                            ${i.dsdt_remarks}
+                        </td>
+                    </tr>
+                    `;
+            }
+          });
+
+          print += `
+                <tr>
+                <td style="text-align: center;">
+
+                </td>
+                <td style="text-align: center;">
+
+                </td>
+                <td style="text-align: center;">
+
+                </td>
+                <td style="text-align: center;color:orangered">
+                    ------------------------------------ END ----------------------------
+                </td>
+                <td style="text-align: left;"></td>
+            </tr>
+                `;
+          console.log("balance row k", tot_ros);
+          if (tot_ros < 13) {
+            let balancerowx = 13 - tot_ros - 1;
+            console.log("new balance wor", balancerowx);
+            for (var nr = 1; nr <= balancerowx; nr++) {
+              console.log(nr);
+              print += `
+                        <tr>
+                            <td style="text-align: center;width: 50px;height:25px">
+                                
+                            </td>
+                            <td style="text-align: center;width: 50px;">
+                                
+                            </td>
+                            <td style="text-align: center;width: 80px;">
+                                
+                            </td>
+                            <td style="text-align: left;width: 382px;">
+                               
+                            </td>
+                            <td style="text-align: left;width: 145px;">
+                               
+                            </td>
+
+                        </tr>
+                        `;
+            }
+            // for (var i = 0; i >= balancerow - 13; i++) {
+            //     print += `
+            //     <tr>
+            //         <td style="text-align: center;width: 50px;">
+
+            //         </td>
+            //         <td style="text-align: center;width: 50px;">
+
+            //         </td>
+            //         <td style="text-align: center;width: 80px;">
+
+            //         </td>
+            //         <td style="text-align: left;width: 382px;">
+
+            //         </td>
+            //         <td style="text-align: left;width: 145px;"></td>
+            //     </tr>`
+            // }
+          }
+
+          print += `
+                        <tr>
+                            <td style="text-align: center;width: 50px;height:25px">
+                                
+                            </td>
+                            <td style="text-align: center;width: 50px;">
+                                
+                            </td>
+                            <td style="text-align: center;width: 80px;">
+                                
+                            </td>
+                            <td style="text-align: left;width: 382px;">
+                               
+                            </td>
+                            <td style="text-align: left;width: 145px;">
+                              Page : ${pagecount} / ${totpagecount}
+                            </td>
+
+                        </tr>
+                        `;
+
+          print += "<tbody>";
+          return print;
+        }
+      });
+    </script>
+  </body>
+</html>

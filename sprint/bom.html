@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BOM</title>
+        <link rel="stylesheet" href="./css/font.css">
+        <style>
+        * {
+            font-size: 0.85rem;
+            font-family: 'owh';
+
+        }
+    
+
+        table {
+            width: 10.5in;
+            margin: 1px auto;
+            border: 1px solid #000;
+            border-collapse: collapse;
+            zoom: 100%;
+
+        }
+
+        table th,
+        table td {
+            border: 1px solid #000;
+            padding: 2px;
+        }
+
+        .theader {
+            background-color: #efefef;
+
+        }
+        @media print{
+            body{
+                width : auto;
+                margin: 0.39in 0.39in 0.75in 0.39in;
+            }
+            table{
+                zoom: 95%;
+            }
+            .noonprint{
+                display:none;
+            }
+        }
+        @page {
+            size: 27cm 20.8cm;            
+            /* margin: 27mm 16mm 27mm 16mm; */
+        }
+    </style>
+    </head>
+    <body>
+        <div class="noonprint">
+            <button type="button" onclick="window.print()">Print</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="17"
+                        style="align-items: center;background-color: #ffffff;
+                    border-right: 1px solid #0000;
+                    border-top: 1px solid #0000;
+                    border-left: 1px solid #0000;
+                    border-bottom: 1px solid #0000;
+                    ">
+                        <img load="lazy" src="./css/nafco_letter.png"
+                            style="width:90%;height: 88px;">
+                    </th>
+                </tr>
+            </thead>
+        </table>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="17" style="font-size: 18px;
+                 border-right: 1px solid #0000;
+                    border-top: 1px solid #0000;
+                    border-left: 1px solid #0000;
+                    border-left: 1px solid #0000;
+                ">
+                        BILL OF MATERIALS<span id="statusx"
+                            style="color:red;font-size: 0.8rem;"></span>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2" style="line-height: 18px;">Project Name</th>
+                    <th colspan="9" id="projectname"
+                        style="text-align: left;color:red;font-size: 0.8rem;"></th>
+                    <th>BOM NO</th>
+                    <th colspan="2" id="mrno"
+                        style="text-align: left;color:blue"></th>
+                    <th>DATE</th>
+                    <th colspan="2" id="mrdate" style="text-align: left;"></th>
+                </tr>
+            </thead>
+        </table>
+        <table>
+            <thead>
+                <tr>
+                    <th rowspan="2" class="theader">S.NO</th>
+                    <th rowspan="2" class="theader">Profile#</th>
+                    <th rowspan="2" class="theader">Item Description</th>
+                    <th rowspan="2" class="theader">BOQ#</th>
+                    <th rowspan="2" class="theader">Die Weight</th>
+                    <th colspan="3" class="theader">Quantity Required</th>
+                    <th colspan="2" class="theader">Stock Available</th>
+                    <th colspan="3" class="theader">Qty. To Be Ordered</th>
+                    <th rowspan="2" class="theader">Finish</th>
+                    <th rowspan="2" class="theader">Remarks</th>
+                </tr>
+                <tr>
+                    <th class="theader">Length</th>
+                    <th class="theader">No.Bars</th>
+                    <th class="theader">Weight</th>
+                    <th class="theader">Lenght</th>
+                    <th class="theader">No.Bars</th>
+                    <th class="theader">Length</th>
+                    <th class="theader">No.Bars</th>
+                    <th class="theader">Weight</th>
+                </tr>
+            </thead>
+            <tbody id="maincontent">
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="7" id="mrcheckby"></td>
+                    <td colspan="7" id="mrcby"></td>
+                    <td colspan="7" id="mrokby"></td>
+                </tr>
+            </tfoot>
+        </table>
+        <div
+            style="display: flex;
+            width: 1006px;
+            justify-content: space-between;
+            margin: 7px auto 9px auto;
+            ">
+            <div id="mrcode"></div>
+            <div id="checkdate"></div>
+        </div>
+        <script>
+             function Display() {
+                if(window.bominfo === undefined){
+                    console.log("not working");
+                   alert("Please Re- print Again")
+                   window.close();
+                    return;
+                }
+                const res = JSON.parse(window.bominfo);
+                console.log(res);                
+                document.getElementById("projectname").innerText = res.bom_projectname + "(" + res.bom_projectno + ")";
+                document.getElementById("mrno").innerText = res.bom_prefixno + "/" + res.bom_no;
+                document.getElementById("mrdate").innerText = res.bom_date;
+                document.getElementById("statusx").innerText = res.bom_postflag === "1" ? '' : 'This BOM Not Finalized';
+                document.getElementById("mrcode").innerText = res.bom_registerno;
+                document.getElementById("mrcby").innerHTML = "Checked By Engr. <strong>" + res.bom_checkedby+"</strong>";
+                document.getElementById("mrcheckby").innerHTML = "Prepared By Engr. <strong>" + res.bom_makeby +"</strong>";            
+                document.getElementById("checkdate").innerHTML = "Released : <strong>" + res.bom_date+"</strong>";
+                let printdata = '';
+                let pagerows = 22;
+                let totcnt = 0;
+                let rq_qty = 0;
+                let rq_wt = 0;
+                let avai_qty = 0;
+                let avai_wt = 0;
+                let or_qty = 0;
+                let or_wt = 0;
+                let pageno = 1;
+                let rqweight = 0;
+                let aviweight = 0;
+                let balweight = 0;
+                resdt = JSON.parse(window.bomlist);
+                resdt.map((i, index) => {
+                        rq_qty += (+i.bom_qrbar);
+                        rq_wt += (+i.bom_qrtotweight);
+
+                        avai_qty += (+i.bom_avaibar);
+
+                        or_qty += (+i.bom_orderbar);
+                        or_wt += (+i.bom_orderweight);
+
+                      
+                       
+                        printdata += '<tr>';
+                        printdata += `<td>${index + 1}</td>`
+                        printdata += `<td style="font-size:0.7rem">${i.bom_profileno}</td>`
+                        printdata += `<td style="font-size:0.7rem">${i.bom_description}</td>`
+                        printdata += `<td style="font-size:0.7rem">${i.boqitem}</td>`
+                        printdata += `<td style="font-size:0.7rem;text-align:center;font-weight:bold;">${
+                            (+i.bom_dieweight) === 0 ? '-' : (+i.bom_dieweight).toLocaleString(undefined,{maximumFractionDigits:3})
+                        }</td>`
+                        printdata += `<td style="font-size:0.7rem;text-align:center;font-weight:bold;">${                            
+                            (+i.bom_qrlenght) === 0 ? '-' : (+i.bom_qrlenght).toLocaleString(undefined,{maximumFractionDigits:3})
+                        }</td>`
+                        printdata += `<td style="font-size:0.7rem;text-align:center;font-weight:bold;">${
+                            (+i.bom_qrbar) === 0 ? '-' : (+i.bom_qrbar).toLocaleString(undefined,{maximumFractionDigits:3})
+                        }</td>`
+                        printdata += `<td style="font-size:0.7rem;text-align:center;font-weight:bold;">${
+                             (+i.bom_qrtotweight) === 0 ? '-' : (+i.bom_qrtotweight).toLocaleString(undefined,{maximumFractionDigits:3})
+                        }</td>`
+                        printdata += `<td style="font-size:0.7rem;text-align:center;font-weight:bold;">${
+                              (+i.bom_avilength) === 0 ? '-' : (+i.bom_avilength).toLocaleString(undefined,{maximumFractionDigits:3})
+                        }</td>`
+                        printdata += `<td style="font-size:0.7rem;text-align:center;font-weight:bold;">${
+                             (+i.bom_avaibar) === 0 ? '-' : (+i.bom_avaibar).toLocaleString(undefined,{maximumFractionDigits:3})
+                        }</td>`
+                        printdata += `<td style="font-size:0.7rem;text-align:center;font-weight:bold;">${
+                              (+i.bom_orderlength) === 0 ? '-' : (+i.bom_orderlength).toLocaleString(undefined,{maximumFractionDigits:3})
+                        }</td>`
+                        printdata += `<td style="font-size:0.7rem;text-align:center;font-weight:bold;">${
+                             (+i.bom_orderbar) === 0 ? '-' : (+i.bom_orderbar).toLocaleString(undefined,{maximumFractionDigits:3})
+                        }</td>`
+                        printdata += `<td style="font-size:0.7rem;text-align:center;font-weight:bold;">${
+                              (+i.bom_orderweight) === 0 ? '-' : (+i.bom_orderweight).toLocaleString(undefined,{maximumFractionDigits:3})
+                        }</td>`
+                        printdata += `<td style="font-size:0.7rem">${i.bom_itemfinish}</td>`
+                        printdata += `<td style="font-size:0.7rem">${i.bom_remarks}</td>`
+                    printdata += '</tr>';
+                    if (totcnt === pagerows - 1) {
+                    totcnt = 0;
+
+                    pageno += 1;
+                    if (pageno > 1) {
+                        pagerows = 22
+                    }
+                }
+                });
+                printdata += _finalrow();
+                printdata += '<tr>';
+                printdata += `<td></td>`
+                printdata += `<td></td>`
+                printdata += `<td></td>`
+                printdata += `<td></td>`
+                printdata += `<td ></td>`
+                printdata += `<td style='text-align:center;height:14px'></td>`
+                printdata += `<td style='text-align:center;font-weight:bold;background-color:yellow'>${rq_qty}</td>`                
+                printdata += `<td style='text-align:center;background-color:yellow'>${(+rq_wt).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`
+                printdata += `<td></td>`
+                
+                printdata += `<td style='text-align:center;background-color:yellow'>${avai_qty}</td>`
+                printdata += `<td style='text-align:center;background-color:yellow'></td>`
+                printdata += `<td style='text-align:center;background-color:yellow;font-weight:bold'>${or_qty}</td>`
+                printdata += `<td style='text-align:center;background-color:yellow;font-weight:bold'>${(+or_wt).toLocaleString(undefined,{maximumFractionDigits:2})}</td>`
+                printdata += `<td></td>`
+                printdata += `<td></td>`
+                printdata += '</tr>';
+                let _balance = pagerows - totcnt - 3;
+                for (var i = 0; i < _balance; i++) {
+                    printdata += _emptyrows();
+                }
+                document.getElementById("maincontent").innerHTML = printdata;
+             }
+             function _finalrow() {
+                let printdata = '';
+                printdata += '<tr>';
+                printdata += `<td ></td>`
+                printdata += `<td ></td>`
+                
+                
+                printdata += `<td colspan="11" style='text-align:center;height:14px;    font-style: italic;'> 
+                        ------------------------------------------------END---------------------------------------------------
+                        </td>`            
+                
+                printdata += `<td ></td>`
+                printdata += `<td ></td>`
+                
+                printdata += '</tr>';
+
+                return printdata;
+            }
+            function _emptyrows() {
+            let printdata = '';
+            printdata += '<tr>';
+            printdata += `<td></td>`
+            printdata += `<td></td>`
+            printdata += `<td></td>`
+            printdata += `<td></td>`
+            printdata += `<td ></td>`
+            printdata += `<td style='text-align:center;height:14px'></td>`
+            printdata += `<td style='text-align:center'></td>`
+            printdata += `<td style='text-align:center'></td>`
+            printdata += `<td style='text-align:center'></td>`
+            printdata += `<td></td>`
+            printdata += `<td></td>`
+            printdata += `<td style='text-align:center'></td>`
+            printdata += `<td style='text-align:center'></td>`
+            printdata += `<td style='text-align:center'></td>`
+            printdata += `<td style='text-align:center'></td>`
+            
+            printdata += '</tr>';
+            return printdata;
+        }
+
+            Display(); 
+        </script>
+    </body>
+</html>

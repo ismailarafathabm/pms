@@ -1,0 +1,84 @@
+<style>
+    th{
+        padding: 5px;
+        line-height: 20px;
+    }
+</style>
+<table class="mainprint-table">
+    <thead>
+        <tr>
+            <th>S.No</th>
+            <th>Project</th>
+            <th>Client Name</th>
+            <th>Sales Rep</th>
+            <th>Contract Amount</th>
+            <th>Additionals</th>
+            <th>As Per Acutal</th>
+            <th>Total</th>
+            <th>MO %</th>            
+            <th>Mo Value</th>            
+            <th>Workdone %</th>            
+            <th>Valuvation</th>            
+                        
+        </tr>        
+    </thead>
+    <tbody>
+        <tr ng-repeat="i in printdata">
+            <td>{{$index+1}}</td>
+            <td style="text-align: center;color:#001aff">{{i.excelname}}</td>
+            <td style="text-align: left;color:#ff0000">{{i.excelclient}}</td>
+            <td>{{i.excelsalesrep}}</td>
+            <td style="text-align: right;color:#005024">{{
+                (+i.excelcontractval) === 0 ? "-" : (+i.excelcontractval).toLocaleString(undefined, { maximumFractionDigits: 2 })
+            }}</td>
+            <td style="text-align: right;color:#8a3700">{{                
+                (+i.exceladditional) === 0 ? "-" : (+i.exceladditional).toLocaleString(undefined, { maximumFractionDigits: 2 })
+            }}</td>
+            <td style="text-align: right">{{                
+                (+i.excelasperval) === 0 ? "-" : (+i.excelasperval).toLocaleString(undefined, { maximumFractionDigits: 2 })
+            }}</td>
+            <td style="text-align: right;color:#cf0034">{{
+                (+i.exceltotalvalue) === 0 ? "-" : (+i.exceltotalvalue).toLocaleString(undefined, { maximumFractionDigits: 2 })
+            }}</td>           
+
+            <td style="text-align: right;color:#008854fa">{{
+                i.excelmopres
+                (+i.excelmopres) === 0 ? "-" : (+i.excelmopres).toLocaleString(undefined, { maximumFractionDigits: 0 })%
+            }}</td>
+
+            <td style="text-align: right;color:#000000fa">{{
+                (+i.excelmo) === 0 ? "-" : (+i.excelmo).toLocaleString(undefined, { maximumFractionDigits: 2 })
+            }}</td>
+            <td style="text-align: right;color:#000000fa">{{
+                (+i.excelvaluvationpres) === 0 ? "-" : (+i.excelvaluvationpres).toLocaleString(undefined, { maximumFractionDigits: 0 })%
+            }}</td>
+            <td style="text-align: right;color:#000dcafa">{{
+                (+i.excelvaluvatonval) === 0 ? "-" : (+i.excelvaluvatonval).toLocaleString(undefined, { maximumFractionDigits: 2 })
+            }}</td>
+        </tr>
+        <tr>
+            <td colspan="4" style="text-align: right;">Total</td>
+            <td style="text-align: right;color:#005024;font-weight: bold;">{{                
+                (+sumoff._contval) === 0 ? "-" : (+sumoff._contval).toLocaleString(undefined, { maximumFractionDigits: 2 })
+            }}</td>
+            <td style="text-align: right;color:#8a3700;font-weight: bold;">{{                
+                (+sumoff._additional) === 0 ? "-" : (+sumoff._additional).toLocaleString(undefined, { maximumFractionDigits: 2 })
+            }}</td>
+            <td style="text-align: right;font-weight: bold;">{{                
+                (+sumoff._asperactual) === 0 ? "-" : (+sumoff._asperactual).toLocaleString(undefined, { maximumFractionDigits: 2 })
+            }}</td>
+            <td style="text-align: right;color:#cf0034;font-weight: bold;">{{                
+                (+sumoff._projecval) === 0 ? "-" : (+sumoff._projecval).toLocaleString(undefined, { maximumFractionDigits: 2 })
+            }}</td>           
+            <td style="text-align: right;color:#cf0034;font-weight: bold;"></td>
+            <td style="text-align: right;color:#cf0034;font-weight: bold;">{{                
+                (+sumoff._mo) === 0 ? "-" : (+sumoff._mo).toLocaleString(undefined, { maximumFractionDigits: 2 })
+            }}</td>
+            <td style="text-align: right;color:#cf0034;font-weight: bold;"></td>
+            <td style="text-align: right;color:#cf0034;font-weight: bold;">{{                
+                (+sumoff._valuvation) === 0 ? "-" : (+sumoff._valuvation).toLocaleString(undefined, { maximumFractionDigits: 2 })
+            }}</td>
+            
+        </tr>
+    </tbody>
+</table>

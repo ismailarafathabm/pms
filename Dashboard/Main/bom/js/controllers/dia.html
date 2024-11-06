@@ -1,0 +1,222 @@
+<style>
+    .srcbox{
+        border-collapse: separate;
+        border-spacing: 0px;
+    }
+</style>
+<div class="auto-complete-model" style="width: 1350px;">
+    <div class="auto-complete-model-container">
+        <div style="display: flex;
+        flex-direction: row;
+        gap: 10px;">
+            <div class="auto-complete-model-search"
+                style="display: flex; gap:20px;align-items: center;flex:5">
+                <input
+                    type="text"
+                    ng-change="getitemsboq($event)"
+                    class="search-list-input"
+                    name="src_bom_item_model"
+                    placeholder="Search..."
+                    ng-model="srcbomitems">
+            </div>
+            <div style="display:flex;gap:5px;flex:4">
+                <div class="auto-complete-model-search"
+                    style="display: flex; gap:20px;align-items: center;flex:3">
+                    <div>Material Type :</div>
+                    <select class="search-list-input" ng-model="dia_mcategory" ng-change="getItembyTypes()">
+                        <option value>-Select-</option>
+                        <option ng-repeat="x in itemtypes"
+                            value="{{x.itemName}}">{{x.itemName}}</option>
+                    </select>
+                </div>
+                <button type="button" class="ism-btns btn-save" ng-click="print_material_category()">
+                    <i class="fa fa-print"></i> Print
+                </button>
+                <button type="button" class="ism-pms-dialog-btn  ism-btn-dialog-dagner" ng-click="setProjectReserveStatus(true)">
+                    <i class="fa fa-search"></i>
+                    Get Reserved Project List
+                </button>
+            </div>
+            <i
+                class="fa fa-times"
+                style="font-size: 16px;color:red "
+                style="flex:1"
+                ng-click="closecurrent()"></i>
+        </div>
+        <div class="auto-complete-model-result-box"
+            style="padding: 0px !important;">
+            <table class="old_table itemlist srcbox">
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>S.NO</th>
+                        <th>Part NO</th>
+                        <th>Description</th>
+                        <th>Alloy</th>
+                        <th>Length</th>
+                        <th>Color</th>
+                        <th>Sulai Qty</th>
+                        <th>Azizia Qty</th>
+                        <th>Sulai Reserve Qty</th>
+                        <th>Azizia Reserve Qty</th>
+                        <th>Total Reserve Qty</th>
+                        <th>Sulai Balance</th>
+                        <th>Azizia Balance</th>
+                        <th>Die Weight</th>
+                        <th>Total Weight</th>
+                        <th>Units</th>
+                        <th>M.Category</th>
+                        <th>S.Category</th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <th></th>
+                            <th>
+                                <input type="text" class="old_page_inputs" ng-model="whsrc.partno"></th>
+                            <th>
+                                <input type="text" class="old_page_inputs" ng-model="whsrc.description"></th>
+                            <th>
+                                <input type="text" class="old_page_inputs"
+                                    ng-model="whsrc.partalloy">
+                            </th>
+                            <th>
+                                <input type="text" class="old_page_inputs"
+                                    ng-model="whsrc.partlength">
+                            </th>
+                            <th>
+                                <input type="text" class="old_page_inputs"
+                                    ng-model="whsrc.partcolor">
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>
+                                <input type="text" class="old_page_inputs"
+                                    ng-model="whsrc.dieweight">
+                            </th>
+                            <th></th>
+                            <th>
+                                <input type="text" class="old_page_inputs"
+                                    ng-model="whsrc.materialcatagory">
+                            </th>
+                            <th>
+                                <input type="text" class="old_page_inputs"
+                                    ng-model="whsrc.systemcatagory">
+                            </th>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in whitems | filter:whsrc">
+                        <td>
+                            <button type="button"
+                                ng-click="bomitemselect_click(x)">select</button>
+                        </td>
+                        <td>{{$index+1}}</td>
+                        <td>{{x.partno}}</td>
+                        <td>{{x.description}}</td>
+                        <td>{{x.partalloy}}</td>
+                        <td>{{x.partlength}}</td>
+                        <td>{{x.partcolor}}</td>
+                        <td
+                            style="background:#dffff1;font-size: 14px;font-weight: bold;">
+                            {{
+                            (+x.sqty) === 0 ? '-' :
+                            (+x.sqty).toLocaleString(undefined,{maximumFractionDigits
+                            : 2})
+                            }}
+                        </td>
+                        <td
+                            style="background:#ffecec;font-size: 14px;font-weight: bold;">
+                            {{
+                            (+x.aqty) === 0 ? '-' :
+                            (+x.aqty).toLocaleString(undefined,{maximumFractionDigits
+                            : 2})
+                            }}
+                        </td>
+                        <td
+                            style="background:#dffff1;font-size: 14px;font-weight: bold;">
+                            {{
+                            (+x.srqty) === 0 ? '-' :
+                            (+x.srqty).toLocaleString(undefined,{maximumFractionDigits
+                            : 2})
+                            }}
+                        </td>
+                        <td
+                            style="background:#ffecec;font-size: 14px;font-weight: bold;">
+                            {{
+                            (+x.arqty) === 0 ? '-' :
+                            (+x.arqty).toLocaleString(undefined,{maximumFractionDigits
+                            : 2})
+                            }}
+                        </td>
+                        <td
+                            style="background:#f1eeff;font-size: 14px;font-weight: bold;">
+                            <div ng-if="(+x.trqty) === 0">
+                                -
+                            </div>
+                            <div ng-if="(+x.trqty) !== 0">
+                                <button
+                                    type="button"
+                                    ng-click="getreservveinfo(x)"
+                                    class="ism-btns btn-save"
+                                    style="padding:3px;cursor: pointer;">
+                                    {{(+x.trqty).toLocaleString(undefined,{maximumFractionDigits
+                                    : 2})}}
+                                </button>
+                            </div>
+                        </td>
+                        <td
+                            style="background:#dffff1;font-size: 14px;font-weight: bold;">
+                            {{
+                            (+(+x.sqty) - (+x.srqty)) === 0 ? '-' : (+x.sqty) -
+                            (+x.srqty)
+                            }}
+                        </td>
+                        <td
+                            style="background:#ffecec;font-size: 14px;font-weight: bold;">
+                            {{
+                            (+(+x.aqty) - (+x.arqty)) === 0 ? '-' : (+x.aqty) -
+                            (+x.arqty)
+                            }}
+                        </td>
+                        <td>{{x.dieweight}}</td>
+                        <td>{{x.tweight}}</td>
+                        <td>{{x.partuom}}</td>
+                        <td>{{x.materialcatagory}}</td>
+                        <td>{{x.systemcatagory}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <div class="auto-complete-model-result" ng-repeat="x in whitems" ng-click="bomitemselect_click(x)">
+                <div class="auto-compleate-itemsinfo-container">
+                    <div class="item-descriptions" style="font-weight: bold;">{{x.description}} - [  <span style="font-size: 16px;font-weight: bold;color:red;">  {{x.balanceqty}} </span>   ]</div>
+                    <div class="item-info-group">
+                        <div class="item-partno">Part No# : <span style="font-weight: bold;color:brown">{{x.partno}}</span></div>
+                        <div class="item-partno">Alloy : <span style="font-weight: bold;color:cadetblue">{{x.partalloy}}</span></div>
+                    </div>
+                    <div class="item-info-group">
+                        <div class="item-partno">Color : <span style="font-weight: bold;color:brown">{{x.partcolor}}</span></div>
+                        <div class="item-partno">Function : <span style="font-weight: bold;color:cadetblue">{{x.partfunction}}</span></div>
+                    </div>
+                    <div class="item-info-group">
+                        <div class="item-partno">Length : <span style="font-weight: bold;color:green">{{x.partlength}}</span></div>
+                        <div class="item-partno">Die Weight : <span style="font-weight: bold;color:#170080">{{x.dieweight}}</span></div>
+                    </div>
+                    <div class="item-info-group">
+                        <div class="item-partno">Unit : <span style="font-weight: bold;color:green">{{x.partuom}}</span></div>
+                        <div class="item-partno">Avialable : <span style="font-weight: bold;color:#170080">{{x.balanceqty}}</span></div>
+                    </div>
+                    <div class="item-info-group">
+                        <div class="item-partno">Material Category : <span style="font-weight: bold;color:green">{{x.materialcatagory}}</span></div>
+                        <div class="item-partno">System Category : <span style="font-weight: bold;color:#170080">{{x.systemcatagory}}</span></div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>

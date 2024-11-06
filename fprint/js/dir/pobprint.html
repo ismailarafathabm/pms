@@ -1,0 +1,459 @@
+<style>
+    .table-container {
+        display: flex;
+        flex-direction: column;
+        /* border: 1px solid #000; */
+    }
+
+    .table-row {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .table-colusmn {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .table-cells {
+        line-height: 35px;
+        padding: 5px;
+    }
+
+    .celltitle {
+        font-size: 12px;
+    }
+
+    .notescells {
+        line-height: 80px;
+    }
+
+    .areasum {
+        border: 1px solid #0073ff;
+        background: #ebf4ff;
+        color: #0073ff;
+    }
+
+    .bottomsig {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+
+    .bottomsig-row {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .signarea {
+        height: 150px;
+        width: 150px;
+        border: 1px dotted #000;        
+    }
+
+    .officername {
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .officernameposition {
+        font-size: 9px;
+        font-weight: bold;
+    }
+
+    @media print {
+        @page {
+            size: portrait
+        }
+
+        .bottomsig {
+            width: 100%;
+            position: fixed;
+            bottom: 10px;
+            left: 0;
+        }
+
+        .bottomsig-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .signarea {
+            height: 120px;
+            width: 120px;
+            border: 1px dotted #000;
+        }
+
+        .officername {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .officernameposition {
+            font-size: 9px;
+            font-weight: bold;
+        }
+
+        .table-container{
+            zoom : 85%;
+        }
+    }
+</style>
+<div class="table-container">
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle" style="
+            width: 223px;            
+            border: 1px solid;
+            
+            ">
+                Ref No:
+            </div>
+            <div class="table-cells " style="
+            width: 350px;            
+            border: 1px solid;
+            font-weight: bold;
+            ">
+                {{print.pob.pobprefno}}
+            </div>
+            <div class="table-cells celltitle" style="
+            width: 220px;            
+            border: 1px solid;
+            ">
+                Date:
+            </div>
+            <div class="table-cells" style="
+            width: 350px;            
+            border: 1px solid;">
+                {{print.pob.pobdate_n}}
+            </div>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle" style="
+            width: 220px;            
+            border: 1px solid;
+            ">
+                Supplier
+            </div>
+            <div class="table-cells" style="
+            width: 920px;            
+            border: 1px solid;
+            
+            ">
+                {{print.po.glasssuppliername}}
+            </div>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle" style="
+            width: 220px;            
+            border: 1px solid;
+            ">
+                Address
+            </div>
+            <div class="table-cells" style="
+            width: 920px;            
+            border: 1px solid;
+            font-size: 13.5px;
+            ">
+                {{print.po.glasssuppliercountry}}
+            </div>
+        </div>
+    </div>
+
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle" style="
+            width: 220px;            
+            border: 1px solid;
+            ">
+                Order Type
+            </div>
+            <div class="table-cells" style="
+            width: 920px;            
+            border: 1px solid;
+            ">
+                {{print.pob.pobtype |uppercase}}
+            </div>
+        </div>
+    </div>
+
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle print-title-part-subtitle" style="
+            width: 220px;            
+            border: 1px solid;
+            text-align: left;
+            ">
+                Project Name
+            </div>
+            <div class="table-cells print-title-part-subtitle" style="
+            width: 920px;            
+            border: 1px solid;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: left;
+            ">
+                {{currentproject.project_name}}
+            </div>
+        </div>
+    </div>
+
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle" style="
+            width: 223px;            
+            border: 1px solid;
+            
+            ">
+                Po Ref No:
+            </div>
+            <div class="table-cells " style="
+            width: 350px;            
+            border: 1px solid;
+            font-weight: bold;
+            ">
+                {{print.po.ponewrefno}}
+            </div>
+            <div class="table-cells celltitle" style="
+            width: 220px;            
+            border: 1px solid;
+            ">
+                Date:
+            </div>
+            <div class="table-cells" style="
+            width: 350px;            
+            border: 1px solid;">
+                {{print.po.ponewdate_d}}
+            </div>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle areasum" style="
+            width: 220px;            
+            border: 1px solid;
+            ">
+                Material Type
+            </div>
+            <div class="table-cells areasum" style="
+            width: 920px;            
+            border: 1px solid;
+            ">
+                {{print.po.ponewtype}}
+            </div>
+        </div>
+    </div>
+
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle areasum" style="
+            width: 220px;            
+            border: 1px solid;
+            ">
+                Qty/Area
+            </div>
+            <div class="table-cells areasum" style="
+            width: 920px;            
+            border: 1px solid;
+            ">
+                {{print.pob.pobqty}}
+            </div>
+        </div>
+    </div>
+
+    <div class="table-row" ng-show="print.budget.bmunit === 'kg' || print.budget.bmunit === 'ton'">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle areasum" style="
+            width: 220px;            
+            border: 1px solid;
+            " ng-show="print.budget.bmunit === 'kg' || print.budget.bmunit === 'ton'">
+                Budget Tonnage
+            </div>
+            <div class="table-cells areasum" style="
+            width: 920px;            
+            border: 1px solid;
+            ">
+                {{print.budget.qty}} {{print.budget.bmunit}}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="table-row" ng-show="print.budget.bmunit === 'kg' || print.budget.bmunit === 'ton'">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle areasum" style="
+            width: 220px;            
+            border: 1px solid;
+            " >
+                Previous Ordered Tonnage
+            </div>
+            <div class="table-cells areasum" style="
+            width: 920px;            
+            border: 1px solid;
+            ">
+                {{print.budget.pval}} {{print.budget.bmunit}}
+            </div>
+        </div>
+    </div>
+
+    <div class="table-row" ng-show="print.budget.bmunit === 'kg' || print.budget.bmunit === 'ton'">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle areasum" style="
+            width: 220px;            
+            border: 1px solid;
+            " >
+                 Tonnage of This Order
+            </div>
+            <div class="table-cells areasum" style="
+            width: 920px;            
+            border: 1px solid;
+            ">
+                {{print.po.totweight}} {{print.budget.bmunit}}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="table-row" ng-show="print.budget.bmunit === 'kg' || print.budget.bmunit === 'ton'">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle areasum" style="
+            width: 220px;            
+            border: 1px solid;
+            " >
+                Remaining Tonnage
+            </div>
+            <div class="table-cells areasum" style="
+            width: 920px;            
+            border: 1px solid;
+            ">
+                {{(+print.budget.qty) - ((+print.po.poweight) + (+print.budget.pval))}}  {{print.budget.bmunit}}
+            </div>
+        </div>
+    </div>
+
+   
+
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle areasum" style="
+            width: 220px;            
+            border: 1px solid;
+            ">
+                Total Budget (SAR)
+            </div>
+            <div class="table-cells areasum" style="
+            width: 200px;            
+            border: 1px solid;
+            ">
+                {{print.pob.pobtotbudget}} 
+            </div>
+            <div class="table-cells areasum" style="
+            width: 720px;            
+            border: 1px solid;
+            ">
+                {{preswork.totbudget}}%
+            </div>
+        </div>
+    </div>
+
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle areasum" style="
+            width: 220px;            
+            border: 1px solid;
+            ">
+                Previous Order Value (SAR)
+            </div>
+            <div class="table-cells areasum" style="
+            width: 200px;            
+            border: 1px solid;
+            ">
+                {{print.pob.pobprvalue}}
+            </div>
+            <div class="table-cells areasum" style="
+            width: 720px;            
+            border: 1px solid;
+            ">
+                {{preswork.previous}}%
+            </div>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle areasum" style="
+            width: 220px;            
+            border: 1px solid;
+            ">
+                Value of This Order (SAR)
+            </div>
+            <div class="table-cells areasum" style="
+            width: 200px;            
+            border: 1px solid;
+            ">
+                {{print.pob.pobcvalue}} 
+            </div>
+            <div class="table-cells areasum" style="
+            width: 720px;            
+            border: 1px solid;
+            ">
+                {{preswork.current}}%
+            </div>
+        </div>
+    </div>
+    <div class="table-row">
+        <div class="table-colusmn">
+            <div class="table-cells celltitle areasum" style="
+            width: 220px;            
+            border: 1px solid;
+            ">
+                Remaining Budget (SAR)
+            </div>
+            <div class="table-cells areasum" style="
+            width: 200px;            
+            border: 1px solid;
+            ">
+                {{print.pob.pobavailablebudget}} 
+            </div>
+            <div class="table-cells areasum" style="
+            width: 720px;            
+            border: 1px solid;
+            ">
+                {{preswork.balance}}%
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="bottomsig">
+    <div class="bottomsig-row">
+        <div class="signarea"></div>
+        <div class="officernameposition">Sign/date</div>
+        <div class="officername">Prepared By</div>
+        <div class="officername" style="max-width: 200px;text-align: center">{{print.pob.pobeby}}</div>
+    </div>
+    <div class="bottomsig-row">
+        <div class="signarea"></div>
+        <div class="officernameposition">Sign/date</div>
+        <div class="officername">Checked By</div>
+        <div class="officername" style="max-width: 200px;text-align: center">Mohammed Al Rejjal</div>
+    </div>
+    <div class="bottomsig-row">
+        <div class="signarea"></div>
+        <div class="officernameposition">Sign/date</div>
+        <div class="officername">Approved By</div>
+        <div class="officername" style="max-width: 200px;text-align: center;">Finance Manager / Chief Accountant</div>
+    </div>
+</div>
